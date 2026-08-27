@@ -1,0 +1,2006 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#14243b">
+<title>🚐 Bulgaria & Budapest · Septiembre 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#14243b;
+  --bg-nav:rgba(16,30,50,0.96);
+  --card:#1c3352;
+  --card-inner:#243e63;
+  --card-b:rgba(90,172,232,0.22);
+  --shadow:rgba(5,12,25,0.4);
+  
+  --transit:#f59e0b;
+  --bulgaria:#22c55e;
+  --budapest:#ef4444;
+  --info:#38bdf8;
+  --blue:#5aace8;
+  --gold:#fbbf24;
+  --green:#22c55e;
+  --red:#ef4444;
+  --amber:#f59e0b;
+  
+  --t1:#f3f8fe;
+  --t2:#a2c4e6;
+  --t3:#6f94be;
+  
+  --r:14px;
+  --r-sm:9px;
+  --max-w:860px;
+}
+
+html{scroll-behavior:smooth;background:var(--bg)}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--t1);
+  min-height:100vh;
+  overflow-x:hidden;
+  font-size:15px;
+  line-height:1.55;
+}
+
+/* LOADER */
+#ld{position:fixed;inset:0;background:var(--bg);color:var(--t1);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity .5s}
+#ld.out{opacity:0;pointer-events:none}
+.ld-van{font-size:3.6rem;animation:drive 1.8s ease-in-out infinite alternate}
+@keyframes drive{from{transform:translateX(-12px)}to{transform:translateX(12px)}}
+.ld-txt{margin-top:.85rem;font-size:.76rem;text-transform:uppercase;letter-spacing:.15em;color:var(--transit);font-weight:700;font-family:'Poppins',sans-serif;}
+.ld-bar{width:160px;height:3px;background:var(--card-b);border-radius:3px;margin-top:.75rem;overflow:hidden}
+.ld-fill{height:100%;background:linear-gradient(90deg,var(--transit),var(--bulgaria),var(--budapest));animation:fill 1.4s ease-in-out infinite}
+@keyframes fill{0%{width:0}100%{width:100%}}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:var(--bg-nav);backdrop-filter:blur(18px);border-bottom:1px solid var(--card-b)}
+.nav-wrap{max-width:var(--max-w);margin:0 auto}
+.nav-hd{display:flex;align-items:center;gap:.6rem;padding:.7rem 1rem .4rem;font-size:.86rem;color:var(--t2)}
+.nav-hd strong{color:#ffffff;font-size:.95rem}
+.pills{display:flex;overflow-x:auto;gap:.45rem;padding:.4rem 1rem .65rem;scrollbar-width:none}
+.pills::-webkit-scrollbar{display:none}
+.pill{flex-shrink:0;padding:.3rem .75rem;border-radius:20px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.07);color:var(--t2);font-size:.78rem;font-weight:700;cursor:pointer;transition:all .2s;text-decoration:none;font-family:inherit}
+.pill.transit.open{border-color:var(--transit);color:#fbbf24}
+.pill.transit.open.cur{background:var(--transit);color:#101e30;border-color:var(--transit)}
+.pill.bulgaria.open{border-color:var(--bulgaria);color:#4ade80}
+.pill.bulgaria.open.cur{background:var(--bulgaria);color:#101e30;border-color:var(--bulgaria)}
+.pill.budapest.open{border-color:var(--budapest);color:#f87171}
+.pill.budapest.open.cur{background:var(--budapest);color:#fff;border-color:var(--budapest)}
+.pill.info.open{border-color:var(--info);color:#7dd3fc}
+.pill.info.open.cur{background:var(--info);color:#101e30;border-color:var(--info)}
+.pill.locked{opacity:.35;cursor:not-allowed}
+
+/* WRAPPER CENTRADO */
+.main-wrap{max-width:var(--max-w);margin:0 auto;padding:0 1rem;}
+
+/* DAY & HERO */
+.day{min-height:100vh;border-bottom:1px solid var(--card-b);padding-bottom:3.5rem;scroll-margin-top:90px;display:none}
+.day.active{display:block}
+.hero{position:relative;height:52vw;max-height:360px;min-height:210px;border-radius:var(--r);overflow:hidden;margin:1rem 0;box-shadow:0 6px 20px var(--shadow)}
+.hero img{width:100%;height:100%;object-fit:cover;display:block}
+.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(20,36,59,.1) 0%,rgba(20,36,59,.92) 100%)}
+.hero-c{position:absolute;bottom:0;left:0;right:0;padding:1.2rem 1.2rem;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:.4rem;padding:.26rem .75rem;border-radius:12px;font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.8px;margin-bottom:.4rem}
+.hero-badge.transit{background:rgba(245,158,11,.22);color:#fbbf24;border:1px solid rgba(245,158,11,.45)}
+.hero-badge.bulgaria{background:rgba(34,197,94,.18);color:#4ade80;border:1px solid rgba(34,197,94,.35)}
+.hero-badge.budapest{background:rgba(225,29,72,.18);color:#f87171;border:1px solid rgba(225,29,72,.35)}
+.hero-badge.info{background:rgba(56,189,248,.18);color:#7dd3fc;border:1px solid rgba(56,189,248,.35)}
+.hero-dn{font-size:.8rem;color:var(--t2);margin-bottom:.2rem;font-weight:600}
+.hero-title{font-family:'Poppins',sans-serif;font-size:1.55rem;font-weight:700;line-height:1.2;margin-bottom:.25rem;color:#ffffff;letter-spacing:-0.5px}
+.hero-sub{font-size:.85rem;color:var(--t2)}
+
+/* SECTIONS & BOXES */
+.dbody{padding:0 0 3.5rem}
+.sec{font-family:'Poppins',sans-serif;font-size:1.15rem;font-weight:600;color:var(--t1);margin:1.8rem 0 .85rem;display:flex;align-items:center;gap:.6rem}
+.sec::after{content:'';flex:1;height:1px;background:var(--card-b)}
+
+/* ENCABEZADOS CENTRADOS ESPECIALES */
+.sec-center{
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Poppins',sans-serif;font-size:1.25rem;font-weight:700;
+  color:var(--t1);margin:2.5rem 0 1.2rem;text-align:center;gap:1rem;letter-spacing:-0.5px;
+}
+.sec-center::before, .sec-center::after{content:'';flex:1;height:1px;background:var(--card-b);}
+
+/* CAJAS */
+.obj-box{background:var(--card);border:1px solid var(--card-b);border-left:4px solid var(--blue);border-radius:var(--r-sm);padding:1.1rem 1.25rem;margin:.85rem 0;box-shadow:0 3px 12px var(--shadow)}
+.obj-t{font-size:.9rem;color:var(--t1);line-height:1.65;text-align:justify}
+
+.punto-clave{background:var(--card);border:1px solid rgba(239,68,68,.35);border-left:4px solid var(--red);border-radius:var(--r-sm);padding:1.1rem 1.25rem;margin:1.5rem 0;box-shadow:0 3px 12px var(--shadow)}
+.pc-label{font-size:.72rem;text-transform:uppercase;letter-spacing:1px;color:#f87171;font-weight:800;margin-bottom:.45rem;font-family:'Poppins',sans-serif;}
+.pc-t{font-size:.9rem;color:var(--t1);line-height:1.65}
+
+.frase-box{text-align:center;padding:1.4rem;margin:1.5rem 0;font-size:1.1rem;font-weight:600;color:#ffffff;font-style:italic;background:var(--card);border:1px solid var(--card-b);border-radius:var(--r-sm);box-shadow:0 3px 12px var(--shadow)}
+
+.curio{background:var(--card);border:1px solid rgba(245,158,11,.35);border-left:4px solid var(--transit);border-radius:var(--r-sm);padding:1.1rem 1.25rem;margin-top:1.4rem;box-shadow:0 3px 12px var(--shadow)}
+.curio-label{font-size:.72rem;text-transform:uppercase;letter-spacing:1px;color:#fbbf24;font-weight:800;margin-bottom:.45rem;font-family:'Poppins',sans-serif;}
+.curio-t{font-size:.9rem;color:var(--t1);line-height:1.65}
+
+/* TIMELINE RESUMIDA */
+.tl-summary{background:var(--card);border:1px solid var(--card-b);border-radius:var(--r-sm);padding:1.2rem;box-shadow:0 3px 12px var(--shadow);margin-bottom:1.5rem}
+.tl-sum-item{display:flex;align-items:flex-start;gap:.8rem;padding:.65rem 0;border-bottom:1px solid rgba(90,172,232,.1)}
+.tl-sum-item:last-child{border-bottom:none}
+.tl-sum-time{font-weight:700;color:var(--blue);font-size:.85rem;min-width:180px;padding-top:2px}
+.tl-sum-txt{font-size:.9rem;color:var(--t1);line-height:1.6}
+
+/* TIMELINE EXTENSA */
+.tl{display:flex;flex-direction:column;gap:0;margin-bottom:.5rem}
+.ti{display:flex;gap:.85rem;padding:.75rem 0;border-bottom:1px solid rgba(90,172,232,.12);align-items:flex-start}
+.ti:last-child{border-bottom:none}
+.ti.hl{background:linear-gradient(90deg,rgba(245,158,11,.12),transparent);border-left:3px solid var(--amber);padding-left:.85rem;border-radius:0 var(--r-sm) var(--r-sm) 0}
+.ti-time{min-width:105px;text-align:right;font-size:.78rem;font-weight:700;color:var(--blue);padding-top:.15rem;flex-shrink:0}
+.ti-icon{font-size:1.3rem;padding-top:.05rem;flex-shrink:0;min-width:28px;text-align:center}
+.ti-title{font-weight:700;font-size:.9rem;margin-bottom:.2rem;color:#ffffff;font-family:'Poppins',sans-serif;}
+.ti-desc{font-size:.85rem;color:var(--t2);line-height:1.55}
+
+/* PHASE BLOCKS */
+.phase-hd{display:flex;align-items:center;gap:.5rem;padding:.65rem .95rem;background:var(--card-inner);border:1px solid var(--card-b);border-radius:var(--r-sm);font-weight:700;font-size:.85rem;color:var(--blue);margin:1.4rem 0 .6rem;font-family:'Poppins',sans-serif;}
+
+/* TABLES */
+.tbl-wrap{overflow-x:auto;margin:.6rem 0 1.2rem;background:var(--card);border:1px solid var(--card-b);border-radius:var(--r-sm);box-shadow:0 3px 12px var(--shadow)}
+table.data-tbl{width:100%;border-collapse:collapse;font-size:.82rem;text-align:left}
+table.data-tbl th{background:rgba(36,62,99,0.8);color:#ffffff;font-weight:700;padding:.65rem .85rem;border-bottom:1px solid var(--card-b);font-size:.72rem;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;font-family:'Poppins',sans-serif;}
+table.data-tbl td{padding:.65rem .85rem;border-bottom:1px solid rgba(90,172,232,.1);color:var(--t1);vertical-align:middle}
+table.data-tbl tr:last-child td{border-bottom:none}
+table.data-tbl tr.total-row td{font-weight:700;background:rgba(90,172,232,.12);color:var(--blue);font-size:.9rem}
+.val-badge{display:inline-flex;align-items:center;gap:.25rem;font-size:.72rem;background:rgba(255,255,255,.08);padding:.2rem .4rem;border-radius:6px;border:1px solid rgba(255,255,255,.15);white-space:nowrap}
+.img-btn{font-size:1.15rem;text-decoration:none;transition:transform .2s;display:inline-block}
+.img-btn:hover{transform:scale(1.15)}
+
+/* BUTTONS & LINKS */
+.btn-link{display:inline-flex;align-items:center;gap:.3rem;padding:.3rem .7rem;border-radius:6px;background:rgba(90,172,232,.15);border:1px solid rgba(90,172,232,.35);color:var(--blue);font-size:.75rem;font-weight:700;text-decoration:none;white-space:nowrap}
+.btn-link:hover{background:rgba(90,172,232,.25)}
+.btn-more{display:inline-flex;align-items:center;gap:.3rem;padding:.3rem .7rem;border-radius:6px;background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.35);color:#fbbf24;font-size:.75rem;font-weight:700;cursor:pointer;border:none}
+
+/* CHECKLIST */
+.checklist{background:var(--card);border:1px solid var(--card-b);border-radius:var(--r-sm);padding:1rem;margin-bottom:.5rem}
+.chk-item{display:flex;align-items:flex-start;gap:.7rem;padding:.5rem 0;border-bottom:1px solid rgba(90,172,232,.1);cursor:pointer;user-select:none}
+.chk-item:last-child{border-bottom:none}
+.chk-box{width:20px;height:20px;border:2px solid var(--t3);border-radius:5px;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:2px;transition:all .2s;background:rgba(255,255,255,.05)}
+.chk-item.done .chk-box{background:var(--green);border-color:var(--green);color:#101e30;font-size:14px;font-weight:800}
+.chk-txt{font-size:.88rem;color:var(--t1)}
+.chk-item.done .chk-txt{text-decoration:line-through;color:var(--t3)}
+
+/* ACORDEONES (SECCIONES) */
+.acc-wrap{display:flex;flex-direction:column;gap:.7rem;margin:1.8rem 0}
+.acc-section{border:1px solid var(--card-b);border-radius:var(--r);overflow:hidden;background:var(--card);box-shadow:0 3px 12px var(--shadow);transition:all .2s}
+.acc-section:hover{border-color:rgba(90,172,232,.4)}
+.acc-header{display:flex;align-items:center;gap:.75rem;padding:1rem 1.2rem;cursor:pointer;user-select:none;border-left:4px solid var(--ac,var(--blue));background:var(--card);transition:background .15s}
+.acc-header:active{background:var(--card-inner)}
+.acc-num{font-family:'Poppins',sans-serif;font-size:.75rem;font-weight:800;color:var(--ac,var(--blue));background:rgba(255,255,255,.08);border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid var(--card-b)}
+.acc-icon{font-size:1.3rem;flex-shrink:0}
+.acc-title{flex:1;font-weight:700;font-size:.9rem;color:#ffffff;font-family:'Poppins',sans-serif;}
+.acc-chev{color:var(--t3);font-size:.8rem;transition:transform .25s;flex-shrink:0}
+.acc-section.open .acc-chev{transform:rotate(180deg)}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1)}
+.acc-section.open .acc-body{max-height:9999px}
+.acc-inner{padding:1rem 1.2rem 1.2rem;background:var(--card);border-top:1px solid var(--card-b)}
+
+/* RESÚMENES GRÁFICOS FINALES */
+.summary-gallery{display:flex;flex-direction:column;gap:1.2rem;margin:1.5rem 0}
+.day-card-wrap{text-align:center;background:var(--card);padding:1.4rem;border-radius:var(--r);border:1px solid var(--card-b);box-shadow:0 4px 18px var(--shadow);margin:1.8rem 0}
+.day-card-label{font-size:.76rem;text-transform:uppercase;letter-spacing:1px;color:var(--blue);margin-bottom:.85rem;display:block;font-weight:800;font-family:'Poppins',sans-serif;}
+.day-card-preview{max-width:100%;border-radius:12px;overflow:hidden;display:inline-block;box-shadow:0 4px 16px var(--shadow);margin-bottom:.9rem}
+.day-card-preview img{display:block;width:100%;height:auto}
+.btn-download{display:inline-flex;align-items:center;gap:.5rem;padding:.7rem 1.5rem;border-radius:24px;background:var(--blue);border:none;color:#101e30;font-size:.88rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;text-decoration:none}
+.btn-download:hover{opacity:.9;transform:translateY(-2px)}
+
+/* LOCKED STATE */
+.locked-wrap{position:relative;min-height:75vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:2rem}
+.locked-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:blur(14px) brightness(.3) saturate(.6)}
+.locked-c{position:relative;z-index:1;max-width:360px;background:var(--card);padding:2.4rem 1.8rem;border-radius:var(--r);border:1px solid var(--card-b);box-shadow:0 8px 30px var(--shadow)}
+.locked-icon{font-size:3.2rem;margin-bottom:.6rem}
+.locked-dn{font-size:.76rem;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:.4rem;font-weight:700;font-family:'Poppins',sans-serif;}
+.locked-title{font-family:'Poppins',serif;font-size:1.45rem;margin-bottom:.5rem;color:#ffffff}
+.locked-msg{font-size:.9rem;color:var(--t2);line-height:1.55}
+.locked-chip{margin-top:1.2rem;display:inline-flex;align-items:center;gap:.4rem;padding:.5rem 1rem;border-radius:20px;background:rgba(90,172,232,.12);border:1px solid rgba(90,172,232,.3);font-size:.8rem;color:var(--blue);font-weight:700}
+
+/* ADMIN MODAL */
+.admin-fab{position:fixed;bottom:1.5rem;right:1.5rem;z-index:500;width:48px;height:48px;border-radius:50%;background:#1c3352;border:1px solid rgba(90,172,232,.4);font-size:1.3rem;cursor:pointer;color:white;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.5)}
+.overlay{display:none;position:fixed;inset:0;z-index:1000;background:rgba(10,20,35,.8);backdrop-filter:blur(6px);align-items:flex-end;justify-content:center}
+.overlay.show{display:flex}
+.modal{background:var(--card);border:1px solid var(--card-b);border-radius:20px 20px 0 0;padding:1.6rem;width:100%;max-width:500px;max-height:88vh;overflow-y:auto;box-shadow:0 -4px 28px rgba(0,0,0,.5)}
+.modal-title{font-family:'Poppins',serif;font-size:1.2rem;text-align:center;margin-bottom:1.2rem;color:#ffffff}
+.modal-input{width:100%;padding:.8rem 1rem;border-radius:10px;background:var(--card-inner);border:1px solid var(--card-b);color:#ffffff;font-size:1.05rem;outline:none;text-align:center;letter-spacing:3px;font-weight:700;margin-bottom:.8rem;font-family:inherit}
+.modal-input:focus{border-color:var(--amber)}
+.modal-btn{width:100%;padding:.8rem;border-radius:10px;background:var(--amber);border:none;color:#101e30;font-size:.95rem;font-weight:700;cursor:pointer;margin-bottom:.8rem;font-family:inherit}
+.modal-btn.sec{background:rgba(255,255,255,.08);color:var(--t2)}
+.modal-err{font-size:.85rem;color:var(--red);text-align:center;margin-bottom:.6rem;display:none}
+.tog-row{display:flex;align-items:center;justify-content:space-between;padding:.6rem .8rem;background:var(--card-inner);border-radius:var(--r-sm);margin-bottom:.5rem;border:1px solid var(--card-b)}
+.tog-label{font-size:.85rem;line-height:1.3;color:#ffffff}
+.tog-label small{display:block;font-size:.7rem;color:var(--t2);margin-top:.15rem}
+.tog-num{color:var(--amber);font-weight:700;font-size:.85rem}
+.tog-sw{position:relative;width:46px;height:24px;flex-shrink:0}
+.tog-sw input{opacity:0;width:0;height:0}
+.tog-sl{position:absolute;cursor:pointer;inset:0;background:rgba(255,255,255,.15);border-radius:24px;transition:.3s}
+.tog-sl:before{content:'';position:absolute;width:18px;height:18px;border-radius:50%;left:3px;top:3px;background:white;transition:.3s}
+input:checked+.tog-sl{background:var(--green)}
+input:checked+.tog-sl:before{transform:translateX(22px)}
+
+/* MODAL SUBPAGE */
+#modal-ov{display:none;position:fixed;inset:0;z-index:2000;background:rgba(10,20,35,.85);overflow-y:auto}
+#modal-ov.show{display:block}
+.modal-hd{position:sticky;top:0;z-index:1;background:var(--bg);border-bottom:1px solid var(--card-b);padding:.8rem 1rem;display:flex;align-items:center;gap:.7rem}
+.modal-back{background:var(--card);border:1px solid var(--card-b);border-radius:8px;color:var(--blue);padding:.4rem .9rem;cursor:pointer;font-size:.85rem;font-weight:700}
+.modal-htitle{font-weight:700;font-size:1rem;flex:1;color:#ffffff}
+.modal-body{padding:1.4rem 1rem;max-width:var(--max-w);margin:0 auto;padding-bottom:3.5rem}
+</style>
+</head>
+<body>
+<div id="ld">
+  <div class="ld-van">🚐</div>
+  <div class="ld-txt" id="ld-txt">Cargando itinerario Bulgaria 2026...</div>
+  <div class="ld-bar"><div class="ld-fill"></div></div>
+</div>
+
+<nav class="nav">
+  <div class="nav-wrap">
+    <div class="nav-hd">
+      <span>🚐</span>
+      <span><strong>Bulgaria & Budapest</strong> · Septiembre 2026 · 6 personas</span>
+    </div>
+    <div class="pills" id="pills"></div>
+  </div>
+</nav>
+
+<div class="main-wrap">
+  <main id="main"></main>
+</div>
+
+<!-- MODAL PARA DESGLOSES EXTENSOS -->
+<div id="modal-ov">
+  <div class="modal-hd">
+    <button class="modal-back" onclick="closeModal()">← Volver al Día</button>
+    <span class="modal-htitle" id="modal-htitle"></span>
+  </div>
+  <div class="modal-body" id="modal-body"></div>
+</div>
+
+<!-- PANEL ADMIN / ORGANIZADOR -->
+<button class="admin-fab" id="aBtn">🔐</button>
+<div class="overlay" id="aModal">
+  <div class="modal">
+    <div class="modal-title">🔐 Panel del Organizador</div>
+    <div id="aLogin">
+      <input type="password" class="modal-input" id="aPass" placeholder="Contraseña" maxlength="20">
+      <div class="modal-err" id="aErr">Contraseña incorrecta</div>
+      <button class="modal-btn" onclick="checkPass()">Entrar</button>
+    </div>
+    <div id="aPanel" style="display:none">
+      <div style="background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.35);border-radius:10px;padding:.85rem;margin-bottom:.85rem;font-size:.78rem;color:#fbbf24;line-height:1.5;">
+        <strong>ℹ️ Control de Apertura Local</strong><br>
+        Los días se abren automáticamente a las 20:30 de la hora local donde esté el grupo el día previo. Aquí puedes forzar la apertura de cualquier día para previsualizar.
+      </div>
+      <div id="aTogs"></div>
+      <button class="modal-btn sec" onclick="closeAdmin()" style="margin-top:.85rem">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+'use strict';
+const PWD = 'BADAJOZ';
+
+// ─── MASTER ROADMAP COMPLETO ─────────────────────────────
+const DAYS_DATA = [
+  { n: 0, date: '2026-09-04', tz: 'Europe/Madrid', phase: 'transit', dn: 'Viernes, 4 de Septiembre de 2026', title: 'Badajoz → Lobón → Madrid → ✈️ Sofía', sub: 'Día de transición, reunión en Barajas y vuelo a los Balcanes 🔥', img: 'https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?w=1400&q=80', isFull: true },
+  { n: 1, date: '2026-09-05', tz: 'Europe/Sofia', phase: 'bulgaria', dn: 'Sábado, 5 de Septiembre de 2026', title: 'Sofía 🇧🇬🏛️: Primer Contacto', sub: 'Descanso, gastronomía y monumentos principales sin prisas.', img: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1400&q=80', isFull: true },
+  { n: 2, date: '2026-09-06', tz: 'Europe/Sofia', phase: 'bulgaria', dn: 'Domingo, 6 de Septiembre de 2026', title: 'Sofía → Rila → Sapareva Banya', sub: 'Monasterio UNESCO y Relax en Aguas Termales 🏔️♨️', img: 'https://images.unsplash.com/photo-1569880153113-76161a8c1f13?w=1400&q=80', isFull: true },
+  { n: 3, date: '2026-09-07', tz: 'Europe/Sofia', phase: 'bulgaria', dn: 'Lunes, 7 de Septiembre de 2026', title: 'Sofía → Plovdiv', sub: 'Llegada a la ciudad milenaria, Ciudad Vieja y barrio Kapana 🏛️', img: 'https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=1400&q=80', isFull: false },
+  { n: 4, date: '2026-09-08', tz: 'Europe/Sofia', phase: 'bulgaria', dn: 'Martes, 8 de Septiembre de 2026', title: 'Plovdiv · Día Completo', sub: 'Teatro Romano, arquitectura del Renacimiento búlgaro y vino Mavrud 🍷', img: 'https://images.unsplash.com/photo-1570459027562-4a916cc6113f?w=1400&q=80', isFull: false },
+  { n: 5, date: '2026-09-09', tz: 'Europe/Sofia', phase: 'bulgaria', dn: 'Miércoles, 9 de Septiembre de 2026', title: 'Plovdiv → Kazanlak → Shipka → Buzludzha → Sozopol', sub: 'El gran día de carretera: Valle de las Rosas, OVNI comunista y llegada al Mar Negro 🌹🛸🌊', img: 'https://images.unsplash.com/photo-1534430480872-3498386e7856?w=1400&q=80', isFull: false },
+  { n: 6, date: '2026-09-10', tz: 'Europe/Sofia', phase: 'bulgaria', dn: 'Jueves, 10 de Septiembre de 2026', title: 'Sozopol · Playa & Relax', sub: '100% Día de descanso, arena dorada (Smokinya/Kavatsite) y opción buceo 🤿🏖️', img: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1400&q=80', isFull: false },
+  { n: 7, date: '2026-09-11', tz: 'Europe/Sofia', phase: 'bulgaria', dn: 'Viernes, 11 de Septiembre de 2026', title: 'Sozopol ↔ Castillo de Ravadinovo', sub: 'Castillo de fantasía por la mañana y tarde libre en el mar 🏰🌊', img: 'https://images.unsplash.com/photo-1597204677540-29ea4e786905?w=1400&q=80', isFull: false },
+  { n: 8, date: '2026-09-12', tz: 'Europe/Sofia', phase: 'bulgaria', dn: 'Sábado, 12 de Septiembre de 2026', title: 'Sozopol → Nessebar · UNESCO', sub: 'Península milenaria, iglesias bizantinas y puesta de sol marítima 🏛️', img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&q=80', isFull: false },
+  { n: 9, date: '2026-09-13', tz: 'Europe/Sofia', phase: 'bulgaria', dn: 'Domingo, 13 de Septiembre de 2026', title: 'Nessebar → Balchik', sub: 'Rumbo a la costa norte y paseo marítimo al atardecer 🚐🌊', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1400&q=80', isFull: false },
+  { n: 10, date: '2026-09-14', tz: 'Europe/Sofia', phase: 'bulgaria', dn: 'Lunes, 14 de Septiembre de 2026', title: 'Balchik + Cabo Kaliakra → Veliko Tarnovo', sub: 'Palacio de la Reina María, acantilados épicos y entrada a la capital medieval 🏰🌊', img: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1400&q=80', isFull: false },
+  { n: 11, date: '2026-09-15', tz: 'Europe/Sofia', phase: 'bulgaria', dn: 'Martes, 15 de Septiembre de 2026', title: 'Veliko Tarnovo · Día Completo', sub: 'Fortaleza imperial de Tsarevets, Samovodska Charshiya y desfiladero del río Yantra 🏰', img: 'https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=1400&q=80', isFull: false },
+  { n: 12, date: '2026-09-16', tz: 'Europe/Sofia', phase: 'bulgaria', dn: 'Miércoles, 16 de Septiembre de 2026', title: 'Veliko Tarnovo → Belogradchik', sub: 'Fortaleza entre formaciones rocosas y la mejor puesta de sol de los Balcanes 🪨🌅', img: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1400&q=80', isFull: false },
+  { n: 13, date: '2026-09-17', tz: 'Europe/Budapest', phase: 'budapest', dn: 'Jueves, 17 de Septiembre de 2026', title: 'Belogradchik → Sofía → ✈️ Budapest', sub: 'Devolución de furgoneta, vuelo a Budapest y bienvenida en los Ruin Bars 🇭🇺🍺', img: 'https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=1400&q=80', isFull: false },
+  { n: 14, date: '2026-09-18', tz: 'Europe/Budapest', phase: 'budapest', dn: 'Viernes, 18 de Septiembre de 2026', title: 'Budapest · Lado de Pest', sub: 'Parlamento iluminado, Gran Mercado Central, San Esteban y crucero nocturno 🌉', img: 'https://images.unsplash.com/photo-1551516594-56cb78394645?w=1400&q=80', isFull: false },
+  { n: 15, date: '2026-09-19', tz: 'Europe/Budapest', phase: 'budapest', dn: 'Sábado, 19 de Septiembre de 2026', title: 'Budapest · Lado de Buda', sub: 'Bastión de los Pescadores, Castillo de Buda, Iglesia de Matías y Memorial Danubio 🏰👞', img: 'https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=1400&q=80', isFull: false },
+  { n: 16, date: '2026-09-20', tz: 'Europe/Budapest', phase: 'budapest', dn: 'Domingo, 20 de Septiembre de 2026', title: 'Budapest · Termas & Última Noche', sub: 'Termas Széchenyi, Parque Városliget y cena especial de despedida ♨️🥂', img: 'https://images.unsplash.com/photo-1543349689-9a4d426bee8e?w=1400&q=80', isFull: false },
+  { n: 17, date: '2026-09-21', tz: 'Europe/Madrid', phase: 'transit', dn: 'Lunes, 21 de Septiembre de 2026', title: 'Budapest → ✈️ Madrid → Badajoz', sub: 'Vuelo de regreso de madrugada, recuperación de coche en Barajas y fin del viaje 🏠✈️', img: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1400&q=80', isFull: false },
+  { n: 'datos', phase: 'info', title: 'Datos Importantes', dn: 'Reservas, Seguros y Contactos' },
+  { n: 'maleta', phase: 'info', title: 'Tu Maleta', dn: 'Checklist de Equipaje Wizz/Ryanair' }
+];
+
+// ─── LÓGICA DE DESBLOQUEO LOCAL ─────────────────
+function getUnlockDate(d){
+  if(d.n === 0 || d.n === 'datos' || d.n === 'maleta') return new Date(0);
+  const prevDate = new Date(d.date + 'T00:00:00Z');
+  prevDate.setUTCDate(prevDate.getUTCDate() - 1);
+  const dateStr = prevDate.toISOString().split('T')[0];
+  const offset = d.tz === 'Europe/Sofia' ? '+03:00' : '+02:00';
+  return new Date(`${dateStr}T20:30:00${offset}`);
+}
+
+function isAutoOpen(d){
+  if(d.n === 0 || d.n === 'datos' || d.n === 'maleta') return true;
+  return new Date() >= getUnlockDate(d);
+}
+
+function getAdminExtra(){
+  try{ return JSON.parse(localStorage.getItem('bg2026_unlocked') || '[]'); }catch{ return []; }
+}
+function setAdminExtra(arr){
+  try{ localStorage.setItem('bg2026_unlocked', JSON.stringify(arr)); }catch{}
+}
+function isOpen(d){
+  if(d.n === 0 || d.n === 'datos' || d.n === 'maleta') return true;
+  if(getAdminExtra().includes(d.n)) return true;
+  return isAutoOpen(d);
+}
+
+function getCountdownText(d){
+  const unlock = getUnlockDate(d);
+  const now = new Date();
+  const diff = unlock - now;
+  if(diff <= 0) return null;
+  const h = Math.floor(diff / 3600000);
+  const m = Math.floor((diff % 3600000) / 60000);
+  if(h < 1) return `⏳ Se abre en ${m} min`;
+  if(h < 24) return `⏳ Se abre en ${h}h ${m}min`;
+  const opts = { weekday: 'long', day: 'numeric', month: 'long' };
+  return `📅 Se abre el ${unlock.toLocaleDateString('es-ES', opts)} a las 20:30 (hora local)`;
+}
+
+// ─── ACORDEÓN HELPER ───────────────────────────────────────────────────
+function acc(num, icon, title, content, color){
+  if(!content || content.trim() === '') return '';
+  return `
+    <div class="acc-section">
+      <div class="acc-header" style="--ac:${color}" onclick="this.closest('.acc-section').classList.toggle('open')">
+        <span class="acc-num">${num}</span>
+        <span class="acc-icon">${icon}</span>
+        <span class="acc-title">${title}</span>
+        <span class="acc-chev">▼</span>
+      </div>
+      <div class="acc-body"><div class="acc-inner">${content}</div></div>
+    </div>
+  `;
+}
+
+// ─── RENDER DE DÍA BLOQUEADO ───────────────────────────────────────────
+function renderLockedDay(d){
+  const cd = getCountdownText(d);
+  return `
+    <div class="locked-wrap">
+      <div class="locked-bg" style="background-image:url(${d.img})"></div>
+      <div class="locked-c">
+        <div class="locked-icon">🔒</div>
+        <div class="locked-dn">Día ${d.n} &middot; ${d.dn}</div>
+        <div class="locked-title">${d.title}</div>
+        <div class="locked-msg">${d.sub}</div>
+        <div class="locked-chip">${cd ? cd : '📅 Disponible la noche anterior a las 20:30'}</div>
+      </div>
+    </div>
+  `;
+}
+
+// ─── RENDER DEL DÍA 0 ───────────────────────────────────────────
+function renderDay0(d){
+  const sec_linea_html = `
+    <div class="phase-hd">☀️ MAÑANA: Fran y Graje viajan a Madrid</div>
+    <div class="tl">
+      <div class="ti"><div class="ti-time">09:20 - 10:35</div><div class="ti-icon">✈️</div><div class="ti-body"><div class="ti-title">Vuelo de Fran y Graje (Badajoz → Madrid)</div><div class="ti-desc">Compañía: Iberia | Vuelo: IB2331. Ruta: Badajoz (BJZ) → Madrid-Barajas (MAD). Duración: 1h 15min (directo). Llegada: T4 de Barajas a las 10:35. <button class="btn-more" onclick="openModal('modal-fran-madrid')">Ver opciones en Madrid →</button></div></div></div>
+      <div class="ti"><div class="ti-time">09:00 - 13:00</div><div class="ti-icon">💼</div><div class="ti-body"><div class="ti-title">Trabajo y Preparativos (Raúl, Inés, Lupe, Jesús)</div><div class="ti-desc">Mañana normal de trabajo. Nada de estrés. Dejar preparado el equipaje y revisar documentación (DNI, billetes, seguro, tarjeta Revolut).</div></div></div>
+      <div class="ti"><div class="ti-time">13:30</div><div class="ti-icon">🚗</div><div class="ti-body"><div class="ti-title">Salida de Badajoz</div><div class="ti-desc">Raúl sale de Badajoz hacia Lobón. Ruta: Badajoz → Lobón → A-5 → Madrid.</div></div></div>
+      <div class="ti"><div class="ti-time">13:50 - 14:00</div><div class="ti-icon">👥</div><div class="ti-body"><div class="ti-title">Recogida en Lobón</div><div class="ti-desc">Recogemos a Inés, Lupe y Jesús. Jesús llega desde Cáceres y se incorpora. Cargar 3 maletas y 6 mochilas. Intentar que todo esté preparado para no perder más de 10 min.</div></div></div>
+    </div>
+    <div class="phase-hd">🌤️ TARDE: Badajoz → Lobón → Madrid</div>
+    <div class="tl">
+      <div class="ti"><div class="ti-time">14:00</div><div class="ti-icon">🚗</div><div class="ti-body"><div class="ti-title">Salida de Lobón hacia Madrid</div><div class="ti-desc">Trayecto previsto: unas 4h - 4h 30min, dependiendo del tráfico. Alternativa por M-40 si hay retenciones.</div></div></div>
+      <div class="ti"><div class="ti-time">16:00</div><div class="ti-icon">☕</div><div class="ti-body"><div class="ti-title">Parada rápida (opcional)</div><div class="ti-desc">Baño + café + repostaje si fuera necesario. Máximo 15 minutos.</div></div></div>
+      <div class="ti"><div class="ti-time">18:15 - 18:30</div><div class="ti-icon">🅿️</div><div class="ti-body"><div class="ti-title">Llegada al Parking Barajas T1-T2</div><div class="ti-desc">📍 C. Zaorejas, 2, Madrid. Dejar coche y comprobar que no queda nada en el vehículo. Fran y Graje confirman ubicación en T1.</div></div></div>
+      <div class="ti"><div class="ti-time">18:30 - 18:45</div><div class="ti-icon">🚐</div><div class="ti-body"><div class="ti-title">Shuttle gratuito → T1</div><div class="ti-desc">Duración aproximada: 7 minutos. Mantener equipaje controlado.</div></div></div>
+      <div class="ti"><div class="ti-time">18:45 - 19:00</div><div class="ti-icon">🤝</div><div class="ti-body"><div class="ti-title">Reunión con Fran y Graje</div><div class="ti-desc">📍 Punto de encuentro: Zona de salidas, delante de mostradores Wizz Air. ¡Ya estamos los 6 juntos!</div></div></div>
+      <div class="ti hl"><div class="ti-time">19:00 - 19:45</div><div class="ti-icon">🧳</div><div class="ti-body"><div class="ti-title">Facturación (PRIORIDAD ABSOLUTA)</div><div class="ti-desc">Facturar las 3 maletas de 20 kg. Revisar medidas mochilas (40×30×20 cm). Una vez facturado el riesgo del día queda resuelto.</div></div></div>
+      <div class="ti"><div class="ti-time">19:45 - 20:30</div><div class="ti-icon">🍽️</div><div class="ti-body"><div class="ti-title">Cena en el aeropuerto</div><div class="ti-desc">Opción 1 (Recomendada): Llevar bocadillo casero (ahorro tiempo y dinero). Opción 2: Restaurantes en T1.</div></div></div>
+    </div>
+    <div class="phase-hd">🌙 NOCHE: Vuelo a Sofía</div>
+    <div class="tl">
+      <div class="ti"><div class="ti-time">20:30</div><div class="ti-icon">🛂</div><div class="ti-body"><div class="ti-title">Control de seguridad y zona de embarque</div><div class="ti-desc">Buscar puerta de embarque. Tened a mano los documentos de viaje.</div></div></div>
+      <div class="ti hl"><div class="ti-time">20:55 - 01:25</div><div class="ti-icon">✈️</div><div class="ti-body"><div class="ti-title">Vuelo Madrid (MAD) → Sofía (SOF) · W6 4402</div><div class="ti-desc">Duración: 3h 30min. Llegada a Sofía: 01:25 (horario local búlgara, recordar adelantar 1 hora).</div></div></div>
+    </div>
+    <div class="phase-hd">🌙 MADRUGADA SIGUIENTE: Recogida y Check-in (ya DÍA 1)</div>
+    <div class="tl">
+      <div class="ti hl"><div class="ti-time">01:30 - 02:00</div><div class="ti-icon">🚐</div><div class="ti-body"><div class="ti-title">Recogida furgoneta Easy Rent & Inspección</div><div class="ti-desc">Terminal 1 Sofía. <button class="btn-more" onclick="openModal('modal-protocolo')">Ver Protocolo Fotos/Vídeo →</button></div></div></div>
+      <div class="ti"><div class="ti-time">02:00 - 02:15</div><div class="ti-icon">🅿️</div><div class="ti-body"><div class="ti-title">Estacionamiento en Parking ul. Iskar 14</div><div class="ti-desc">Aparcamiento vigilado 24/7 a 5 minutos a pie del alojamiento.</div></div></div>
+      <div class="ti"><div class="ti-time">02:15 - 02:30</div><div class="ti-icon">🚶</div><div class="ti-body"><div class="ti-title">Traslado a pie al apartamento</div><div class="ti-desc">Caminata de 5-7 min hacia ulitsa "Georgi S. Rakovski" 84.</div></div></div>
+      <div class="ti"><div class="ti-time">02:30</div><div class="ti-icon">🛏️</div><div class="ti-body"><div class="ti-title">Check-in y descanso</div><div class="ti-desc">Entrada autónoma / recepción 24h avisada. Descanso para el Free Tour de las 11:00.</div></div></div>
+    </div>
+  `;
+
+  const sec_aloj_html = `
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <thead><tr><th>Concepto</th><th>Detalle / Dirección</th><th>Precios / Estado</th><th>Google Maps</th></tr></thead>
+        <tbody>
+          <tr><td>🏠 Alojamiento Sofía</td><td>3BR amazing ap next to Opera H. (Elena) | ulitsa "Georgi S. Rakovski" 84</td><td>379,20 € (Pagado)</td><td><a href="https://maps.google.com/?q=ul.+Georgi+S.+Rakovski+84,+Sofia" target="_blank" rel="noopener" class="btn-link">Ver en Maps</a></td></tr>
+          <tr><td>🅿️ Parking Sofía (Opción 1 Rec.)</td><td>Платен паркинг 24/7 | ul. "Iskar" 14, 1000 Sofia</td><td>~15 €/día (24h)</td><td><a href="https://maps.google.com/?q=ul.+Iskar+14,+1000+Sofia+Bulgaria" target="_blank" rel="noopener" class="btn-link">Ver en Maps</a></td></tr>
+          <tr><td>🅿️ Parking Sofía (Opción 2 Alt.)</td><td>Денонощен паркинг 24/7 | ul. "11-ti avgust" 20, 1000 Sofia</td><td>~15 €/día (24h)</td><td><a href="https://maps.google.com/?q=11-ti+avgust+20,+Sofia+Bulgaria" target="_blank" rel="noopener" class="btn-link">Ver en Maps</a></td></tr>
+          <tr><td>🅿️ Parking Barajas</td><td>Parking Barajas T1-T2 | C. Zaorejas, 2, Madrid</td><td>—</td><td><a href="https://maps.google.com/?q=Calle+Zaorejas+2,+28042+Madrid" target="_blank" rel="noopener" class="btn-link">Ver en Maps</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  const sec_despl_html = `
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <thead><tr><th>Tramo</th><th>Km</th><th>Tiempo Estimado</th><th>Peajes</th><th>Enlace Maps</th></tr></thead>
+        <tbody>
+          <tr><td>Badajoz → Lobón</td><td>25 km</td><td>20 min</td><td>No</td><td><a href="https://www.google.com/maps/dir/Badajoz,+España/Lobón,+Badajoz,+España" target="_blank" rel="noopener" class="btn-link">Ver ruta</a></td></tr>
+          <tr><td>Lobón → Madrid (Parking Barajas)</td><td>375 km</td><td>3h 45min - 4h</td><td>Sí (A-5)</td><td><a href="https://www.google.com/maps/dir/Lobón,+Badajoz,+España/Calle+Zaorejas+2,+28042+Madrid,+España" target="_blank" rel="noopener" class="btn-link">Ver ruta</a></td></tr>
+          <tr><td>Parking → T1 (Shuttle)</td><td>—</td><td>7 min</td><td>No</td><td>—</td></tr>
+          <tr><td>✈️ Madrid → Sofía</td><td>2.400 km</td><td>3h 30min</td><td>—</td><td>—</td></tr>
+          <tr><td>Aeropuerto SOF → Parking → Hotel</td><td>10 km</td><td>20 min</td><td>No</td><td><a href="https://www.google.com/maps/dir/Sofia+Airport+Terminal+1/ul.+Iskar+14,+Sofia/ul.+Georgi+S.+Rakovski+84,+Sofia" target="_blank" rel="noopener" class="btn-link">Ver ruta</a></td></tr>
+          <tr class="total-row"><td>TOTAL Conducción</td><td>~410 km</td><td>~4h 30min</td><td>—</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  const sec_lugares_html = `
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <thead><tr><th>Lugar</th><th>Ubicación / Dirección</th><th>Notas</th><th>Valoraciones</th><th>Fotos / Maps</th></tr></thead>
+        <tbody>
+          <tr><td>Aeropuerto de Badajoz (BJZ)</td><td>Badajoz, España</td><td>Salida de Fran y Graje</td><td><span class="val-badge">⭐ N/A</span></td><td><a href="https://maps.google.com/?q=Aeropuerto+de+Badajoz" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>Parking Barajas T1-T2</td><td>C. Zaorejas, 2, Madrid</td><td>Dejar el coche 17 días</td><td><span class="val-badge">⭐ 4.1 (Google)</span></td><td><a href="https://maps.google.com/?q=Calle+Zaorejas+2,+28042+Madrid" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>Aeropuerto Madrid-Barajas (MAD)</td><td>Terminal 1, Madrid</td><td>Reunión y salida del vuelo</td><td><span class="val-badge">⭐ 4.0 (Google)</span></td><td><a href="https://maps.google.com/?q=Aeropuerto+Madrid+Barajas+Terminal+1" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>Aeropuerto de Sofía (SOF)</td><td>Terminal 1, Sofía</td><td>Llegada y recogida furgoneta</td><td><span class="val-badge">⭐ 3.8 (Google)</span></td><td><a href="https://maps.google.com/?q=Sofia+Airport+Terminal+1" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>🏠 Alojamiento (Sofía)</td><td>ul. "Georgi S. Rakovski" 84</td><td>3BR amazing ap next to Opera H.</td><td><span class="val-badge">🟢 4.8 (Airbnb)</span></td><td><a href="https://maps.google.com/?q=ul.+Georgi+S.+Rakovski+84,+Sofia" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>🅿️ Parking Opción 1</td><td>ul. "Iskar" 14, Sofía</td><td>Parking 24h recomendado</td><td><span class="val-badge">⭐ 4.9 (Google)</span></td><td><a href="https://maps.google.com/?q=ul.+Iskar+14,+1000+Sofia+Bulgaria" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>🅿️ Parking Opción 2</td><td>ul. "11-ti avgust" 20, Sofía</td><td>Parking 24h alternativa</td><td><span class="val-badge">⭐ 4.0 (Google)</span></td><td><a href="https://maps.google.com/?q=11-ti+avgust+20,+Sofia+Bulgaria" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="phase-hd" style="margin-top:1.5rem">🗺️ Rutas Totales del Día en Google Maps</div>
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <tbody>
+          <tr>
+            <td style="width:40px;text-align:center;font-size:1.2rem">🚐</td>
+            <td><strong>Ruta en coche (España):</strong> Badajoz → Lobón → Parking Barajas (Madrid)</td>
+            <td style="width:120px;text-align:center"><a href="https://www.google.com/maps/dir/Badajoz/Lob%C3%B3n/Calle+Zaorejas+2,+Madrid" target="_blank" rel="noopener" class="btn-link">Ver ruta</a></td>
+          </tr>
+          <tr>
+            <td style="width:40px;text-align:center;font-size:1.2rem">🚶</td>
+            <td><strong>Ruta a pie (Sofía):</strong> Parking Iskar 14 → Alojamiento (Rakovski 84)</td>
+            <td style="width:120px;text-align:center"><a href="https://www.google.com/maps/dir/ul.+Iskar+14,+Sofia/ul.+Georgi+S.+Rakovski+84,+Sofia" target="_blank" rel="noopener" class="btn-link">Ver ruta</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  const sec_comer_html = `
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <thead><tr><th>Comida</th><th>Opción / Nombre</th><th>Tipo</th><th>Precio Est.</th><th>Ubicación</th><th>Plato Estrella / Nota</th><th>Valoraciones</th><th>Fotos / Maps</th></tr></thead>
+        <tbody>
+          <tr><td>Comida</td><td>Centro de Madrid (Fran/Graje)</td><td>Menú del día</td><td>12-18 €/p</td><td>Sol / Plaza Mayor</td><td>Menú casero tradicional</td><td><span class="val-badge">⭐ 4.3 (Google)</span></td><td><a href="https://www.google.com/maps/search/restaurantes+Plaza+Mayor+Madrid" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>Comida</td><td>Restaurantes T1/T4 Barajas</td><td>Variado</td><td>10-15 €/p</td><td>Aeropuerto Madrid</td><td>Sándwiches, ensaladas</td><td><span class="val-badge">⭐ 3.5 (Google)</span></td><td><a href="https://maps.google.com/?q=Terminal+1+Aeropuerto+Barajas+Madrid" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>Cena (Grupo)</td><td>🥪 Bocadillo casero (Rec.)</td><td>Casero</td><td>3-5 €/p</td><td>T1 Barajas</td><td>Económico, rápido y ligero</td><td><span class="val-badge">N/A</span></td><td>—</td></tr>
+          <tr><td>Cena (Grupo)</td><td>Starbucks / Cafeterías T1</td><td>Cafetería</td><td>8-12 €/p</td><td>T1 Barajas Salidas</td><td>Bocadillos, café, bollería</td><td><span class="val-badge">⭐ 3.6 (Google)</span></td><td><a href="https://maps.google.com/?q=Starbucks+Terminal+1+Barajas" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>Cena (Grupo)</td><td>Burger King T1</td><td>Fast Food</td><td>8-12 €/p</td><td>T1 Barajas Salidas</td><td>Hamburguesas rápidas</td><td><span class="val-badge">⭐ 3.4 (Google)</span></td><td><a href="https://maps.google.com/?q=Burger+King+Terminal+1+Barajas" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  const sec_act_html = `
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <thead><tr><th>Actividad / Servicio</th><th>Estado</th><th>Prioridad</th><th>Precio Total</th><th>Valoraciones</th><th>Notas</th><th>Maps</th></tr></thead>
+        <tbody>
+          <tr><td>✈️ Vuelo BJZ → MAD (IB2331)</td><td>✅ Confirmado</td><td>Imprescindible</td><td>Incluido</td><td><span class="val-badge">N/A</span></td><td>09:20 - 10:35 (Fran y Graje)</td><td><a href="https://maps.google.com/?q=Aeropuerto+de+Badajoz" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>✈️ Vuelo MAD → SOF (W6 4402)</td><td>✅ Confirmado</td><td>Imprescindible</td><td>347,93 € (6 pers)</td><td><span class="val-badge">N/A</span></td><td>20:55 - 01:25 (Wizz Air)</td><td><a href="https://maps.google.com/?q=Aeropuerto+Madrid+Barajas+Terminal+1" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>🚐 Furgoneta Easy Rent</td><td>✅ Confirmado</td><td>Imprescindible</td><td>686,79 € (13 días)</td><td><span class="val-badge">⭐ 4.5 (Google)</span></td><td>Recogida 01:30 en T1 SOF</td><td><a href="https://maps.google.com/?q=Sofia+Airport+Terminal+1" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>🛡️ Seguro de Viaje AXA</td><td>✅ Confirmado</td><td>Imprescindible</td><td>174,12 € (6 pers)</td><td><span class="val-badge">N/A</span></td><td>Póliza AXAPES000071347</td><td>—</td></tr>
+          <tr><td>🅿️ Parking Iskar 14 (Sofía)</td><td>⏳ Pendiente</td><td>Importante</td><td>~15 €/día</td><td><span class="val-badge">⭐ 4.9 (Google)</span></td><td>Pago directo in situ</td><td><a href="https://maps.google.com/?q=ul.+Iskar+14,+1000+Sofia+Bulgaria" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  const sec_pres_html = `
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <thead><tr><th>Concepto</th><th>Tipo</th><th>Importe Total</th><th>Por Persona</th><th>Notas</th></tr></thead>
+        <tbody>
+          <tr style="background:rgba(36,62,99,.8);color:#fff"><td colspan="5"><strong>💳 GASTOS PREVIOS / PAGADOS</strong></td></tr>
+          <tr><td>✈️ Vuelo Madrid → Sofía (W6 4402)</td><td>Pagado</td><td>347,93 €</td><td>57,99 €</td><td>6 personas</td></tr>
+          <tr><td>🚐 Furgoneta Easy Rent (Señal)</td><td>Pagado</td><td>34,34 €</td><td>5,72 €</td><td>Reserva previa</td></tr>
+          <tr><td>🛡️ Seguro de Viaje AXA</td><td>Pagado</td><td>174,12 €</td><td>29,02 €</td><td>6 personas</td></tr>
+          <tr><td>🏨 Alojamiento Sofía (3 noches)</td><td>Pagado</td><td>379,20 €</td><td>63,20 €</td><td>Apartamento completo</td></tr>
+          <tr style="background:rgba(36,62,99,.8);color:#fff"><td colspan="5"><strong>💳 GASTOS ESTIMADOS DEL DÍA</strong></td></tr>
+          <tr><td>🚗 Gasolina Badajoz → Madrid</td><td>Estimado</td><td>~20,00 €</td><td>5,00 €</td><td>Repartido entre 4 en coche</td></tr>
+          <tr><td>🍽️ Comida Fran y Graje en Madrid</td><td>Estimado</td><td>~25,00 €</td><td>12,50 €</td><td>2 personas</td></tr>
+          <tr><td>🍽️ Cena (bocadillo / ligero)</td><td>Estimado</td><td>~25,00 €</td><td>4,17 €</td><td>6 personas</td></tr>
+          <tr><td>🅿️ Parking Sofía (prorrateo diario)</td><td>Estimado</td><td>15,00 €</td><td>2,50 €</td><td>6 personas</td></tr>
+          <tr><td>🚐 Furgoneta (prorrateo diario)</td><td>Estimado</td><td>—</td><td>8,80 €</td><td>Prorrateo 686,79/13/6</td></tr>
+          <tr><td>🛡️ Seguro (prorrateo diario)</td><td>Estimado</td><td>—</td><td>1,71 €</td><td>Prorrateo 174,12/17/6</td></tr>
+          <tr class="total-row"><td>TOTAL DÍA (Por Persona)</td><td>Estimado</td><td>—</td><td>~35 - 40 €</td><td>Gasto variable in situ</td></tr>
+          <tr class="total-row"><td>TOTAL ACUMULADO (Por Persona)</td><td>Pagado + Est.</td><td>—</td><td>~422 €</td><td>Incluye vuelos y hoteles base</td></tr>
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  const sec_chk_html = `
+    <div class="checklist">
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Pasaporte / DNI en vigor</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Tarjetas de embarque (móvil o impresas) — Vuelo W6 4402</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Documentación y reserva de furgoneta (Easy Rent Bulgaria)</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Póliza Seguro AXA (móvil + papel): AXAPES000071347</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Tarjeta física Revolut con saldo para depósito de 300 €</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Cargadores y Power Bank cargada</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Euros en efectivo y algo de lev búlgaro (BGN) si se ha cambiado</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Ropa cómoda para el vuelo y chaqueta ligera para la madrugada en Sofía</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Auriculares y entretenimiento descargado</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Almohada de viaje</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Bocadillo casero preparado para cenar en Barajas</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Ubicación del Parking ul. Iskar 14 guardada en Maps</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Recordatorio: adelantar el reloj 1 hora al aterrizar en Sofía (UTC+3)</span></div>
+    </div>
+  `;
+
+  const sec_prep_html = `
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <thead><tr><th>Aspecto</th><th>Recomendación</th></tr></thead>
+        <tbody>
+          <tr><td>Ropa</td><td>Llevar una chaqueta ligera para el vuelo (puede hacer frío) y para la llegada a Sofía de madrugada. Sofía en septiembre tiene temperaturas de 11-24°C.</td></tr>
+          <tr><td>Equipaje de mano</td><td>Revisar medidas Wizz Air (40×30×20 cm). No arriesgarse a pagar extra en el aeropuerto.</td></tr>
+          <tr><td>Documentación</td><td>Llevar pasaporte/DNI, tarjetas de embarque (móvil + copia impresa), documentación de la furgoneta y seguro de viaje.</td></tr>
+          <tr><td>Revolut</td><td>Asegurar saldo suficiente para el depósito de la furgoneta (300 €) y los pagos de alojamientos.</td></tr>
+          <tr><td>Entretenimiento</td><td>Descargar música, podcasts o películas para el vuelo.</td></tr>
+          <tr><td>Almohada de viaje</td><td>Recomendable para dormir en el avión y llegar descansados.</td></tr>
+          <tr><td>Cargadores</td><td>Llevar power bank para no quedarse sin batería en el aeropuerto.</td></tr>
+          <tr><td>Fran y Graje</td><td>Si van al centro de Madrid, llevar calzado cómodo y algo de efectivo. Si se quedan en el aeropuerto, llevar algo de entretenimiento.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  const accSections = `
+    <div class="acc-wrap">
+      ${acc('1', '📖', 'El Día al Completo · Línea de Tiempo Extensa', sec_linea_html, '#5aace8')}
+      ${acc('2', '🏠', 'Alojamiento y Parkings', sec_aloj_html, '#60a5fa')}
+      ${acc('3', '🚗', 'Desplazamientos del Día', sec_despl_html, '#fbbf24')}
+      ${acc('4', '📍', 'Lugares de Interés & Google Maps', sec_lugares_html, '#38bdf8')}
+      ${acc('5', '🍽️', 'Opciones para Comer', sec_comer_html, '#fb923c')}
+      ${acc('6', '🎟️', 'Actividades y Reservas', sec_act_html, '#c084fc')}
+      ${acc('7', '💰', 'Presupuesto del Día', sec_pres_html, '#34d399')}
+      ${acc('8', '✅', 'Checklist del Día', sec_chk_html, '#2dd4bf')}
+      ${acc('9', '💡', 'Consejos para el día siguiente / preparativos', sec_prep_html, '#4ade80')}
+    </div>
+  `;
+
+  return `
+    <div class="hero">
+      <img src="${d.img}" alt="Badajoz Madrid Sofia">
+      <div class="hero-c">
+        <div class="hero-badge transit">🚗 Tránsito</div>
+        <div class="hero-dn">Día 0 &middot; ${d.dn}</div>
+        <div class="hero-title">🚗✈️🇧🇬 ${d.title}</div>
+        <div class="hero-sub">${d.sub}</div>
+      </div>
+    </div>
+
+    <!-- 🎯 OBJETIVO DEL DÍA -->
+    <div class="sec-center">🎯 Objetivo del Día</div>
+    <div class="obj-box">
+      <p class="obj-t">Día de transición y viaje. El grupo se divide en dos durante la mañana: Fran y Graje vuelan desde Badajoz a Madrid, mientras que Raúl, Inés, Lupe y Jesús trabajan y preparan la salida en coche. El objetivo es reunirse en Barajas por la tarde, volar juntos a Sofía y recoger allí la furgoneta. Es un día largo que combina coche y avión, con llegada de madrugada a Bulgaria. El DÍA 0 termina realmente en Sofía durante la madrugada del DÍA 1, donde ya se hará el check-in y se dormirá.</p>
+    </div>
+
+    <!-- 🌅 DATOS DEL DÍA, CLIMA Y HORA -->
+    <div class="sec-center">🌅 Datos del Día & Clima</div>
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <thead>
+          <tr><th>Concepto</th><th>Detalle / Previsión</th><th>Enlace</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>🌅 Amanecer (España)</td><td>07:44 (hora local)</td><td>—</td></tr>
+          <tr><td>🌇 Anochecer (España)</td><td>20:47 (hora local)</td><td>—</td></tr>
+          <tr><td>🌡️ Clima en Badajoz (4 sep)</td><td>Soleado, 18-32°C</td><td><a href="https://www.accuweather.com/es/es/badajoz/307770/weather-forecast/307770" target="_blank" rel="noopener" class="btn-link">AccuWeather Badajoz</a></td></tr>
+          <tr><td>🌡️ Clima en Madrid (4 sep)</td><td>Despejado, 16-28°C</td><td><a href="https://www.accuweather.com/es/es/madrid/308363/weather-forecast/308363" target="_blank" rel="noopener" class="btn-link">AccuWeather Madrid</a></td></tr>
+          <tr><td>🌡️ Clima en Sofía (madrugada 5 sep)</td><td>Fresco, 11-24°C (llegada ~12°C)</td><td><a href="https://www.accuweather.com/es/bg/sofia/51097/weather-forecast/51097" target="_blank" rel="noopener" class="btn-link">AccuWeather Sofía</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sec-center">🕐 Zona Horaria & Jet Lag</div>
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <thead><tr><th>Zona</th><th>UTC</th><th>Diferencia con España</th><th>Nota de adaptación</th></tr></thead>
+        <tbody>
+          <tr><td>🇪🇸 España (Badajoz, Madrid)</td><td>UTC+2 (CEST)</td><td>Base (0h)</td><td>Horario habitual de salida</td></tr>
+          <tr><td>🇧🇬 Bulgaria (Sofía)</td><td>UTC+3 (EEST)</td><td>+1 hora</td><td>Adelantar 1h el reloj al aterrizar a las 01:25</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ⏰ LÍNEA DE TIEMPO RESUMIDA -->
+    <div class="sec-center">⏰ Línea de Tiempo Resumida</div>
+    <div class="tl-summary">
+      <div class="tl-sum-item">
+        <span class="tl-sum-time">08:00 - 14:00</span>
+        <span class="tl-sum-ic">☀️</span>
+        <span class="tl-sum-txt">Mañana dividida: Vuelo Fran/Graje (BJZ→MAD) y trabajo resto del grupo.</span>
+      </div>
+      <div class="tl-sum-item">
+        <span class="tl-sum-time">14:00 - 18:30</span>
+        <span class="tl-sum-ic">🚗</span>
+        <span class="tl-sum-txt">Viaje en coche A-5 (Lobón → Parking Barajas T1-T2).</span>
+      </div>
+      <div class="tl-sum-item">
+        <span class="tl-sum-time">18:45 - 20:30</span>
+        <span class="tl-sum-ic">🤝</span>
+        <span class="tl-sum-txt">Reunión del grupo, facturación en T1 y cena en el aeropuerto.</span>
+      </div>
+      <div class="tl-sum-item">
+        <span class="tl-sum-time">20:55 - 01:25</span>
+        <span class="tl-sum-ic">✈️</span>
+        <span class="tl-sum-txt">Vuelo Madrid → Sofía (Wizz Air W6 4402).</span>
+      </div>
+      <div class="tl-sum-item">
+        <span class="tl-sum-time">01:30 - 02:30</span>
+        <span class="tl-sum-ic">🚐</span>
+        <span class="tl-sum-txt">Recogida furgoneta Easy Rent, parking y check-in Sofía.</span>
+      </div>
+    </div>
+
+    <!-- ACORDEONES DESPLEGABLES (SECCIONES 1 A 9) -->
+    ${accSections}
+
+    <!-- PUNTO CLAVE (Sin Numerar) -->
+    <div class="punto-clave">
+      <div class="pc-label">🔥 Punto Clave del Día</div>
+      <p class="pc-t"><strong>La recogida de la furgoneta a las 01:30 (ya DÍA 1):</strong> Tras 3h30 de vuelo, toca retirar el vehículo en Easy Rent. <u>NO mover el coche sin antes realizar fotos y vídeo de TODO el vehículo</u> (exterior 360°, interior, salpicadero, odómetro, nivel de combustible y cualquier mínimo desperfecto). Es la única forma de proteger los 300 € de depósito.</p>
+    </div>
+
+    <!-- CONSEJOS PARA EL GRUPO (Sin Numerar) -->
+    <div class="sec">💡 Consejos para el Grupo</div>
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <thead><tr><th>Punto</th><th>Detalle de Coordinación</th></tr></thead>
+        <tbody>
+          <tr><td>📲 Grupo de WhatsApp</td><td>Mantener comunicación activa al salir de Badajoz, al llegar a Barajas y tras aterrizar en Madrid y Sofía.</td></tr>
+          <tr><td>⏰ Puntualidad A-5</td><td>Salida puntual de Lobón a las 14:00 para absorber cualquier retención a la entrada de Madrid en viernes tarde.</td></tr>
+          <tr><td>🧳 Equipaje Wizz Air</td><td>Comprobar estrictamente que las mochilas cumplan 40×30×20 cm para evitar penalizaciones.</td></tr>
+          <tr><td>🏨 Check-in Tardío</td><td>El alojamiento ya conoce la llegada a las 02:30 am. Disponer del contacto de Elena a mano.</td></tr>
+          <tr><td>💳 Depósito Easy Rent</td><td>Tener lista la tarjeta física para agilizar el trámite en el mostrador del aeropuerto.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- CURIOSIDADES Y SABÍAS QUE (Sin Numerar) -->
+    <div class="curio">
+      <div class="curio-label">💎 Sabías Que...</div>
+      <p class="curio-t"><strong>Bulgaria es el estado europeo más antiguo con su nombre original:</strong> fundada en el 681 d.C., es la única nación de Europa que mantiene exactamente la misma denominación desde su fundación. Además, su alfabeto cirílico, creado por los santos Cirilo y Metodio en el siglo IX, es hoy el tercer sistema de escritura oficial de la Unión Europea (junto con el latino y el griego).</p>
+    </div>
+
+    <!-- FRASE DEL DÍA (Sin Numerar) -->
+    <div class="frase-box">
+      💬 "¡Hoy empieza oficialmente la aventura: de Badajoz a Sofía, con 6 personas, una furgoneta y toda Bulgaria por delante! 🌊🚐🇧🇬"
+    </div>
+
+    <!-- IMÁGENES / INFOGRAFÍAS RESUMEN AL FINAL (Sin Numerar) -->
+    <div class="sec-center" style="margin-top:2.5rem">🗺️ Resumen gráfico del día!</div>
+    <div class="summary-gallery">
+      <div class="day-card-wrap">
+        <div class="day-card-preview"><img src="Imagen_dia0.jpeg" alt="Resumen Gráfico del Día"></div>
+        <a href="Imagen_dia0.jpeg" download class="btn-download">📥 Descargar Resumen del Día ${d.n}</a>
+      </div>
+    </div>
+  `;
+}
+
+// ─── RENDER DEL DÍA 1 COMPLETO ─────────────────────────────────────────
+function renderDay1(d){
+
+  const sec_linea_html = `
+    <div class="phase-hd">🌙 MADRUGADA (del día anterior): LLEGADA A SOFÍA Y RECOGIDA DE FURGONETA</div>
+    <div class="tl">
+      <div class="ti hl"><div class="ti-time">01:25</div><div class="ti-icon">🛬</div><div class="ti-body"><div class="ti-title">Llegada a Sofía (horario local, UTC+3)</div><div class="ti-desc">Prioridad absoluta: no perder tiempo haciendo turismo. Recoger equipaje y salir de la zona de llegadas.</div></div></div>
+      <div class="ti hl"><div class="ti-time">01:30 - 02:00</div><div class="ti-icon">🚐</div><div class="ti-body"><div class="ti-title">Recogida de furgoneta en Easy Rent Bulgaria (Terminal 1)</div><div class="ti-desc">⚠️ PROTOCOLO OBLIGATORIO. <button class="btn-more" onclick="openModal('modal-protocolo')">Ver Protocolo Fotos/Vídeo →</button></div></div></div>
+      <div class="ti"><div class="ti-time">02:00 - 02:15</div><div class="ti-icon">🅿️</div><div class="ti-body"><div class="ti-title">Dejar la furgoneta en el parking de Sofía</div><div class="ti-desc">Opción Recomendada: ul. Iskar 14.</div></div></div>
+      <div class="ti"><div class="ti-time">02:15 - 02:30</div><div class="ti-icon">🚶</div><div class="ti-body"><div class="ti-title">Traslado al alojamiento</div><div class="ti-desc">5-7 min andando desde el parking.</div></div></div>
+      <div class="ti"><div class="ti-time">02:30 - 10:00</div><div class="ti-icon">💤</div><div class="ti-body"><div class="ti-title">Check-in y dormir</div><div class="ti-desc">Descansar sin prisa.</div></div></div>
+    </div>
+
+    <div class="phase-hd">☀️ MAÑANA: Desayuno y Free Tour</div>
+    <div class="tl">
+      <div class="ti"><div class="ti-time">10:00</div><div class="ti-icon">🛏️</div><div class="ti-body"><div class="ti-title">Despertar y Salida</div><div class="ti-desc">Nos levantamos tranquilamente. Aseo, vestirse y preparar la mochila del día (Móvil, power bank, agua, protector solar, gafas, chaqueta fina, tarjeta, efectivo).</div></div></div>
+      <div class="ti"><div class="ti-time">10:00 - 10:45</div><div class="ti-icon">🥐</div><div class="ti-body"><div class="ti-title">Desayuno en Mekitsa & Coffee (🥇 RECOMENDADO)</div><div class="ti-desc"><button class="btn-more" onclick="openModal('modal-mekitsa')">Ver detalles y alternativas →</button></div></div></div>
+      <div class="ti"><div class="ti-time">10:45 - 10:55</div><div class="ti-icon">🚶</div><div class="ti-body"><div class="ti-title">Paseo al Palacio de Justicia</div><div class="ti-desc">Desde Mekitsa & Coffee hasta el punto de encuentro del Free Tour (~15 min a pie).</div></div></div>
+      <div class="ti hl"><div class="ti-time">11:00 - 13:00</div><div class="ti-icon">🏛️</div><div class="ti-body"><div class="ti-title">FREE SOFIA TOUR – ESPAÑOL</div><div class="ti-desc">Organizado por la Asociación 365. Gratuito (propina voluntaria 5-10€/p). Llegar 10 min antes frente a los leones del Palacio de Justicia. 🔥 Importante: No visitéis Alexander Nevsky antes del tour. Dejad que el guía os lleve.</div></div></div>
+    </div>
+
+    <div class="phase-hd">🌤️ TARDE: Ancient Serdika, Comida y Monumentos</div>
+    <div class="tl">
+      <div class="ti"><div class="ti-time">13:00 - 13:30</div><div class="ti-icon">🏛️</div><div class="ti-body"><div class="ti-title">Ancient Serdika + Largo (🟡 Opcional)</div><div class="ti-desc"><button class="btn-more" onclick="openModal('modal-serdika')">Ver detalles →</button></div></div></div>
+      <div class="ti"><div class="ti-time">13:30 - 14:00</div><div class="ti-icon">⛪</div><div class="ti-body"><div class="ti-title">Iglesia de Santa Sofía</div><div class="ti-desc"><button class="btn-more" onclick="openModal('modal-santaso')">Ver detalles →</button></div></div></div>
+      <div class="ti hl"><div class="ti-time">14:00 - 15:30</div><div class="ti-icon">🍽️</div><div class="ti-body"><div class="ti-title">Comida en Izbata Tavern (tradicional búlgara)</div><div class="ti-desc"><button class="btn-more" onclick="openModal('modal-izbata')">Ver detalles y alternativas →</button></div></div></div>
+      <div class="ti hl"><div class="ti-time">15:30 - 16:45</div><div class="ti-icon">⛪</div><div class="ti-body"><div class="ti-title">Catedral Aleksandar Nevski + Iglesia Rusa</div><div class="ti-desc"><button class="btn-more" onclick="openModal('modal-iglesias')">Ver detalles →</button></div></div></div>
+      <div class="ti"><div class="ti-time">16:45 - 17:00</div><div class="ti-icon">🥃</div><div class="ti-body"><div class="ti-title">Cambio de Guardia (Opcional)</div><div class="ti-desc">Palacio Presidencial (calle Lege). Cada hora en punto. Si no coincide, es prescindible.</div></div></div>
+      <div class="ti hl"><div class="ti-time">17:00 - 17:30</div><div class="ti-icon">🍦</div><div class="ti-body"><div class="ti-title">Savi Gelato (🔴 IMPRESCINDIBLE Y RECOMENDADO)</div><div class="ti-desc"><button class="btn-more" onclick="openModal('modal-savi')">Ver detalles →</button></div></div></div>
+      <div class="ti"><div class="ti-time">17:30 - 19:00</div><div class="ti-icon">🌳</div><div class="ti-body"><div class="ti-title">Teatro Nacional + City Garden + Vitosha</div><div class="ti-desc"><button class="btn-more" onclick="openModal('modal-paseo')">Ver detalles →</button></div></div></div>
+    </div>
+
+    <div class="phase-hd">🌙 NOCHE: Cerveza, Raketa y Ambiente Local</div>
+    <div class="tl">
+      <div class="ti"><div class="ti-time">19:00 - 20:30</div><div class="ti-icon">🍺</div><div class="ti-body"><div class="ti-title">Cerveza en HIGH FIVE Taproom (craft beer)</div><div class="ti-desc"><button class="btn-more" onclick="openModal('modal-cerveza')">Ver detalles y alternativas →</button></div></div></div>
+      <div class="ti"><div class="ti-time">20:30 - 21:45</div><div class="ti-icon">🍽️</div><div class="ti-body"><div class="ti-title">Cena / picoteo ligero (opcional)</div><div class="ti-desc">No haría una segunda cena de restaurante caro. Después de la comida principal: cerveza, algo para compartir, queso, alguna especialidad búlgara (≈ 8-12 €/persona).</div></div></div>
+      <div class="ti hl"><div class="ti-time">21:45 - 23:00</div><div class="ti-icon">🥃</div><div class="ti-body"><div class="ti-title">Raketa Rakia Bar (🔴 IMPRESCINDIBLE)</div><div class="ti-desc"><button class="btn-more" onclick="openModal('modal-raketa')">Ver detalles e indicaciones →</button></div></div></div>
+      <div class="ti"><div class="ti-time">23:00 - 00:00</div><div class="ti-icon">🚶</div><div class="ti-body"><div class="ti-title">Última cerveza / paseo</div><div class="ti-desc">Si el grupo tiene ganas: volver hacia Hristo Belchev / Shishman, última cerveza, paseo por el centro.</div></div></div>
+      <div class="ti"><div class="ti-time">00:00</div><div class="ti-icon">💤</div><div class="ti-body"><div class="ti-title">Alojamiento</div><div class="ti-desc">A descansar.</div></div></div>
+    </div>
+  `;
+
+  const sec_aloj_html = `
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <thead><tr><th>Concepto</th><th>Detalle / Dirección</th><th>Precios / Estado</th><th>Google Maps</th></tr></thead>
+        <tbody>
+          <tr><td>🏠 Alojamiento Sofía</td><td>3BR amazing ap next to Opera H. (Elena) | ul. "Georgi S. Rakovski" 84</td><td>379,20 € (Pagado)</td><td><a href="https://maps.google.com/?q=ul.+Georgi+S.+Rakovski+84,+Sofia" target="_blank" rel="noopener" class="btn-link">Ver en Maps</a></td></tr>
+          <tr><td>🅿️ Parking Sofía (Opción 1 Rec.)</td><td>Платен паркинг 24/7 | ul. "Iskar" 14</td><td>~15 €/día (24h)</td><td><a href="https://maps.google.com/?q=ul.+Iskar+14,+1000+Sofia+Bulgaria" target="_blank" rel="noopener" class="btn-link">Ver en Maps</a></td></tr>
+          <tr><td>🅿️ Parking Sofía (Opción 2 Alt.)</td><td>Денонощен паркинг 24/7 | ul. "11-ti avgust" 20</td><td>~15 €/día (24h)</td><td><a href="https://maps.google.com/?q=11-ti+avgust+20,+Sofia+Bulgaria" target="_blank" rel="noopener" class="btn-link">Ver en Maps</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  const sec_despl_html = `
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <thead><tr><th>Tramo</th><th>Distancia</th><th>Tiempo Estimado</th><th>Transporte</th></tr></thead>
+        <tbody>
+          <tr><td>✈️ Aeropuerto SOF → Alojamiento</td><td>~10 km</td><td>20-30 min</td><td>🚐 Furgoneta</td></tr>
+          <tr><td>🏠 Alojamiento → Mekitsa & Coffee</td><td>~0.8 km</td><td>10 min</td><td>🚶 A pie</td></tr>
+          <tr><td>Mekitsa → Palacio de Justicia</td><td>~1 km</td><td>15 min</td><td>🚶 A pie</td></tr>
+          <tr><td>Palacio de Justicia → Izbata Tavern</td><td>~0.5 km</td><td>5-10 min</td><td>🚶 A pie</td></tr>
+          <tr><td>Recorrido turístico a pie (acumulado)</td><td>~3-4 km</td><td>~2.5-3 h</td><td>🚶 A pie</td></tr>
+          <tr><td>Centro → Savi Gelato</td><td>~1 km</td><td>10-15 min</td><td>🚶 A pie</td></tr>
+          <tr><td>Savi → Teatro Nacional</td><td>~0.5 km</td><td>5-10 min</td><td>🚶 A pie</td></tr>
+          <tr><td>Teatro → HIGH FIVE</td><td>~1 km</td><td>10-15 min</td><td>🚶 A pie</td></tr>
+          <tr><td>HIGH FIVE → Raketa Bar</td><td>~1.5 km</td><td>20 min</td><td>🚶 A pie</td></tr>
+          <tr><td>Raketa → Alojamiento</td><td>~1 km</td><td>10-15 min</td><td>🚶 A pie</td></tr>
+          <tr class="total-row"><td>TOTAL ANDANDO</td><td>~8-10 km</td><td>—</td><td>🚶 A pie</td></tr>
+        </tbody>
+      </table>
+      <div style="padding:1rem;background:rgba(90,172,232,.1);font-size:.85rem;color:var(--t1);border-top:1px solid var(--card-b)">
+        ⚠️ <strong>Nota:</strong> La furgoneta NO se utiliza durante el Día 1 (excepto para el traslado nocturno inicial). Permanece aparcada.
+      </div>
+    </div>
+  `;
+
+  const sec_lugares_html = `
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <thead><tr><th>Lugar</th><th>Nivel / Tiempo</th><th>Notas</th><th>Valoraciones / Insta</th><th>Fotos / Maps</th></tr></thead>
+        <tbody>
+          <tr><td>🏛️ Ancient Serdika</td><td>🟡 Opcional (30-45 min)</td><td>Ruinas romanas en el centro. Largo gratis.</td><td><span class="val-badge">⭐⭐⭐⭐📸</span></td><td><a href="https://maps.google.com/?q=Ancient+Serdica+Archaeological+Complex" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>🇧🇬 Free Tour Sofía</td><td>🔴 Imprescindible (2 h)</td><td>11:00, español. Frente a leones Palacio de Justicia.</td><td><span class="val-badge">⭐⭐⭐⭐📸</span></td><td><a href="https://maps.google.com/?q=Palace+of+Justice+Sofia" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>⛪ Catedral Aleksandar Nevski</td><td>🔴 Imprescindible (45-60 min)</td><td>Cierra a las 19:00. Imprescindible foto.</td><td><span class="val-badge">⭐⭐⭐⭐⭐📸</span></td><td><a href="https://maps.google.com/?q=Alexander+Nevsky+Cathedral+Sofia" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>⛪ Iglesia Rusa</td><td>🟢 Importante (15-20 min)</td><td>Muy fotogénica, arquitectura destacada.</td><td><span class="val-badge">⭐⭐⭐⭐⭐📸</span></td><td><a href="https://maps.google.com/?q=Russian+Church+Sofia" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>🎭 Teatro Ivan Vazov</td><td>🟢 Importante (20 min)</td><td>Edificio emblemático de la ciudad en City Garden.</td><td><span class="val-badge">⭐⭐⭐⭐⭐📸</span></td><td><a href="https://maps.google.com/?q=Ivan+Vazov+National+Theatre+Sofia" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>🚶 Vitosha Boulevard</td><td>🟢 Importante (30-45 min)</td><td>Calle peatonal principal de Sofía.</td><td><span class="val-badge">⭐⭐⭐⭐📸</span></td><td><a href="https://maps.google.com/?q=Vitosha+Boulevard+Sofia" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>🥃 Raketa Rakia Bar</td><td>🔴 Imprescindible (45-60 min)</td><td>Más de 40 tipos de rakia.</td><td><span class="val-badge">⭐⭐⭐⭐⭐📸</span></td><td><a href="https://maps.google.com/?q=Raketa+Rakia+Bar+Sofia" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="phase-hd" style="margin-top:1.5rem">🗺️ Rutas Totales del Día en Google Maps</div>
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <tbody>
+          <tr>
+            <td style="width:40px;text-align:center;font-size:1.2rem">🚶</td>
+            <td><strong>Ruta a pie completa:</strong> Alojamiento → Mekitsa → Palacio Justicia → Serdika → Izbata → Nevski → Savi Gelato → HIGH FIVE → Raketa Rakia Bar</td>
+            <td style="width:120px;text-align:center"><a href="https://www.google.com/maps/dir/ul.+Georgi+S.+Rakovski+84,+Sofia/Mekitsa+and+Coffee+Sofia/Palace+of+Justice+Sofia/Ancient+Serdica+Archaeological+Complex/Izbata+Tavern+Sofia/Alexander+Nevsky+Cathedral+Sofia/Savi+Gelato+Sofia/High+Five+Taproom+Sofia/Raketa+Rakia+Bar+Sofia" target="_blank" rel="noopener" class="btn-link">Ver ruta</a></td>
+          </tr>
+          <tr>
+            <td style="width:40px;text-align:center;font-size:1.2rem">🚐</td>
+            <td><strong>Ruta en vehículo:</strong> <em>La furgoneta descansa todo el día en el Parking (ul. Iskar 14).</em></td>
+            <td style="width:120px;text-align:center"><span class="val-badge">No aplica</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  const sec_comer_html = `
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <thead><tr><th>Comida</th><th>Opción / Nombre</th><th>Tipo</th><th>Precio Est.</th><th>Ubicación</th><th>Plato Estrella / Nota</th><th>Valoraciones</th><th>Fotos / Maps</th></tr></thead>
+        <tbody>
+          <tr><td>Desayuno</td><td>🥇 Mekitsa & Coffee</td><td>Mekitsa tradicional</td><td>3-6 €/p</td><td>Graf Ignatiev 28</td><td>Mekitsa con queso (🔴 Imprescindible)</td><td><span class="val-badge">⭐ 4.4 (Google)</span></td><td><a href="https://maps.google.com/?q=Mekitsa+and+Coffee+Sofia" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>Desayuno</td><td>Otto's Mekitsa</td><td>Mekitsa</td><td>3-6 €/p</td><td>Stefan Stambolov 38</td><td>Alternativa (🟡)</td><td><span class="val-badge">⭐ 4.8 (Google)</span></td><td><a href="https://maps.google.com/?q=Otto's+Mekitsa+Sofia" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>Comida</td><td>🥇 Izbata Tavern</td><td>Cocina búlgara</td><td>15-25 €/p</td><td>Slavyanska 18</td><td>Platos tradicionales (🟢 Recomendada)</td><td><span class="val-badge">⭐ 4.4 (Google)</span></td><td><a href="https://maps.google.com/?q=Izbata+Tavern+Sofia" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>Comida</td><td>Hadjidraganov's Cellars</td><td>Cocina búlgara</td><td>15-35 €/p</td><td>Hristo Belchev 18</td><td>Cordero asado (🟢 Muy buena)</td><td><span class="val-badge">⭐ 4.5 (Google)</span></td><td><a href="https://maps.google.com/?q=Hadjidraganov's+Cellars+Sofia" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>Cerveza</td><td>🥇 HIGH FIVE Taproom</td><td>Craft beer</td><td>5-10 €/p</td><td>Hristo Belchev 29b</td><td>Cervezas artesanales (🟢 Recomendada)</td><td><span class="val-badge">⭐ 4.9 (Google)</span></td><td><a href="https://maps.google.com/?q=High+Five+Taproom+Sofia" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>Cerveza</td><td>Crafter Bar</td><td>Craft beer</td><td>5-15 €/p</td><td>Hristo Belchev 6</td><td>Cerveza local (🟢 Buena)</td><td><span class="val-badge">⭐ 4.6 (Google)</span></td><td><a href="https://maps.google.com/?q=Crafter+Bar+Sofia" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>Copas</td><td>🥇 Raketa Rakia Bar</td><td>Rakia/bar</td><td>5-10 €/p</td><td>Yanko Sakuzov 17</td><td>Degustación Rakia (🔴 Imprescindible)</td><td><span class="val-badge">⭐ 4.5 (Google)</span></td><td><a href="https://maps.google.com/?q=Raketa+Rakia+Bar+Sofia" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>Postre</td><td>🥇 Savi Gelato</td><td>Heladería</td><td>3-5 €/p</td><td>San Stefano 9</td><td>Gelato artesanal (🔴 Imprescindible y Recomendado)</td><td><span class="val-badge">⭐ 3.8 (TripAdv)</span></td><td><a href="https://maps.google.com/?q=Savi+Gelato+Sofia" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  const sec_act_html = `
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <thead><tr><th>Actividad / Servicio</th><th>Estado</th><th>Prioridad</th><th>Precio Total</th><th>Valoraciones / Insta</th><th>Notas</th><th>Maps</th></tr></thead>
+        <tbody>
+          <tr><td>🇧🇬 Free Tour Sofía</td><td>⏳ Pendiente</td><td>🔴 Imprescindible</td><td>Propina 5-10€</td><td><span class="val-badge">⭐⭐⭐⭐📸</span></td><td>11:00, español. Llegar 10 min antes al Palacio de Justicia.</td><td><a href="https://maps.google.com/?q=Palace+of+Justice+Sofia" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>🏛️ Ancient Serdika</td><td>⏳ Pendiente</td><td>🟡 Opcional</td><td>0-3 €</td><td><span class="val-badge">⭐⭐⭐⭐📸</span></td><td>Gratis exterior. Interior 6 BGN.</td><td><a href="https://maps.google.com/?q=Ancient+Serdica+Archaeological+Complex" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>⛪ Alexander Nevsky</td><td>⏳ Pendiente</td><td>🔴 Imprescindible</td><td>Gratis</td><td><span class="val-badge">⭐⭐⭐⭐⭐📸</span></td><td>07:00-19:00. Cripta: 10:00-17:30.</td><td><a href="https://maps.google.com/?q=Alexander+Nevsky+Cathedral+Sofia" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>⛪ Iglesia Rusa</td><td>⏳ Pendiente</td><td>🟢 Importante</td><td>Gratis</td><td><span class="val-badge">⭐⭐⭐⭐⭐📸</span></td><td>Muy fotogénica.</td><td><a href="https://maps.google.com/?q=Russian+Church+Sofia" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>🥃 Cambio de Guardia</td><td>⏳ Pendiente</td><td>🟡 Opcional</td><td>Gratis</td><td><span class="val-badge">⭐⭐⭐⭐📸</span></td><td>Cada hora en punto. Palacio Presidencial.</td><td>—</td></tr>
+          <tr><td>🍦 Savi Gelato</td><td>⏳ Pendiente</td><td>🔴 Imprescindible</td><td>3-5 €</td><td><span class="val-badge">⭐⭐⭐⭐📸</span></td><td>Helado recomendado orgánico.</td><td><a href="https://maps.google.com/?q=Savi+Gelato+Sofia" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>🎭 Teatro Ivan Vazov</td><td>⏳ Pendiente</td><td>🟢 Importante</td><td>Gratis</td><td><span class="val-badge">⭐⭐⭐⭐⭐📸</span></td><td>Exterior. City Garden.</td><td><a href="https://maps.google.com/?q=Ivan+Vazov+National+Theatre+Sofia" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>🚶 Vitosha Boulevard</td><td>⏳ Pendiente</td><td>🟢 Importante</td><td>Gratis</td><td><span class="val-badge">⭐⭐⭐⭐📸</span></td><td>Paseo por principal calle peatonal.</td><td><a href="https://maps.google.com/?q=Vitosha+Boulevard+Sofia" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>🍺 HIGH FIVE Taproom</td><td>⏳ Pendiente</td><td>🟢 Bueno</td><td>5-10 €</td><td><span class="val-badge">⭐⭐⭐📸</span></td><td>Cerveza local.</td><td><a href="https://maps.google.com/?q=High+Five+Taproom+Sofia" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>🥃 Raketa Rakia Bar</td><td>⏳ Pendiente</td><td>🔴 Imprescindible</td><td>5-10 €</td><td><span class="val-badge">⭐⭐⭐⭐⭐📸</span></td><td>Cierra a las 23:00. Ir temprano.</td><td><a href="https://maps.google.com/?q=Raketa+Rakia+Bar+Sofia" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+        </tbody>
+      </table>
+      <div style="padding:1rem;background:rgba(90,172,232,.1);font-size:.85rem;color:var(--t1);border-top:1px solid var(--card-b)">
+        📌 <strong>RESERVAS / CONFIRMACIONES:</strong><br>
+        ☐ Free Tour Sofía: No requiere reserva. Llegar a las 10:50 al Palacio de Justicia.<br>
+        ☐ Izbata Tavern: Reservar mesa para 6 (recomendable). Web oficial: izbatatavern.com<br>
+        ☐ Raketa Rakia Bar: No requiere reserva, pero ir temprano (21:45) para evitar colas.
+      </div>
+    </div>
+  `;
+
+  const sec_pres_html = `
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <thead><tr><th>Concepto</th><th>Estado</th><th>Estimación por Persona</th></tr></thead>
+        <tbody>
+          <tr style="background:rgba(36,62,99,.8);color:#fff"><td colspan="3"><strong>💳 GASTOS PREVIOS / PAGADOS</strong></td></tr>
+          <tr><td>✈️ Vuelo Madrid → Sofía</td><td>💳 Pagado</td><td>—</td></tr>
+          <tr><td>🏠 Alojamiento Sofía (3 noches)</td><td>💳 Pagado</td><td>—</td></tr>
+          <tr><td>🚐 Furgoneta (parcial)</td><td>💳 Pagado</td><td>—</td></tr>
+          <tr><td>🛡️ Seguro AXA</td><td>💳 Pagado</td><td>—</td></tr>
+          <tr style="background:rgba(36,62,99,.8);color:#fff"><td colspan="3"><strong>💳 GASTOS ESTIMADOS DEL DÍA</strong></td></tr>
+          <tr><td>🥐 Desayuno (Mekitsa & Coffee)</td><td>🟡 Estimado</td><td>3 - 6 €</td></tr>
+          <tr><td>🎟️ Propina Free Tour</td><td>🟡 Estimado</td><td>5 - 10 €</td></tr>
+          <tr><td>🏛️ Ancient Serdika (opcional)</td><td>🟡 Estimado</td><td>0 - 3 €</td></tr>
+          <tr><td>🍽️ Comida Izbata</td><td>🟡 Estimado</td><td>15 - 20 €</td></tr>
+          <tr><td>🍦 Savi Gelato (opcional)</td><td>🟡 Estimado</td><td>3 - 5 €</td></tr>
+          <tr><td>🍺 Cerveza (HIGH FIVE)</td><td>🟡 Estimado</td><td>5 - 10 €</td></tr>
+          <tr><td>🍽️ Cena / picoteo ligero</td><td>🟡 Estimado</td><td>8 - 12 €</td></tr>
+          <tr><td>🥃 Raketa Rakia Bar</td><td>🟡 Estimado</td><td>5 - 10 €</td></tr>
+          <tr><td>🅿️ Parking Sofía (prorrateo)</td><td>🟡 Estimado</td><td>2,50 €</td></tr>
+          <tr><td>🚐 Furgoneta (prorrateo diario)</td><td>🟡 Estimado</td><td>8,80 €</td></tr>
+          <tr><td>🛡️ Seguro (prorrateo diario)</td><td>🟡 Estimado</td><td>1,71 €</td></tr>
+          <tr class="total-row"><td>💰 TOTAL DÍA</td><td>Estimado</td><td>~ 45 - 70 €</td></tr>
+        </tbody>
+      </table>
+      <div style="padding:1rem;background:rgba(90,172,232,.1);font-size:.85rem;color:var(--t1);border-top:1px solid var(--card-b)">
+        🎯 <strong>Objetivo realista:</strong> ≈ 45-55 €/persona (sin contar gastos ya pagados).
+      </div>
+    </div>
+  `;
+
+  const sec_chk_html = `
+    <div class="checklist">
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">DNI/Pasaporte</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Móvil cargado</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Power bank</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Tarjeta física Revolut</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Algo de efectivo / BGN</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Botella de agua</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Zapatillas cómodas</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Sudadera/chaqueta fina</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Gafas de sol</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Protector solar</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Mochila pequeña</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">No olvidar que Bulgaria tiene +1 h respecto a España</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">No gastar de más en Vitosha</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Raketa Rakia Bar: visita prevista (21:45, cierra a 23:00)</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Savi Gelato: visita imprescindible y recomendada</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Dejar preparada la mochila para Rila al acostarse</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Preparar ropa/calzado para el Día 2</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Reservar Izbata Tavern para 6 personas</span></div>
+    </div>
+  `;
+
+  const sec_prep_html = `
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <thead><tr><th>Aspecto</th><th>Recomendación</th></tr></thead>
+        <tbody>
+          <tr><td>👟 Calzado</td><td>Calzado cómodo para Rila. Si incluimos Stob Earth Pyramids, calzado con buena suela.</td></tr>
+          <tr><td>🧥 Ropa</td><td>Sudadera/chaqueta fina para Rila.</td></tr>
+          <tr><td>🥤 Agua</td><td>Botella de agua reutilizable.</td></tr>
+          <tr><td>🕶️ Protección</td><td>Gafas de sol y protector solar.</td></tr>
+          <tr><td>🎒 Mochila</td><td>Mochila pequeña para la excursión.</td></tr>
+          <tr><td>🔋 Electrónica</td><td>Power bank. Móvil/cámara cargados.</td></tr>
+          <tr><td>🚐 Furgoneta</td><td>Tener localizada la documentación de la furgoneta. Comprobar dónde repostaremos antes de salir.</td></tr>
+          <tr><td>🥐 Desayuno</td><td>No desayunar demasiado tarde ni demasiado fuerte el Día 2: queremos salir con margen hacia Rila.</td></tr>
+          <tr><td>🧳 Equipaje</td><td>Dejar preparada la mochila de excursión antes de acostarse.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  const accSections = `
+    <div class="acc-wrap">
+      ${acc('1', '📖', 'El Día al Completo · Línea de Tiempo Extensa', sec_linea_html, '#5aace8')}
+      ${acc('2', '🏠', 'Alojamiento y Parkings', sec_aloj_html, '#60a5fa')}
+      ${acc('3', '🚗', 'Desplazamientos del Día', sec_despl_html, '#fbbf24')}
+      ${acc('4', '📍', 'Lugares de Interés & Google Maps', sec_lugares_html, '#38bdf8')}
+      ${acc('5', '🍽️', 'Opciones para Comer', sec_comer_html, '#fb923c')}
+      ${acc('6', '🎟️', 'Actividades y Reservas', sec_act_html, '#c084fc')}
+      ${acc('7', '💰', 'Presupuesto del Día', sec_pres_html, '#34d399')}
+      ${acc('8', '✅', 'Checklist del Día', sec_chk_html, '#2dd4bf')}
+      ${acc('9', '💡', 'Consejos para el día siguiente / preparativos', sec_prep_html, '#4ade80')}
+    </div>
+  `;
+
+  return `
+    <div class="hero">
+      <img src="${d.img}" alt="Sofia Centro Histórico">
+      <div class="hero-c">
+        <div class="hero-badge bulgaria">🇧🇬 Bulgaria</div>
+        <div class="hero-dn">Día 1 &middot; ${d.dn}</div>
+        <div class="hero-title">🇧🇬🏛️ ${d.title}</div>
+        <div class="hero-sub">${d.sub}</div>
+      </div>
+    </div>
+
+    <!-- 🎯 OBJETIVO DEL DÍA -->
+    <div class="sec-center">🎯 Objetivo del Día</div>
+    <div class="obj-box">
+      <p class="obj-t">Primer contacto con Sofía, pero sin convertirlo en una maratón después de llegar de madrugada. La idea es combinar: dormir y recuperarnos del vuelo (llegada a las 01:25 del sábado 5), desayuno búlgaro auténtico (Mekitsa & Coffee), Free Tour por el centro histórico, Catedral Aleksandar Nevski, comida búlgara tradicional en Izbata Tavern, Savi Gelato, tarde tranquila, y noche de cerveza local y rakia en Raketa Rakia Bar. Acostarnos a una hora razonable porque el Día 2 será Sofía → Rila.</p>
+    </div>
+
+    <!-- 🌅 DATOS DEL DÍA, CLIMA Y HORA -->
+    <div class="sec-center">🌅 Datos del Día & Clima</div>
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <thead>
+          <tr><th>Concepto</th><th>Detalle / Previsión</th><th>Enlace</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>🌅 Amanecer (Sofía, UTC+3)</td><td>06:55 (hora local)</td><td>—</td></tr>
+          <tr><td>🌇 Anochecer (Sofía, UTC+3)</td><td>19:54 (hora local)</td><td>—</td></tr>
+          <tr><td>☀️ Horas de luz</td><td>~13 h</td><td>—</td></tr>
+          <tr><td>🌡️ Temperaturas previstas</td><td>Máxima: 27 °C / Mínima: 16 °C</td><td><a href="https://www.accuweather.com/es/bg/sofia/51097/weather-forecast/51097" target="_blank" rel="noopener" class="btn-link">AccuWeather Sofía</a></td></tr>
+          <tr><td>Previsión de ropa</td><td>Camiseta durante el día + chaqueta fina/sudadera para la noche</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sec-center">🕐 Zona Horaria</div>
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <thead><tr><th>Zona</th><th>UTC</th><th>Diferencia con España</th></tr></thead>
+        <tbody>
+          <tr><td>🇪🇸 España peninsular</td><td>UTC+2</td><td>—</td></tr>
+          <tr><td>🇧🇬 Bulgaria (Sofía)</td><td>UTC+3</td><td>+1 hora</td></tr>
+        </tbody>
+      </table>
+      <div style="padding:1rem;background:rgba(90,172,232,.1);font-size:.85rem;color:var(--t1);border-top:1px solid var(--card-b)">➡️ Bulgaria tiene 1 hora más que España. El vuelo llega a las 01:25 hora local búlgara (00:25 hora española). Debemos funcionar desde el aterrizaje con hora búlgara.</div>
+    </div>
+
+    <!-- 1. ⏰ LÍNEA DE TIEMPO RESUMIDA -->
+    <div class="sec-center">1. ⏰ Línea de Tiempo Resumida</div>
+    <div class="tl-summary">
+      <div class="tl-sum-item">
+        <span class="tl-sum-time">☀️ MAÑANA (10:00-13:00)</span>
+        <span class="tl-sum-txt">
+          🛏️ 10:00 — Despertar<br>
+          🥐 10:00-10:45 — Desayuno en Mekitsa & Coffee (Graf Ignatiev 28)<br>
+          🚶 10:45-10:55 — Paseo al Palacio de Justicia<br>
+          🏛️ 11:00-13:00 — FREE SOFIA TOUR – ESPAÑOL
+        </span>
+      </div>
+      <div class="tl-sum-item">
+        <span class="tl-sum-time">🌤️ TARDE (13:00-19:00)</span>
+        <span class="tl-sum-txt">
+          🏛️ 13:00-13:30 — Ancient Serdika + Largo (🟡 Opcional)<br>
+          ⛪ 13:30-14:00 — Iglesia de Santa Sofía<br>
+          🍽️ 14:00-15:30 — Comida en Izbata Tavern (tradicional búlgara)<br>
+          ⛪ 15:30-16:45 — Catedral Aleksandar Nevski + Iglesia Rusa<br>
+          🥃 16:45-17:00 — Cambio de Guardia (Opcional)<br>
+          🍦 17:00-17:30 — Savi Gelato (🔴 Imprescindible y recomendado)<br>
+          🌳 17:30-19:00 — Teatro Nacional + City Garden + Vitosha
+        </span>
+      </div>
+      <div class="tl-sum-item">
+        <span class="tl-sum-time">🌙 NOCHE (19:00-00:00)</span>
+        <span class="tl-sum-txt">
+          🍺 19:00-20:30 — Cerveza en HIGH FIVE Taproom (craft beer)<br>
+          🍽️ 20:30-21:45 — Cena/picoteo ligero (opcional)<br>
+          🥃 21:45-23:00 — Raketa Rakia Bar (🔴 IMPRESCINDIBLE)<br>
+          🚶 23:00-00:00 — Última cerveza / paseo<br>
+          💤 00:00 — Alojamiento
+        </span>
+      </div>
+    </div>
+
+    <!-- ACORDEONES DESPLEGABLES (SECCIONES 2 A 10) -->
+    ${accSections}
+
+    <!-- PUNTO CLAVE (Sin Numerar) -->
+    <div class="punto-clave">
+      <div class="pc-label">🔥 Punto Clave del Día</div>
+      <p class="pc-t"><strong>🇧🇬 PRIMERA TOMA DE CONTACTO CON SOFÍA SIN PERDER EL TIEMPO NI EL DINERO:</strong> El objetivo no es verlo absolutamente todo. Es salir del Día 1 pensando: "Ya conocemos Sofía, hemos probado comida búlgara, hemos visto sus monumentos principales y hemos vivido un poco su ambiente local." Y especialmente: no gastar 15-20 € cada vez que queramos tomar una cerveza.</p>
+    </div>
+
+    <!-- CONSEJOS PARA EL GRUPO (Sin Numerar) -->
+    <div class="sec">💡 Consejos para el Grupo</div>
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <thead><tr><th>Punto</th><th>Detalle</th></tr></thead>
+        <tbody>
+          <tr><td>💤 No madrugar</td><td>Llegamos a las 01:25. Dormir hasta las 10:00.</td></tr>
+          <tr><td>🥐 Desayuno</td><td>Mekitsa & Coffee — auténtico, económico y búlgaro. Confirmado abierto.</td></tr>
+          <tr><td>🇪🇸 Free Tour</td><td>11:00 en español — imprescindible para orientarse. Llegar a las 10:50.</td></tr>
+          <tr><td>👟 Mucho paseo</td><td>Calculad unos 8-10 km andando en total.</td></tr>
+          <tr><td>💧 Llevar agua</td><td>No olvides mantenerte hidratado.</td></tr>
+          <tr><td>🍽️ Restaurantes</td><td>Una comida tradicional buena (Izbata Tavern), pero no tres restaurantes caros al día.</td></tr>
+          <tr><td>🍺 Ocio Nocturno</td><td>Para la noche, cervecerías y bares locales (HIGH FIVE y Raketa). No priorizar rooftops caros.</td></tr>
+          <tr><td>🥃 Raketa Rakia Bar</td><td>Es uno de los sitios que queremos experimentar. Cierra a las 23:00, ir temprano (21:45).</td></tr>
+          <tr><td>🍦 Savi Gelato</td><td>Opción recomendada e imprescindible. Helado orgánico de calidad.</td></tr>
+          <tr><td>💳 Tarjeta/Efectivo</td><td>Llevar tarjeta física y algo de efectivo.</td></tr>
+          <tr><td>📸 Fotografías</td><td>Aleksandar Nevski y la Iglesia Rusa son los puntos fotográficos principales.</td></tr>
+          <tr><td>💤 Retirada</td><td>No alargar demasiado la noche: el Día 2 nos vamos a Rila.</td></tr>
+          <tr><td>🎒 Preparativos</td><td>Dejar preparada la mochila de excursión antes de acostarse.</td></tr>
+          <tr><td>🚐 Furgoneta</td><td>La furgoneta no se usa hoy — aparcada en ul. Iskar 14.</td></tr>
+          <tr><td>📌 Reservas</td><td>Reservar Izbata Tavern para 6 personas.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- CURIOSIDADES Y SABÍAS QUE (Sin Numerar) -->
+    <div class="curio">
+      <div class="curio-label">💎 Sabías Que...</div>
+      <p class="curio-t"><strong>Sofía tiene más de 7.000 años de historia</strong> y es una de las ciudades más antiguas de Europa. Bajo sus calles modernas yacen ruinas de la antigua Serdica, capital romana que el Emperador Constantino consideró tan importante que dijo: <em>"Serdica es mi Roma"</em>. Se pueden ver parte de estas ruinas en el metro, integradas en la estación Serdika.<br><br>Además, <strong>Bulgaria tiene la mayor exportación mundial de aceite de rosa damascena</strong>, más del 70% de la producción global. El aceite se extrae en el Valle de las Rosas y es uno de los ingredientes principales de los perfumes de lujo. Un kilo cuesta más que un kilo de oro.</p>
+    </div>
+
+    <!-- FRASE DEL DÍA (Sin Numerar) -->
+    <div class="frase-box">
+      💬 🇧🇬🔥 «Primero conocemos Sofía; mañana nos vamos a las montañas.» 🏔️🚐
+    </div>
+
+    <!-- IMÁGENES / INFOGRAFÍAS RESUMEN AL FINAL (Sin Numerar) -->
+    <div class="sec-center" style="margin-top:2.5rem">🗺️ Resumen gráfico del día!</div>
+    <div class="summary-gallery">
+      <div class="day-card-wrap">
+        <div class="day-card-preview"><img src="RDia1.jpeg" alt="Resumen Gráfico del Día 1"></div>
+        <a href="RDia1.jpeg" download class="btn-download">📥 Descargar Resumen del Día 1</a>
+      </div>
+    </div>
+  `;
+}
+
+// ─── RENDER DEL DÍA 2 COMPLETO ─────────────────────────────────────────
+function renderDay2(d){
+
+  const sec_linea_html = `
+    <div class="phase-hd">🌙 MADRUGADA: Preparación y Salida</div>
+    <div class="tl">
+      <div class="ti"><div class="ti-time">07:00</div><div class="ti-icon">🛏️</div><div class="ti-body"><div class="ti-title">Despertar</div><div class="ti-desc">Toca madrugar para aprovechar el día. El desayuno debe ser rápido pero contundente.</div></div></div>
+      <div class="ti"><div class="ti-time">07:15 - 07:45</div><div class="ti-icon">🥐</div><div class="ti-body"><div class="ti-title">Desayuno rápido</div><div class="ti-desc">Opción recomendada: Mekitsa & Coffee. Es la opción más segura para el domingo.</div></div></div>
+      <div class="ti hl"><div class="ti-time">08:00</div><div class="ti-icon">🚐</div><div class="ti-body"><div class="ti-title">Salida de Sofía</div><div class="ti-desc">Punto de partida: Parking de la calle Iskar 14. Recordatorio: Documentación de la furgoneta y ruta offline en Maps.</div></div></div>
+    </div>
+
+    <div class="phase-hd">☀️ MAÑANA: Monasterio de Rila</div>
+    <div class="tl">
+      <div class="ti"><div class="ti-time">08:00 - 09:30</div><div class="ti-icon">🚐</div><div class="ti-body"><div class="ti-title">Conducción hacia Rila</div><div class="ti-desc">~1h 30min, ~117 km. Salir puntuales para evitar el tráfico de salida de Sofía.</div></div></div>
+      <div class="ti hl"><div class="ti-time">09:30 - 12:30</div><div class="ti-icon">⛪</div><div class="ti-body"><div class="ti-title">Monasterio de Rila (🔴 IMPRESCINDIBLE)</div><div class="ti-desc">Visita de 3h. <button class="btn-more" onclick="openModal('modal-rila')">Ver detalles de la visita →</button></div></div></div>
+    </div>
+
+    <div class="phase-hd">🌤️ TARDE: Comida, Paseo, Kotvata y Géiser</div>
+    <div class="tl">
+      <div class="ti"><div class="ti-time">12:30 - 13:50</div><div class="ti-icon">🚐</div><div class="ti-body"><div class="ti-title">Traslado a Sapareva Banya</div><div class="ti-desc">~1h 20min, ~80 km. Tramos de montaña, conducir con precaución.</div></div></div>
+      <div class="ti hl"><div class="ti-time">13:50 - 15:30</div><div class="ti-icon">🍽️</div><div class="ti-body"><div class="ti-title">Comida en Sapareva Banya</div><div class="ti-desc">Comer con calma antes de entrar a Kotvata. <button class="btn-more" onclick="openModal('modal-sapareva-comida')">Ver restaurantes →</button></div></div></div>
+      <div class="ti"><div class="ti-time">15:30 - 16:45</div><div class="ti-icon">☕</div><div class="ti-body"><div class="ti-title">Paseo / descanso en Sapareva Banya</div><div class="ti-desc">Tiempo libre sin prisas por el centro o prepararse para las termas.</div></div></div>
+      <div class="ti hl"><div class="ti-time">17:00 - 18:30</div><div class="ti-icon">♨️</div><div class="ti-body"><div class="ti-title">Aqua Club Kotvata (🔴 IMPRESCINDIBLE)</div><div class="ti-desc">1h 30min en piscinas termales. <button class="btn-more" onclick="openModal('modal-kotvata')">Ver detalles de acceso →</button></div></div></div>
+      <div class="ti"><div class="ti-time">18:30 - 19:00</div><div class="ti-icon">💦</div><div class="ti-body"><div class="ti-title">Géiser de Sapareva Banya</div><div class="ti-desc">Brota a 103 °C en el centro de la localidad. <button class="btn-more" onclick="openModal('modal-geiser')">Ver detalles →</button></div></div></div>
+    </div>
+
+    <div class="phase-hd">🌙 NOCHE: Regreso y Cena en Sofía</div>
+    <div class="tl">
+      <div class="ti"><div class="ti-time">19:00 - 20:30</div><div class="ti-icon">🚐</div><div class="ti-body"><div class="ti-title">Regreso a Sofía</div><div class="ti-desc">~1h 30min, ~80 km. Conducción tranquila de vuelta.</div></div></div>
+      <div class="ti"><div class="ti-time">21:00 - 22:30</div><div class="ti-icon">🍽️</div><div class="ti-body"><div class="ti-title">Cena en Sofía</div><div class="ti-desc">Elegir según lo que NO se haya hecho el Día 1. <button class="btn-more" onclick="openModal('modal-cena-sofia-d2')">Ver opciones →</button></div></div></div>
+      <div class="ti"><div class="ti-time">23:00</div><div class="ti-icon">💤</div><div class="ti-body"><div class="ti-title">Alojamiento</div><div class="ti-desc">A descansar.</div></div></div>
+    </div>
+  `;
+
+  const sec_aloj_html = `
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <thead><tr><th>Concepto</th><th>Detalle / Dirección</th><th>Precios / Estado</th><th>Google Maps</th></tr></thead>
+        <tbody>
+          <tr><td>🏠 Alojamiento Sofía</td><td>3BR amazing ap next to Opera H. (Elena) | ul. "Georgi S. Rakovski" 84</td><td>379,20 € (Pagado)</td><td><a href="https://maps.google.com/?q=ul.+Georgi+S.+Rakovski+84,+Sofia" target="_blank" rel="noopener" class="btn-link">Ver en Maps</a></td></tr>
+          <tr><td>🅿️ Parking Sofía (Opción 1 Rec.)</td><td>Платен паркинг 24/7 | ul. "Iskar" 14</td><td>~15 €/día (24h)</td><td><a href="https://maps.google.com/?q=ul.+Iskar+14,+1000+Sofia+Bulgaria" target="_blank" rel="noopener" class="btn-link">Ver en Maps</a></td></tr>
+          <tr><td>🅿️ Parking Sofía (Opción 2 Alt.)</td><td>Денонощен паркинг 24/7 | ul. "11-ti avgust" 20</td><td>~15 €/día (24h)</td><td><a href="https://maps.google.com/?q=11-ti+avgust+20,+Sofia+Bulgaria" target="_blank" rel="noopener" class="btn-link">Ver en Maps</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  const sec_despl_html = `
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <thead><tr><th>Tramo</th><th>Distancia</th><th>Tiempo Estimado</th><th>Transporte</th></tr></thead>
+        <tbody>
+          <tr><td>Sofía → Monasterio de Rila</td><td>~117 km</td><td>~1h 30min</td><td>🚐 Furgoneta</td></tr>
+          <tr><td>Rila → Sapareva Banya</td><td>~80 km</td><td>~1h 20min</td><td>🚐 Furgoneta</td></tr>
+          <tr><td>Sapareva Banya → Sofía</td><td>~80 km</td><td>~1h 30min</td><td>🚐 Furgoneta</td></tr>
+          <tr class="total-row"><td>TOTAL</td><td>~277 km</td><td>~4h 20min</td><td>🚐 Furgoneta</td></tr>
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  const sec_lugares_html = `
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <thead><tr><th>Lugar</th><th>Nivel / Tiempo</th><th>Notas</th><th>Valoraciones / Insta</th><th>Fotos / Maps</th></tr></thead>
+        <tbody>
+          <tr><td>⛪ Monasterio de Rila</td><td>🔴 Imprescindible (3h)</td><td>UNESCO. Recinto gratis, museo entrada independiente. Código vestimenta.</td><td><span class="val-badge">⭐⭐⭐⭐⭐📸</span></td><td><a href="https://maps.google.com/?q=Rila+Monastery,+Bulgaria" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>♨️ Aqua Club Kotvata</td><td>🔴 Imprescindible (1h 30min)</td><td>Piscinas termales. 15 €/p (domingo tarde). Llevar bañador y toalla.</td><td><span class="val-badge">⭐⭐⭐⭐📸</span></td><td><a href="https://maps.google.com/?q=Aqua+Club+Kotvata,+Sapareva+Banya" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>💦 Géiser Sapareva Banya</td><td>🟢 Importante (20-30 min)</td><td>Gratis. El más caliente de Europa continental (103 °C).</td><td><span class="val-badge">⭐⭐⭐⭐📸</span></td><td><a href="https://maps.google.com/?q=Geyser,+Sapareva+Banya" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="phase-hd" style="margin-top:1.5rem">🗺️ Rutas Totales del Día en Google Maps</div>
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <tbody>
+          <tr>
+            <td style="width:40px;text-align:center;font-size:1.2rem">🚐</td>
+            <td><strong>Ruta en furgoneta:</strong> Sofía (Parking) → Monasterio de Rila → Sapareva Banya → Sofía</td>
+            <td style="width:120px;text-align:center"><a href="https://www.google.com/maps/dir/ul.+Iskar+14,+Sofia/Rila+Monastery/Sapareva+Banya/ul.+Iskar+14,+Sofia" target="_blank" rel="noopener" class="btn-link">Ver ruta</a></td>
+          </tr>
+          <tr>
+            <td style="width:40px;text-align:center;font-size:1.2rem">🚶</td>
+            <td><strong>Ruta a pie (Sapareva Banya):</strong> Restaurante → Aqua Club Kotvata → Géiser</td>
+            <td style="width:120px;text-align:center"><a href="https://www.google.com/maps/dir/Golden+Chicken+Sapareva+Banya/Aqua+Club+Kotvata,+Sapareva+Banya/Geyser,+Sapareva+Banya" target="_blank" rel="noopener" class="btn-link">Ver ruta</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  const sec_comer_html = `
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <thead><tr><th>Comida</th><th>Opción / Nombre</th><th>Tipo</th><th>Precio Est.</th><th>Horario Dom.</th><th>Nuestra Valoración</th><th>Valoraciones Google</th><th>Fotos / Maps</th></tr></thead>
+        <tbody>
+          <tr><td>Desayuno</td><td>🥇 Mekitsa & Coffee</td><td>Mekitsa</td><td>3-6 €/p</td><td>09:00-19:00</td><td>🟢 Recomendado</td><td><span class="val-badge">⭐ 4.4</span></td><td><a href="https://maps.google.com/?q=Mekitsa+and+Coffee+Sofia" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>Comida</td><td>🥇 Golden Chicken</td><td>Cocina búlgara</td><td>10-20 €/p</td><td>08:00-23:00</td><td>🟢 Recomendado</td><td><span class="val-badge">⭐ 4.6</span></td><td><a href="https://maps.google.com/?q=Golden+Chicken+Sapareva+Banya" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>Comida</td><td>🥈 Bojemi</td><td>Cocina búlgara</td><td>10-15 €/p</td><td>12:00-00:00</td><td>🟢 Muy buena</td><td><span class="val-badge">⭐ 4.4</span></td><td><a href="https://maps.google.com/?q=Bojemi+Sapareva+Banya" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>Comida</td><td>🥉 Pizza Rado</td><td>Italiana</td><td>10-15 €/p</td><td>11:30-00:00</td><td>🟢 Alternativa</td><td><span class="val-badge">⭐ 4.7</span></td><td><a href="https://maps.google.com/?q=Pizza+Rado+Sapareva+Banya" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>Comida</td><td>Kotvata Restaurant</td><td>Cocina búlgara</td><td>10-15 €/p</td><td>12:00-23:00</td><td>🟡 Opción cómoda</td><td><span class="val-badge">⭐ 4.5</span></td><td><a href="https://maps.google.com/?q=Kotvata+Restaurant+Sapareva+Banya" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  const sec_act_html = `
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <thead><tr><th>Actividad / Servicio</th><th>Estado</th><th>Prioridad</th><th>Precio Total</th><th>Valoraciones / Insta</th><th>Notas</th><th>Maps</th></tr></thead>
+        <tbody>
+          <tr><td>⛪ Monasterio de Rila</td><td>⏳ Sin reserva</td><td>🔴 Imprescindible</td><td>Gratis (museo a parte)</td><td><span class="val-badge">⭐⭐⭐⭐⭐📸</span></td><td>Código de vestimenta (hombros y rodillas).</td><td><a href="https://maps.google.com/?q=Rila+Monastery,+Bulgaria" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>♨️ Aqua Club Kotvata</td><td>⏳ Sin reserva</td><td>🔴 Imprescindible</td><td>~15 €/p (dom tarde)</td><td><span class="val-badge">⭐⭐⭐⭐📸</span></td><td>Llevar bañador, chanclas y toalla.</td><td><a href="https://maps.google.com/?q=Aqua+Club+Kotvata,+Sapareva+Banya" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>💦 Géiser Sapareva Banya</td><td>⏳ Sin reserva</td><td>🟢 Importante</td><td>Gratis</td><td><span class="val-badge">⭐⭐⭐⭐📸</span></td><td>Parada de 20-30 min.</td><td><a href="https://maps.google.com/?q=Geyser,+Sapareva+Banya" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  const sec_pres_html = `
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <thead><tr><th>Concepto</th><th>Estado</th><th>Estimación por Persona</th></tr></thead>
+        <tbody>
+          <tr style="background:rgba(36,62,99,.8);color:#fff"><td colspan="3"><strong>💳 GASTOS PREVIOS / PAGADOS</strong></td></tr>
+          <tr><td>🏠 Alojamiento Sofía (3 noches)</td><td>💳 Pagado</td><td>63,20 €</td></tr>
+          <tr><td>🚐 Furgoneta (prorrateo)</td><td>💳 Pagado</td><td>8,80 €</td></tr>
+          <tr><td>🛡️ Seguro AXA (prorrateo)</td><td>💳 Pagado</td><td>1,71 €</td></tr>
+          <tr style="background:rgba(36,62,99,.8);color:#fff"><td colspan="3"><strong>💳 GASTOS ESTIMADOS DEL DÍA</strong></td></tr>
+          <tr><td>🥐 Desayuno (Mekitsa & Coffee)</td><td>🟡 Estimado</td><td>3 - 6 €</td></tr>
+          <tr><td>⛪ Monasterio Rila (museo opcional)</td><td>🟡 Estimado</td><td>0 - 12 €</td></tr>
+          <tr><td>🍽️ Comida en Sapareva Banya</td><td>🟡 Estimado</td><td>10 - 15 €</td></tr>
+          <tr><td>♨️ Aqua Club Kotvata</td><td>🟡 Estimado</td><td>15 €</td></tr>
+          <tr><td>💦 Géiser</td><td>🟡 Estimado</td><td>0 €</td></tr>
+          <tr><td>🍽️ Cena en Sofía</td><td>🟡 Estimado</td><td>10 - 30 €</td></tr>
+          <tr><td>⛽ Gasolina (prorrateo)</td><td>🟡 Estimado</td><td>5 - 10 €</td></tr>
+          <tr class="total-row"><td>💰 TOTAL DÍA</td><td>Estimado</td><td>~ 45 - 80 €</td></tr>
+          <tr class="total-row"><td>💰 TOTAL ACUMULADO</td><td>Pagado + Estimado</td><td>~ 530 - 565 €</td></tr>
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  const sec_chk_html = `
+    <div class="checklist">
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Despertar a las 07:00</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Desayunar (Mekitsa & Coffee)</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Recoger la furgoneta del parking (ul. Iskar 14)</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Salir de Sofía a las 08:00</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Llevar ropa adecuada para Rila (hombros y rodillas cubiertos)</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Llevar bañador, chanclas, toalla y bolsa para ropa mojada</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Efectivo (BGN) para el museo de Rila y la entrada a Kotvata</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Móvil con batería y ruta descargada</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Visitar el Monasterio de Rila (09:30-12:30)</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Comer en Sapareva Banya (Golden Chicken o Bojemi)</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Paseo/descanso en Sapareva Banya (15:30-16:45)</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Disfrutar de las piscinas termales en Aqua Club Kotvata (17:00-18:30)</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Visitar el géiser de Sapareva Banya (18:30-19:00)</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Regresar a Sofía</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Cena según el cansancio del grupo</span></div>
+    </div>
+  `;
+
+  const sec_prep_html = `
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <thead><tr><th>Aspecto</th><th>Recomendación</th></tr></thead>
+        <tbody>
+          <tr><td>🚐 Furgoneta</td><td>Asegurarse de que tiene suficiente combustible antes de salir hacia Plovdiv mañana.</td></tr>
+          <tr><td>📱 Navegación</td><td>Descargar la ruta en Google Maps offline.</td></tr>
+          <tr><td>🍽️ Comida</td><td>Llevar algo de agua y un tentempié para el camino de mañana.</td></tr>
+          <tr><td>🧥 Ropa</td><td>Ropa cómoda y en capas.</td></tr>
+          <tr><td>💰 Efectivo</td><td>Llevar efectivo (BGN).</td></tr>
+          <tr><td>📸 Cámara</td><td>Asegurarse de que la cámara o el móvil tienen suficiente batería.</td></tr>
+        </tbody>
+      </table>
+      <div style="padding:1rem;background:rgba(90,172,232,.1);font-size:.85rem;color:var(--t1);border-top:1px solid var(--card-b)">
+        ℹ️ El Día 3 será el traslado de Sofía a Plovdiv, con paradas en Kazanlak, Shipka y Buzludzha.
+      </div>
+    </div>
+  `;
+
+  const accSections = `
+    <div class="acc-wrap">
+      ${acc('1', '📖', 'El Día al Completo · Línea de Tiempo Extensa', sec_linea_html, '#5aace8')}
+      ${acc('2', '🏠', 'Alojamiento y Parkings', sec_aloj_html, '#60a5fa')}
+      ${acc('3', '🚗', 'Desplazamientos del Día', sec_despl_html, '#fbbf24')}
+      ${acc('4', '📍', 'Lugares de Interés & Google Maps', sec_lugares_html, '#38bdf8')}
+      ${acc('5', '🍽️', 'Opciones para Comer', sec_comer_html, '#fb923c')}
+      ${acc('6', '🎟️', 'Actividades y Reservas', sec_act_html, '#c084fc')}
+      ${acc('7', '💰', 'Presupuesto del Día', sec_pres_html, '#34d399')}
+      ${acc('8', '✅', 'Checklist del Día', sec_chk_html, '#2dd4bf')}
+      ${acc('9', '💡', 'Consejos para el día siguiente / preparativos', sec_prep_html, '#4ade80')}
+    </div>
+  `;
+
+  return `
+    <div class="hero">
+      <img src="${d.img}" alt="Monasterio de Rila">
+      <div class="hero-c">
+        <div class="hero-badge bulgaria">🇧🇬 Bulgaria</div>
+        <div class="hero-dn">Día 2 &middot; ${d.dn}</div>
+        <div class="hero-title">🏔️♨️ ${d.title}</div>
+        <div class="hero-sub">${d.sub}</div>
+      </div>
+    </div>
+
+    <!-- 🎯 OBJETIVO DEL DÍA -->
+    <div class="sec-center">🎯 Objetivo del Día</div>
+    <div class="obj-box">
+      <p class="obj-t">Segundo día en Bulgaria, y el primero de carretera. El objetivo es realizar una excursión de día completo desde Sofía combinando dos experiencias completamente diferentes: el Monasterio de Rila (Patrimonio de la Humanidad por la UNESCO), uno de los grandes símbolos culturales de Bulgaria, y una tarde de relax en las aguas termales de Sapareva Banya, en el complejo Aqua Club Kotvata. La combinación de cultura y bienestar convierte este día en una de las jornadas más equilibradas del viaje, con un ritmo pensado para disfrutar sin prisas y con flexibilidad.</p>
+    </div>
+
+    <!-- 🌅 DATOS DEL DÍA, CLIMA Y HORA -->
+    <div class="sec-center">🌅 Datos del Día & Clima</div>
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <thead>
+          <tr><th>Concepto</th><th>Detalle / Previsión</th><th>Enlace</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>🌅 Amanecer (Sofía, UTC+3)</td><td>06:55 (hora local)</td><td>—</td></tr>
+          <tr><td>🌇 Anochecer (Sofía, UTC+3)</td><td>19:54 (hora local)</td><td>—</td></tr>
+          <tr><td>🌡️ Temperaturas previstas</td><td>Máxima: 24-26 °C / Mínima: 10-12 °C (en montaña más fresco)</td><td><a href="https://www.accuweather.com/es/bg/sofia/51097/weather-forecast/51097" target="_blank" rel="noopener" class="btn-link">AccuWeather Sofía</a></td></tr>
+          <tr><td>Previsión de ropa</td><td>Cómoda en capas (camiseta, chaqueta fina) + bañador, chanclas y toalla</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sec-center">🕐 Zona Horaria</div>
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <thead><tr><th>Zona</th><th>UTC</th><th>Diferencia con España</th></tr></thead>
+        <tbody>
+          <tr><td>🇪🇸 España peninsular</td><td>UTC+2</td><td>—</td></tr>
+          <tr><td>🇧🇬 Bulgaria (Sofía, Rila, Sapareva Banya)</td><td>UTC+3</td><td>+1 hora</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ⏰ LÍNEA DE TIEMPO RESUMIDA -->
+    <div class="sec-center">⏰ Línea de Tiempo Resumida</div>
+    <div class="tl-summary">
+      <div class="tl-sum-item">
+        <span class="tl-sum-time">☀️ MAÑANA (07:00-12:30)</span>
+        <span class="tl-sum-txt">
+          🛏️ 07:00 — Despertar<br>
+          🥐 07:15-07:45 — Desayuno rápido (Mekitsa & Coffee)<br>
+          🚐 08:00 — Salida de Sofía<br>
+          ⛪ 09:30-12:30 — Monasterio de Rila (3h de visita)
+        </span>
+      </div>
+      <div class="tl-sum-item">
+        <span class="tl-sum-time">🌤️ TARDE (12:30-18:30)</span>
+        <span class="tl-sum-txt">
+          🚐 12:30-13:50 — Traslado a Sapareva Banya (~1h 20min)<br>
+          🍽️ 13:50-15:30 — Comida en Sapareva Banya<br>
+          ☕ 15:30-16:45 — Paseo / descanso en Sapareva Banya<br>
+          ♨️ 17:00-18:30 — Aqua Club Kotvata (1h 30min en piscinas termales)<br>
+          💦 18:30-19:00 — Géiser de Sapareva Banya (20-30 min)
+        </span>
+      </div>
+      <div class="tl-sum-item">
+        <span class="tl-sum-time">🌙 NOCHE (19:00-23:00)</span>
+        <span class="tl-sum-txt">
+          🚐 19:00-20:30 — Regreso a Sofía (~1h 30min)<br>
+          🍽️ 21:00-22:30 — Cena en Sofía<br>
+          💤 23:00 — Alojamiento
+        </span>
+      </div>
+    </div>
+
+    <!-- ACORDEONES DESPLEGABLES (SECCIONES 1 A 9) -->
+    ${accSections}
+
+    <!-- PUNTO CLAVE (Sin Numerar) -->
+    <div class="punto-clave">
+      <div class="pc-label">🔥 Punto Clave del Día</div>
+      <p class="pc-t"><strong>♨️ EL DÍA DE RILA + AGUAS TERMALES:</strong> Hoy combinamos uno de los grandes símbolos culturales de Bulgaria con una experiencia completamente diferente. Visitamos el Monasterio de Rila, comemos en Sapareva Banya, nos relajamos en las aguas minerales termales de Aqua Club Kotvata (entrando a las 17:00 para aprovechar la tarifa de 15 €) y terminamos viendo su espectacular géiser-fuente de 103 °C. La clave del día es no meter más visitas: Rila es el plato principal y Kotvata el momento de relax.</p>
+    </div>
+
+    <!-- CONSEJOS PARA EL GRUPO (Sin Numerar) -->
+    <div class="sec">💡 Consejos para el Grupo</div>
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <thead><tr><th>Punto</th><th>Detalle</th></tr></thead>
+        <tbody>
+          <tr><td>🕐 Madrugar</td><td>La salida es a las 08:00. Conviene aprovechar la mañana para visitar Rila con calma.</td></tr>
+          <tr><td>🚐 Conducción</td><td>Después de Rila, la carretera hacia Sapareva Banya es de montaña en algunos tramos. Conducir con precaución.</td></tr>
+          <tr><td>⛪ Rila</td><td>Es un lugar sagrado. Hombros y rodillas cubiertos. Llevar efectivo para el museo.</td></tr>
+          <tr><td>🍽️ Comida</td><td>En lugar de comer en los alrededores de Rila, la idea es llegar a Sapareva Banya y comer allí. Así aprovechamos la tarde.</td></tr>
+          <tr><td>♨️ Kotvata</td><td>Entrar a las 17:00 para aprovechar la tarifa de 15 €/adulto. Pasar 1h 30min a 1h 45min en las piscinas.</td></tr>
+          <tr><td>🩴 Kotvata</td><td>Llevar bañador, chanclas, toalla y una bolsa para la ropa mojada.</td></tr>
+          <tr><td>💦 Géiser</td><td>Después de las piscinas, hacer una parada de 20-30 minutos para ver el géiser-fuente y dar un paseo. Es gratuito.</td></tr>
+          <tr><td>🍽️ Cena</td><td>Elegir en Sofía según el cansancio. Después de las termas probablemente convenga una cena sencilla o de ambiente local.</td></tr>
+          <tr><td>📸 Fotos</td><td>Rila es el gran escenario fotográfico del día; el géiser ofrece una parada breve y diferente.</td></tr>
+          <tr><td>💤 Descanso</td><td>El planteamiento es deliberadamente más relajado: Rila + comida + termas + géiser, sin intentar añadir más visitas.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- CURIOSIDADES Y SABÍAS QUE (Sin Numerar) -->
+    <div class="curio">
+      <div class="curio-label">💎 Sabías Que...</div>
+      <p class="curio-t"><strong>El géiser de Sapareva Banya es el más caliente de Europa continental.</strong> El agua mineral brota a 103 °C en su nacimiento desde un sistema geotérmico profundo, alcanzando una columna de agua que puede llegar a los ~18 m de altura.<br><br>Además, el <strong>Monasterio de Rila</strong> es el santuario ortodoxo más grande e importante de Bulgaria, y ha sido declarado Patrimonio de la Humanidad por la UNESCO por su inmenso valor histórico, arquitectónico y cultural durante el dominio otomano.</p>
+    </div>
+
+    <!-- FRASE DEL DÍA (Sin Numerar) -->
+    <div class="frase-box">
+      💬 🇧🇬⛰️ «Hoy descubrimos el lado más espiritual y relajante de Bulgaria: el majestuoso Monasterio de Rila, una buena comida local en Sapareva Banya, aguas termales en Aqua Club Kotvata y, para terminar, el espectacular géiser de 103 °C.» ♨️💦🚐
+    </div>
+
+    <!-- IMÁGENES / INFOGRAFÍAS RESUMEN AL FINAL (Sin Numerar) -->
+    <div class="sec-center" style="margin-top:2.5rem">🗺️ Resumen gráfico del día!</div>
+    <div class="summary-gallery">
+      <div class="day-card-wrap">
+        <div class="day-card-preview"><img src="Imagen_dia2.jpeg" alt="Resumen Gráfico del Día 2"></div>
+        <a href="Imagen_dia2.jpeg" download class="btn-download">📥 Descargar Resumen del Día 2</a>
+      </div>
+    </div>
+  `;
+}
+
+// ─── RENDER TABS DE DATOS IMPORTANTES Y MALETA ─────────────────────────
+function renderDatosTab(d){
+  return `
+    <div class="hero">
+      <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1400&q=80" alt="Datos Importantes">
+      <div class="hero-c">
+        <div class="hero-badge info">ℹ️ Info General</div>
+        <div class="hero-title">${d.title}</div>
+        <div class="hero-sub">${d.dn}</div>
+      </div>
+    </div>
+    <div class="sec-center">🎯 ${d.dn}</div>
+    <div class="obj-box">
+      <p class="obj-t">Aquí se irá agrupando la información general del viaje: teléfonos de emergencia, números de póliza, localizadores de vuelos y cualquier otro dato transversal que aplique a toda la aventura.</p>
+    </div>
+  `;
+}
+
+function renderMaletaTab(d){
+  return `
+    <div class="hero">
+      <img src="https://images.unsplash.com/photo-1473163928189-364b2c4e1135?w=1400&q=80" alt="Tu Maleta">
+      <div class="hero-c">
+        <div class="hero-badge info">🎒 Equipaje</div>
+        <div class="hero-title">${d.title}</div>
+        <div class="hero-sub">${d.dn}</div>
+      </div>
+    </div>
+    <div class="sec-center">🎒 Tu Maleta y Accesorios</div>
+    
+    <div class="obj-box">
+      <p class="obj-t">Recuerda: Llevamos <strong>Mochila pequeña (40x30x20 cm)</strong> debajo del asiento para el avión (Wizz Air/Ryanair) y compartimos <strong>una maleta facturada de 20 kg por cada 2 personas</strong>. Organiza tu equipaje basándote en la lista a continuación.</p>
+    </div>
+
+    <!-- BLOQUE 1: MOCHILA DE DIARIO -->
+    <div class="phase-hd" style="margin-top:2rem">🎒 LO QUE SACAMOS CADA DÍA (Mochila de diario)</div>
+    <div class="checklist">
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Documentación: Pasaporte/DNI, tarjeta Sanitaria Europea y carnet de conducir</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Tarjetas bancarias (Revolut) y dinero en efectivo (Euros y BGN)</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Electrónica: Móvil, auriculares, power bank y cable de carga USB</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Gafas de sol y gorra/sombrero</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Crema de protección solar y cacao labial</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Botella de agua reutilizable</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Sudadera o chaqueta fina (para los atardeceres y lugares altos)</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Pequeño neceser diario (pañuelos/toallitas húmedas)</span></div>
+    </div>
+
+    <!-- BLOQUE 2: EQUIPAJE PRINCIPAL -->
+    <div class="phase-hd" style="margin-top:2rem">🧳 EQUIPAJE PRINCIPAL (Maleta 20kg compartida)</div>
+    
+    <div class="sec">👕 Ropa y Calzado (Clima 11º-28ºC)</div>
+    <div class="checklist">
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Ropa interior y calcetines (15-18 días)</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Camisetas de manga corta (uso diario)</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">1-2 Pantalones largos (vaqueros o desmontables para montaña)</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">1-2 Pantalones cortos / Bermudas</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">1-2 Jerséis o sudaderas (noches en Budapest / montañas en Bulgaria)</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">1 Chaqueta/Cortavientos impermeable ligero</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Pijama</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Bañador/es (para las playas del Mar Negro y Termas Széchenyi)</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Zapatillas de diario cómodas (ciudades)</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Zapatillas de trekking/deporte (con buena suela para Rila y Belogradchik)</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Chanclas (para termas, playa y alojamiento)</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Bolsa para ropa sucia y bolsa para calzado</span></div>
+    </div>
+
+    <div class="sec">🪥 Aseo y Botiquín (Se puede llevar en la maleta facturada sin límite de líquidos)</div>
+    <div class="checklist">
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Neceser básico: Cepillo y pasta de dientes</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Desodorante, perfume y peine</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Gel de baño y champú</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Utensilios de afeitado (cuchilla/gel/after-shave) y otros cosméticos necesarios</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Crema hidratante y after-sun</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Botiquín: Tiritas, Betadine y gasas</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Botiquín: Analgésicos y antihistamínicos</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Botiquín: Antidiarreico y pastillas habituales</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Repelente de insectos y colirio ocular</span></div>
+    </div>
+
+    <div class="sec">📷 Tecnología, Ocio y Otros Accesorios</div>
+    <div class="checklist">
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Cámara (GoPro/Reflex), baterías extra y tarjetas SD vaciadas</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Pequeño trípode</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Toalla de playa / Toalla de microfibra secado rápido</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Bolsa o mochila plegable de playa</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Candados de equipaje</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Antifaz para la luz y tapones para los oídos</span></div>
+    </div>
+  `;
+}
+
+// ─── RENDER PRINCIPAL DE TODOS LOS DÍAS ────────────────────────────────
+function renderAll(){
+  const main = document.getElementById('main');
+  const pills = document.getElementById('pills');
+  
+  main.innerHTML = DAYS_DATA.map(d => {
+    const opened = isOpen(d);
+    
+    // Si son tabs de info general
+    if(d.n === 'datos') return `<section class="day" id="d${d.n}">${renderDatosTab(d)}</section>`;
+    if(d.n === 'maleta') return `<section class="day" id="d${d.n}">${renderMaletaTab(d)}</section>`;
+    
+    // Si es un día normal
+    if(opened && d.isFull){
+      if(d.n === 0) return `<section class="day" id="d${d.n}">${renderDay0(d)}</section>`;
+      if(d.n === 1) return `<section class="day" id="d${d.n}">${renderDay1(d)}</section>`;
+      if(d.n === 2) return `<section class="day" id="d${d.n}">${renderDay2(d)}</section>`;
+    }
+    return `<section class="day" id="d${d.n}">${renderLockedDay(d)}</section>`;
+  }).join('');
+
+  pills.innerHTML = DAYS_DATA.map(d => {
+    const opened = isOpen(d);
+    const cls = d.phase === 'info' ? 'info' : d.phase;
+    const txt = d.phase === 'info' ? d.title.split(' ')[1] : d.n;
+    return `<a href="#d${d.n}" class="pill ${cls} ${opened ? 'open' : 'locked'}" id="pill${d.n}" onclick="gotoDay('${d.n}')">${txt}</a>`;
+  }).join('');
+}
+
+function gotoDay(n){
+  const el = document.getElementById('d' + n);
+  if(el){
+    const ld = document.getElementById('ld');
+    if(ld){
+      ld.classList.remove('out');
+      setTimeout(() => {
+        // Ocultar todos los días y mostrar solo el activo
+        document.querySelectorAll('.day').forEach(d => d.classList.remove('active'));
+        el.classList.add('active');
+        el.scrollIntoView({ behavior: 'auto' });
+        setActivePill(n);
+        setTimeout(() => ld.classList.add('out'), 800);
+      }, 300);
+    } else {
+      document.querySelectorAll('.day').forEach(d => d.classList.remove('active'));
+      el.classList.add('active');
+      el.scrollIntoView({ behavior: 'smooth' });
+      setActivePill(n);
+    }
+  }
+}
+
+function setActivePill(n){
+  document.querySelectorAll('.pill').forEach(p => p.classList.remove('cur'));
+  const cur = document.getElementById('pill' + n);
+  if(cur){
+    cur.classList.add('cur');
+    cur.scrollIntoView({ inline: 'center', behavior: 'smooth', block: 'nearest' });
+  }
+}
+
+// ─── CHECKLIST TOGGLE ──────────────────────────────────────────────────
+function toggleChk(el){
+  el.classList.toggle('done');
+  const box = el.querySelector('.chk-box');
+  if(box) box.innerHTML = el.classList.contains('done') ? '✓' : '';
+}
+
+// ─── MODALES DINÁMICOS ─────────────────────────────────────────────────
+const MODAL_CONTENT = {
+  // --- Modales Día 0 ---
+  'modal-fran-madrid': {
+    title: '🗺️ Opciones de Fran y Graje en Madrid',
+    html: `
+      <div class="obj-box">
+        <span class="obj-label">Vuelo Llegada: IB2331 (09:20 - 10:35) T4 Barajas</span>
+        <p class="obj-t">Tienen libre hasta las 18:30 para descansar en el aeropuerto o pasear por el centro de la capital.</p>
+      </div>
+      <div class="sec">🔵 Opción 1: Ir al Centro de Madrid</div>
+      <div class="tl">
+        <div class="ti"><div class="ti-time">10:35</div><div class="ti-icon">🚇</div><div class="ti-body"><div class="ti-title">Metro L8 / Cercanías C-1</div><div class="ti-desc">Traslado desde T4 a Nuevos Ministerios o Sol/Atocha.</div></div></div>
+      </div>
+    `
+  },
+  'modal-protocolo': {
+    title: '🔴 Protocolo Obligatorio de Inspección · Easy Rent',
+    html: `
+      <div class="punto-clave">
+        <div class="pc-label">⚠️ MUY IMPORTANTE</div>
+        <p class="pc-t">Antes de mover la furgoneta, seguid estos pasos:</p>
+      </div>
+      <div class="checklist">
+        <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">📸 Fotografiar exterior 360 y matrícula.</span></div>
+        <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">📹 Hacer un vídeo completo.</span></div>
+        <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">📸 Fotografiar interior, kilometraje y combustible.</span></div>
+        <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">🔎 Revisar cualquier golpe y anotarlo en el contrato.</span></div>
+      </div>
+    `
+  },
+
+  // --- Modales Día 1 ---
+  'modal-mekitsa': {
+    title: '🥐 Mekitsa & Coffee',
+    html: `
+      <div class="tbl-wrap">
+        <table class="data-tbl">
+          <tbody>
+            <tr><td><strong>📍 Dirección</strong></td><td>Graf Ignatiev 28, Sofia Center</td></tr>
+            <tr><td><strong>⭐ Valoración</strong></td><td>4.4/5 (Google) · 4.5/5 (TripAdvisor)</td></tr>
+            <tr><td><strong>💰 Precio</strong></td><td>≈ 3–6 €/persona</td></tr>
+            <tr><td><strong>🎯 Plato estrella</strong></td><td>Mekitsa (dulce o salada) — masa frita tradicional búlgara. Recomendación: con queso + mermelada.</td></tr>
+            <tr><td><strong>🕒 Horario</strong></td><td>Sábado: 09:00–19:00 (aprox.)</td></tr>
+            <tr><td><strong>📝 Notas</strong></td><td>Desayuno búlgaro auténtico. Muy céntrico. También ofrecen café y ayran. Confirmado abierto (agosto 2026).</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="sec">Alternativas de emergencia:</div>
+      <ul style="padding-left:1.5rem;color:var(--t1);font-size:.9rem;line-height:1.6">
+        <li><strong>Otto's Mekitsa</strong> — Stefan Stambolov 38 (≈ 3-6 €). Sábado: 08:00–14:00 (puede cerrar antes si se acaba el producto).</li>
+        <li><strong>Gevrek Bagels</strong> — Georgi Benkovski 6 (≈ 5-8 €). Sábado: 10:00–16:00.</li>
+      </ul>
+    `
+  },
+  'modal-serdika': {
+    title: '🏛️ Ancient Serdika + Largo',
+    html: `
+      <div class="tbl-wrap">
+        <table class="data-tbl">
+          <tbody>
+            <tr><td><strong>📍 Lugar</strong></td><td>Ancient Serdica Archaeological Complex</td></tr>
+            <tr><td><strong>⭐ Nivel</strong></td><td>🟡 Opcional (prescindible si el grupo está cansado)</td></tr>
+            <tr><td><strong>📸 Instagram</strong></td><td>⭐⭐⭐⭐</td></tr>
+            <tr><td><strong>⏱️ Tiempo</strong></td><td>30-45 min</td></tr>
+            <tr><td><strong>💰 Precio</strong></td><td>Zona Largo: gratis (07:00-22:00) / Exposición arqueológica: 6 BGN (~3 €)</td></tr>
+            <tr><td><strong>🕒 Horario</strong></td><td>Zona Largo: 07:00-22:00 / Exposición: 10:00-18:00 (martes a domingo)</td></tr>
+            <tr><td><strong>📝 Notas</strong></td><td>Permite entender la Sofía romana. Los lunes la exposición permanece cerrada (pero es sábado, así que está abierta). Si el grupo no tiene energía, se puede omitir sin problema.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    `
+  },
+  'modal-santaso': {
+    title: '⛪ Iglesia de Santa Sofía',
+    html: `
+      <div class="tbl-wrap">
+        <table class="data-tbl">
+          <tbody>
+            <tr><td><strong>📍 Lugar</strong></td><td>Saint Sofia Church</td></tr>
+            <tr><td><strong>⭐ Nivel</strong></td><td>🟢 IMPORTANTE</td></tr>
+            <tr><td><strong>📸 Instagram</strong></td><td>⭐⭐⭐⭐</td></tr>
+            <tr><td><strong>🕒 Horario</strong></td><td>07:00-18:00</td></tr>
+          </tbody>
+        </table>
+      </div>
+    `
+  },
+  'modal-izbata': {
+    title: '🍽️ Izbata Tavern',
+    html: `
+      <div class="tbl-wrap">
+        <table class="data-tbl">
+          <tbody>
+            <tr><td><strong>📍 Dirección</strong></td><td>Slavyanska 18, Sofia Center</td></tr>
+            <tr><td><strong>⭐ Valoración</strong></td><td>4.4/5 (Google) · +4.000 reseñas</td></tr>
+            <tr><td><strong>💰 Precio</strong></td><td>≈ 15-25 €/persona</td></tr>
+            <tr><td><strong>🎯 Nivel</strong></td><td>🟢 IMPORTANTE</td></tr>
+            <tr><td><strong>📸 Instagram</strong></td><td>⭐⭐⭐⭐</td></tr>
+            <tr><td><strong>🕒 Horario</strong></td><td>Todos los días: 11:30–23:00 (web oficial)</td></tr>
+            <tr><td><strong>🍽️ Recomendados</strong></td><td>Platos tradicionales búlgaros (cordero, kebapche, shopska salata)</td></tr>
+            <tr><td><strong>📝 Notas</strong></td><td>Reservar mesa para 6. Taberna búlgara tradicional con buena relación calidad-precio y ubicación céntrica. Confirmado abierto (web oficial activa).</td></tr>
+            <tr><td><strong>📌 Reserva</strong></td><td>Web oficial: izbatatavern.com — recomendable reservar con antelación.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="sec">Alternativas:</div>
+      <ul style="padding-left:1.5rem;color:var(--t1);font-size:.9rem;line-height:1.6">
+        <li><strong>Hadjidraganov's Cellars</strong> — Hristo Belchev 18 (15-35 €/persona). Muy popular, con música en vivo. Confirmado abierto.</li>
+      </ul>
+    `
+  },
+  'modal-iglesias': {
+    title: '⛪ Catedral Aleksandar Nevski + Iglesia Rusa',
+    html: `
+      <div class="sec">Catedral Aleksandar Nevski (🔴 IMPRESCINDIBLE)</div>
+      <div class="tbl-wrap">
+        <table class="data-tbl">
+          <tbody>
+            <tr><td><strong>📍 Lugar</strong></td><td>Alexander Nevsky Cathedral</td></tr>
+            <tr><td><strong>📸 Instagram</strong></td><td>⭐⭐⭐⭐⭐</td></tr>
+            <tr><td><strong>⏱️ Tiempo</strong></td><td>45–60 min</td></tr>
+            <tr><td><strong>🕒 Horario</strong></td><td>07:00-19:00</td></tr>
+            <tr><td><strong>💰 Entrada</strong></td><td>Gratis. Cripta: 10:00-17:30 (mar-dom)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="sec">Iglesia Rusa San Nicolás (🟢 IMPORTANTE)</div>
+      <div class="tbl-wrap">
+        <table class="data-tbl">
+          <tbody>
+            <tr><td><strong>📍 Lugar</strong></td><td>Russian Church Sofia</td></tr>
+            <tr><td><strong>📸 Instagram</strong></td><td>⭐⭐⭐⭐⭐</td></tr>
+            <tr><td><strong>⏱️ Tiempo</strong></td><td>15–20 min</td></tr>
+          </tbody>
+        </table>
+      </div>
+    `
+  },
+  'modal-savi': {
+    title: '🍦 Savi Gelato',
+    html: `
+      <div class="tbl-wrap">
+        <table class="data-tbl">
+          <tbody>
+            <tr><td><strong>📍 Dirección</strong></td><td>San Stefano St 9, Sofia Center</td></tr>
+            <tr><td><strong>⭐ Valoración</strong></td><td>3.8/5 (TripAdvisor, 61 opiniones)</td></tr>
+            <tr><td><strong>💰 Precio</strong></td><td>≈ 3-5 €/persona</td></tr>
+            <tr><td><strong>🍦 Especialidades</strong></td><td>Gelato artesanal con ingredientes orgánicos. Sabores: lavanda, miel y aceite de oliva.</td></tr>
+            <tr><td><strong>🕒 Horario</strong></td><td>09:00-21:00 (confirmado)</td></tr>
+            <tr><td><strong>📝 Notas</strong></td><td>Confirmado abierto. Buena opción de helado. Imprescindible y recomendado.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    `
+  },
+  'modal-paseo': {
+    title: '🌳 Paseo: Teatro Nacional y Bulevar Vitosha',
+    html: `
+      <div class="sec">Teatro Nacional Ivan Vazov (🟢 IMPORTANTE)</div>
+      <div class="tbl-wrap">
+        <table class="data-tbl">
+          <tbody>
+            <tr><td><strong>📍 Lugar</strong></td><td>Ivan Vazov National Theatre</td></tr>
+            <tr><td><strong>📸 Instagram</strong></td><td>⭐⭐⭐⭐⭐</td></tr>
+            <tr><td><strong>⏱️ Tiempo</strong></td><td>20 min</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="sec">Bulevar Vitosha (🟢 IMPORTANTE)</div>
+      <div class="tbl-wrap">
+        <table class="data-tbl">
+          <tbody>
+            <tr><td><strong>📍 Lugar</strong></td><td>Vitosha Boulevard</td></tr>
+            <tr><td><strong>📸 Instagram</strong></td><td>⭐⭐⭐⭐</td></tr>
+            <tr><td><strong>⏱️ Tiempo</strong></td><td>30–45 min</td></tr>
+            <tr><td><strong>📝 Notas</strong></td><td>Paseo por la principal calle comercial y peatonal. No recomiendo gastar aquí en copas.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    `
+  },
+  'modal-cerveza': {
+    title: '🍺 HIGH FIVE Taproom',
+    html: `
+      <div class="tbl-wrap">
+        <table class="data-tbl">
+          <tbody>
+            <tr><td><strong>📍 Dirección</strong></td><td>Hristo Belchev 29b, Sofia Center</td></tr>
+            <tr><td><strong>⭐ Valoración</strong></td><td>4.9/5 · 389 reseñas</td></tr>
+            <tr><td><strong>💰 Precio</strong></td><td>≈ 5-10 €/persona</td></tr>
+            <tr><td><strong>🕒 Horario</strong></td><td>Sábado: 14:00–01:00 (web oficial)</td></tr>
+            <tr><td><strong>📝 Notas</strong></td><td>Cervecería artesanal con ambiente local. Confirmado abierto (web oficial activa).</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="sec">Alternativa:</div>
+      <ul style="padding-left:1.5rem;color:var(--t1);font-size:.9rem;line-height:1.6">
+        <li><strong>Crafter Bar</strong> — Hristo Belchev 6 (4.6/5, sábado 17:00–02:00). Confirmado abierto.</li>
+      </ul>
+    `
+  },
+  'modal-raketa': {
+    title: '🥃 Raketa Rakia Bar',
+    html: `
+      <div class="tbl-wrap">
+        <table class="data-tbl">
+          <tbody>
+            <tr><td><strong>📍 Dirección</strong></td><td>Yanko Sakuzov 17</td></tr>
+            <tr><td><strong>⭐ Valoración</strong></td><td>4.5/5 (Google) · +7.600 reseñas · 4.5/5 (TripAdvisor)</td></tr>
+            <tr><td><strong>💰 Precio</strong></td><td>≈ 5-10 €/persona (si vamos a probar rakia y no a cenar)</td></tr>
+            <tr><td><strong>🕒 Horario</strong></td><td>Sábado: 11:00–23:00 (según fuentes actuales)</td></tr>
+            <tr><td><strong>📝 Notas</strong></td><td>Decoración nostálgica de la era soviética. Más de 40 tipos de rakia. La gracia está en probar rakia búlgara en un local con identidad propia. Confirmado abierto (web oficial activa).</td></tr>
+            <tr><td><strong>📌 Importante</strong></td><td>Cierra a las 23:00. Ir temprano (21:45) para evitar colas y tener tiempo de disfrutar.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    `
+  },
+
+  // --- Modales Día 2 ---
+  'modal-rila': {
+    title: '⛪ Monasterio de Rila',
+    html: `
+      <div class="tbl-wrap">
+        <table class="data-tbl">
+          <tbody>
+            <tr><td><strong>📍 Dirección</strong></td><td>Rila Monastery, 2643 Rilski Manastir</td></tr>
+            <tr><td><strong>⭐ Nivel</strong></td><td>🔴 IMPRESCINDIBLE</td></tr>
+            <tr><td><strong>🕒 Horario Recinto</strong></td><td>07:00 – 19:30 todos los días</td></tr>
+            <tr><td><strong>🕒 Horario Museo</strong></td><td>08:30 – 16:30 (de junio a sep)</td></tr>
+            <tr><td><strong>💰 Precio Recinto</strong></td><td>Gratuito</td></tr>
+            <tr><td><strong>💰 Precio Museo</strong></td><td>Entrada independiente (billete comb. ~12 € / 23,47 BGN)</td></tr>
+            <tr><td><strong>🚗 Aparcamiento</strong></td><td>Parking de pago cerca del monasterio</td></tr>
+            <tr><td><strong>👕 Código Vestimenta</strong></td><td>Lugar sagrado. Hombros y rodillas cubiertos.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="sec">Qué ver (prioridades):</div>
+      <ul style="padding-left:1.5rem;color:var(--t1);font-size:.9rem;line-height:1.6">
+        <li>El patio principal con sus arcadas, frescos y el iconostasio de oro.</li>
+        <li>La torre de Hrelyo (Hrelyo's Tower).</li>
+        <li>La iglesia principal, con sus murales y decoración interior.</li>
+        <li>El museo de historia (si el grupo tiene interés).</li>
+        <li>Disfrutar de las vistas de la montaña y el ambiente de paz.</li>
+      </ul>
+    `
+  },
+  'modal-sapareva-comida': {
+    title: '🍽️ Comida en Sapareva Banya',
+    html: `
+      <div class="obj-box">
+        <span class="obj-label">Estrategia</span>
+        <p class="obj-t">Comer en Sapareva Banya con calma, antes de entrar a Kotvata. Restaurantes recomendados (todos en la calle Germaneya, junto a Kotvata).</p>
+      </div>
+      <div class="tbl-wrap">
+        <table class="data-tbl">
+          <thead><tr><th>Opción</th><th>Precio</th><th>Horario Dom.</th><th>Valoración</th><th>Notas</th></tr></thead>
+          <tbody>
+            <tr><td>🥇 Golden Chicken</td><td>10-20 €</td><td>08:00-23:00</td><td>⭐4.6/5</td><td>Mi recomendación principal. +3.200 reseñas. Comer bien y rápido.</td></tr>
+            <tr><td>🥈 Bojemi</td><td>10-15 €</td><td>12:00-00:00</td><td>⭐4.4/5</td><td>Si queréis sentaros tranquilamente.</td></tr>
+            <tr><td>🥉 Pizza Rado</td><td>10-15 €</td><td>11:30-00:00</td><td>⭐4.7/5</td><td>Si prima rapidez o pizza.</td></tr>
+            <tr><td>🟢 Kotvata Restaurant</td><td>10-15 €</td><td>12:00-23:00</td><td>⭐4.5/5</td><td>Dentro del complejo, pero mejor comer fuera.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    `
+  },
+  'modal-kotvata': {
+    title: '♨️ Aqua Club Kotvata',
+    html: `
+      <div class="tbl-wrap">
+        <table class="data-tbl">
+          <tbody>
+            <tr><td><strong>📍 Dirección</strong></td><td>ul. Germaneya 38A, Sapareva Banya</td></tr>
+            <tr><td><strong>⭐ Nivel</strong></td><td>🔴 IMPRESCINDIBLE</td></tr>
+            <tr><td><strong>⭐ Valoración</strong></td><td>~4.3/5 con más de 5.700 reseñas</td></tr>
+            <tr><td><strong>🎟️ Precio</strong></td><td>15 €/adulto (fin de semana, después de las 17:00). Comprobar antes del viaje.</td></tr>
+            <tr><td><strong>👥 Grupo (6p)</strong></td><td>~90 € en total</td></tr>
+            <tr><td><strong>🔗 Web</strong></td><td><a href="https://www.aquaclubkotvata.com/" target="_blank" style="color:var(--blue)">aquaclubkotvata.com</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="sec">Detalles de las instalaciones:</div>
+      <ul style="padding-left:1.5rem;color:var(--t1);font-size:.9rem;line-height:1.6">
+        <li><strong>🏊 Qué encontraremos:</strong> Piscinas exteriores e interiores con agua mineral termal, distintas temperaturas, zonas de hidromasaje y chorros.</li>
+        <li><strong>🧖 Zona térmica:</strong> Existe un paquete combinado con el Spa Center Dzhala (~41 €), pero <strong>no es necesario</strong>. La entrada normal es suficiente.</li>
+        <li><strong>🌡️ Agua:</strong> El agua mineral procede del sistema geotérmico (el géiser nace a 103 °C).</li>
+        <li><strong>🩴 Llevar:</strong> Bañador + chanclas + toalla + bolsa para ropa mojada.</li>
+        <li><strong>🧘 Beneficios:</strong> Combinación perfecta para relajar los músculos tras conducir y visitar Rila.</li>
+        <li><strong>⚠️ Importante:</strong> No confundir la entrada de piscinas con el paquete Dzhala de mayor precio.</li>
+      </ul>
+    `
+  },
+  'modal-geiser': {
+    title: '💦 Géiser de Sapareva Banya',
+    html: `
+      <div class="tbl-wrap">
+        <table class="data-tbl">
+          <tbody>
+            <tr><td><strong>📍 Ubicación</strong></td><td>Centro de Sapareva Banya</td></tr>
+            <tr><td><strong>⏱️ Duración</strong></td><td>20-30 minutos</td></tr>
+            <tr><td><strong>💰 Precio</strong></td><td>Gratuito</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="sec">Características:</div>
+      <p style="color:var(--t1);font-size:.9rem;line-height:1.6">El agua brota a <strong>103 °C</strong> en el nacimiento, alcanzando una columna de agua de hasta ~18 m de altura. Es el géiser más caliente de Europa continental.</p>
+      <div class="tip" style="background:rgba(90,172,232,.1);padding:1rem;border-radius:var(--r-sm);margin-top:1rem;font-size:.9rem">
+        <strong>💡 Consejo:</strong> Después de las piscinas, hacer una parada para ver el géiser-fuente y dar un pequeño paseo por el centro.
+      </div>
+    `
+  },
+  'modal-cena-sofia-d2': {
+    title: '🍽️ Opciones de Cena en Sofía',
+    html: `
+      <div class="obj-box">
+        <span class="obj-label">Estrategia</span>
+        <p class="obj-t">Elegir según lo que NO se haya hecho el Día 1. Después de Kotvata, probablemente el grupo prefiera una cena sencilla antes que otra comida larga.</p>
+      </div>
+      <div class="tbl-wrap">
+        <table class="data-tbl">
+          <thead><tr><th>Opción</th><th>Tipo</th><th>Precio</th><th>Notas</th></tr></thead>
+          <tbody>
+            <tr><td>🥇 Hadjidraganovite Izbi</td><td>Tradicional búlgara</td><td>20-30 €</td><td>Experiencia búlgara tradicional + ambiente. Música folclórica en vivo.</td></tr>
+            <tr><td>🥈 Raketa Rakia Bar</td><td>Rakia/bar</td><td>15-25 €</td><td>Cena + rakia/copas.</td></tr>
+            <tr><td>🥉 Q-ftetaria</td><td>Informal</td><td>10-20 €</td><td>Albóndigas + cerveza + ambiente local.</td></tr>
+            <tr><td>🟢 K.E.B.A.</td><td>Moderna/local</td><td>10-20 €</td><td>Alternativa más moderna/local.</td></tr>
+            <tr><td>🟢 Izbata Tavern</td><td>Tradicional</td><td>15-25 €</td><td>Alternativa tradicional.</td></tr>
+            <tr><td>🟡 Manastirska Magernitsa</td><td>Tradicional</td><td>20-30 €</td><td>Si no se ha utilizado el Día 1.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    `
+  }
+};
+
+function openModal(key){
+  const item = MODAL_CONTENT[key];
+  if(!item) return;
+  document.getElementById('modal-htitle').textContent = item.title;
+  document.getElementById('modal-body').innerHTML = item.html;
+  document.getElementById('modal-ov').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(){
+  document.getElementById('modal-ov').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+// ─── CONTROL DE ADMINISTRADOR ──────────────────────────────────────────
+document.getElementById('aBtn').onclick = () => {
+  document.getElementById('aModal').classList.add('show');
+  setTimeout(() => document.getElementById('aPass').focus(), 100);
+};
+document.getElementById('aModal').onclick = function(e){ if(e.target === this) closeAdmin(); };
+document.getElementById('aPass').onkeypress = e => { if(e.key === 'Enter') checkPass(); };
+
+function checkPass(){
+  if(document.getElementById('aPass').value.toUpperCase().trim() === PWD){
+    document.getElementById('aLogin').style.display = 'none';
+    document.getElementById('aPanel').style.display = 'block';
+    renderToggles();
+  } else {
+    const err = document.getElementById('aErr');
+    err.style.display = 'block';
+    document.getElementById('aPass').value = '';
+    setTimeout(() => err.style.display = 'none', 2500);
+  }
+}
+
+function renderToggles(){
+  const extra = getAdminExtra();
+  let html = '';
+  DAYS_DATA.forEach(d => {
+    if(d.n === 'datos' || d.n === 'maleta') return; // no mostrar los de info
+    const auto = isAutoOpen(d);
+    const open = auto || extra.includes(d.n) || d.n === 0;
+    const label = d.n === 0 ? 'Siempre abierto' : auto ? '✅ Ya abierto automáticamente' : `🔒 Abre 20:30 (${d.tz.split('/')[1]})`;
+    const dis = (d.n === 0 || auto) ? 'disabled' : '';
+    const chk = open ? 'checked' : '';
+    html += `
+      <div class="tog-row">
+        <div class="tog-label">
+          <span class="tog-num">Día ${d.n}</span> · ${d.title.substring(0, 26)}...
+          <small>${label}</small>
+        </div>
+        <label class="tog-sw">
+          <input type="checkbox" ${chk} ${dis} onchange="togDay(${d.n}, this.checked)">
+          <span class="tog-sl"></span>
+        </label>
+      </div>
+    `;
+  });
+  document.getElementById('aTogs').innerHTML = html;
+}
+
+function togDay(n, checked){
+  let u = getAdminExtra();
+  if(checked){ if(!u.includes(n)) u.push(n); }
+  else { u = u.filter(x => x !== n); }
+  setAdminExtra(u);
+  renderAll();
+  renderToggles();
+}
+
+function closeAdmin(){
+  document.getElementById('aModal').classList.remove('show');
+  document.getElementById('aLogin').style.display = 'block';
+  document.getElementById('aPanel').style.display = 'none';
+  document.getElementById('aPass').value = '';
+}
+
+// ─── INICIALIZACIÓN ────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  renderAll();
+  // Mostrar el primer día al cargar
+  const firstDay = document.getElementById('d0');
+  if(firstDay) firstDay.classList.add('active');
+  setActivePill(0);
+  
+  setTimeout(() => {
+    const ld = document.getElementById('ld');
+    if(ld) ld.classList.add('out');
+  }, 1200);
+});
+</script>
+</body>
+</html>
