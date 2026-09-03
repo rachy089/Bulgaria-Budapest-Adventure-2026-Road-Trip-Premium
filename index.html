@@ -6153,7 +6153,7 @@ function renderDatosTab(d){
 function renderClimaTab(d){
   return `
     <div class="hero">
-      <img src="https://images.unsplash.com/photo-1592210454359-9043f067355b?w=1400&q=80" alt="Clima de la ruta">
+      <img src="https://images.unsplash.com/photo-1601134467661-3d775b999c8b?w=1400&q=80" alt="Clima de la ruta">
       <div class="hero-c">
         <div class="hero-badge info">🌦️ Info General</div>
         <div class="hero-title">${d.title}</div>
@@ -6161,7 +6161,7 @@ function renderClimaTab(d){
       </div>
     </div>
     <div class="obj-box">
-      <p class="obj-t">Un vistazo rápido, día a día, a qué tiempo nos espera y qué conviene llevar según el clima y el plan de ese día. Cada tarjeta está contrastada con 2-3 fuentes reales (enlace incluido para pinchar) — <strong>última revisión con AccuWeather el 3 de septiembre de 2026</strong>. Cuanto más lejos está la fecha, menos fiable es el dato: por eso cada tarjeta indica su nivel de confianza. Los días marcados en 🔴 baja confianza conviene revisarlos de nuevo 5-7 días antes. ⚠️ Nota: los días 1, 3, 4 y 5 han salido con bastante más calor de lo estimado en la revisión anterior (Sofía y Plovdiv rozando los 30-34°C), y el riesgo de tormenta que se había detectado para los días 6 y 7 en Sozopol/Ravadinovo ha bajado mucho — mejor de lo esperado.</p>
+      <p class="obj-t">Un vistazo rápido, día a día, a qué tiempo nos espera y qué conviene llevar según el clima y el plan de ese día. Cada tarjeta está contrastada con 2-3 fuentes reales (enlace incluido para pinchar) — <strong>última revisión con AccuWeather el 3 de septiembre de 2026</strong>. Cuanto más lejos está la fecha, menos fiable es el dato: por eso cada tarjeta indica su nivel de confianza. Los días marcados en 🔴 baja confianza conviene revisarlos de nuevo 5-7 días antes. ⚠️ Nota: los días 0, 1, 2, 3, 4 y 5 han salido con bastante más calor de lo estimado en la revisión anterior (Badajoz, Sofía, Rila y Plovdiv rozando o superando los 30-36°C), y el riesgo de tormenta que se había detectado para los días 6 y 7 en Sozopol/Ravadinovo ha bajado mucho — mejor de lo esperado. 🛠️ Corrección: el día 9 (Nessebar → Balchik) mostraba antes un 55% de probabilidad de lluvia por un error al cruzar los datos — la previsión real de AccuWeather para ese día es mayormente soleada, ya corregido abajo.</p>
     </div>
     <div class="clima-legend">
       <span class="clima-conf ok">✅ Confirmado</span>
@@ -6180,8 +6180,8 @@ function renderClimaTab(d){
         <div class="clima-card-hd"><span class="clima-day">D0 · Vie 4 sep</span><span class="clima-date">Badajoz → Madrid → Sofía</span></div>
         <div class="clima-live" id="climaLive0">🔄 Pulsa "Actualizar clima en vivo" para ver aquí Open-Meteo</div>
         <div class="clima-source-label">✅ AccuWeather (confirmado)</div>
-        <div class="clima-temp-row"><span class="clima-icon">⛅</span><span class="clima-temp">38° <small>/ 23°</small></span></div>
-        <div class="clima-cond">Calor extremo en Badajoz (38°, aviso amarillo por temperatura, bastante nuboso pero solo 1% de lluvia). Llegada nocturna a Sofía con cielo despejado, ~19°C.</div>
+        <div class="clima-temp-row"><span class="clima-icon">⛅</span><span class="clima-temp">36° <small>/ 22°</small></span></div>
+        <div class="clima-cond">Calor extremo en Badajoz (AccuWeather prevé 36°, aviso amarillo AEMET activo con máxima oficial de hasta 39°C, bastante nuboso pero solo 1% de lluvia). Llegada nocturna a Sofía con cielo despejado, ~13°C — refresca más de lo estimado antes.</div>
         <span class="clima-conf ok">✅ Confirmado (AccuWeather, consultado 3 sep 2026)</span>
         <div class="clima-tags">
           <span class="clima-tag">🧴 Protección solar alta</span>
@@ -6220,8 +6220,8 @@ function renderClimaTab(d){
         <div class="clima-card-hd"><span class="clima-day">D2 · Dom 6 sep</span><span class="clima-date">Sofía → Rila → Sapareva Banya</span></div>
         <div class="clima-live" id="climaLive2">🔄 Pulsa "Actualizar clima en vivo" para ver aquí Open-Meteo</div>
         <div class="clima-source-label">✅ AccuWeather (confirmado)</div>
-        <div class="clima-temp-row"><span class="clima-icon">☀️</span><span class="clima-temp">27° <small>/ 10°</small></span></div>
-        <div class="clima-cond">Muy soleado en Sapareva Banya, prácticamente sin lluvia (1%). Noche notablemente más fresca (10°C).</div>
+        <div class="clima-temp-row"><span class="clima-icon">☀️</span><span class="clima-temp">30-32° <small>/ 10-14°</small></span></div>
+        <div class="clima-cond">⚠️ Actualización: más calor de lo estimado antes tanto en Sofía (30°) como en Rila (32°), muy soleado y prácticamente sin lluvia (1-2%). Noche notablemente más fresca (10-14°C según la zona).</div>
         <span class="clima-conf ok">✅ Confirmado (AccuWeather, consultado 3 sep 2026)</span>
         <div class="clima-tags">
           <span class="clima-tag">👙 Bañador (Aqua Club Kotvata)</span>
@@ -6352,13 +6352,13 @@ function renderClimaTab(d){
         <div class="clima-card-hd"><span class="clima-day">D9 · Dom 13 sep</span><span class="clima-date">Nessebar → Balchik</span></div>
         <div class="clima-live" id="climaLive9">🔄 Pulsa "Actualizar clima en vivo" para ver aquí Open-Meteo</div>
         <div class="clima-source-label">✅ AccuWeather (confirmado)</div>
-        <div class="clima-temp-row"><span class="clima-icon">🌧️</span><span class="clima-temp">24-27° <small>/ 14-19°</small></span></div>
-        <div class="clima-cond">⚠️ Posible lluvia notable en Nessebar (hasta 55% según AccuWeather). Refresca al llegar a Balchik.</div>
-        <span class="clima-conf mid">🟡 Tendencia — revisar antes</span>
+        <div class="clima-temp-row"><span class="clima-icon">☀️</span><span class="clima-temp">26-27° <small>/ 15-18°</small></span></div>
+        <div class="clima-cond">✅ Corregido: la cifra de lluvia que aparecía antes (hasta 55%) era un error — no corresponde a este día. La previsión real de AccuWeather para el 13 de septiembre es mayormente soleada tanto en Nessebar (27°, solo 2% de lluvia) como en Balchik (26°, 3%). Refresca un poco por la noche al llegar a Balchik (15-18°C).</div>
+        <span class="clima-conf ok">✅ Confirmado (AccuWeather, consultado 3 sep 2026)</span>
         <div class="clima-tags">
-          <span class="clima-tag">☂️ Chubasquero/paraguas</span>
-          <span class="clima-tag">🧥 Capa de abrigo (noche Balchik)</span>
-          <span class="clima-tag">👟 Calzado cerrado</span>
+          <span class="clima-tag">🧴 Protección solar</span>
+          <span class="clima-tag">🧥 Capa ligera (noche Balchik)</span>
+          <span class="clima-tag">👟 Calzado cómodo</span>
         </div>
         <div class="clima-src">
           <a href="https://www.accuweather.com/en/bg/nesebur/43208/daily-weather-forecast/43208" target="_blank" rel="noopener">AccuWeather Nessebar</a>
@@ -6543,16 +6543,16 @@ function renderMaletaTab(d){
     <div class="tbl-wrap"><table class="data-tbl">
       <thead><tr><th>Día</th><th>🌍 Zona</th><th>🌡️ Día / noche aprox.</th><th>☀️ Plan</th><th>🧳 Ropa principal</th></tr></thead>
       <tbody>
-        <tr><td>D0 · 4 sep</td><td>🚗 España → ✈️ Sofía</td><td>Badajoz/Madrid 39º/23º 🔥 · Sofía madrugada ~16º</td><td>🚗 carretera + ✈️ vuelo nocturno</td><td>👕 muy ligero + 🧥 fina en mochila (para el frescor de Sofía)</td></tr>
+        <tr><td>D0 · 4 sep</td><td>🚗 España → ✈️ Sofía</td><td>Badajoz 36º/22º 🔥 aviso amarillo (máx. oficial 39º) · Sofía madrugada ~13º</td><td>🚗 carretera + ✈️ vuelo nocturno</td><td>👕 muy ligero + 🧥 fina en mochila (para el frescor de Sofía)</td></tr>
         <tr><td>D1 · 5 sep</td><td>🏙️ Ciudad</td><td>34º / 16º 🔥 más calor de lo estimado</td><td>🚶 Ciudad + noche</td><td>👕 corto + 👖/🩳 + 🧥</td></tr>
-        <tr><td>D2 · 6 sep</td><td>⛰️ Montaña + ♨️ aguas</td><td>Sofía/Rila 27-30º / 8-14º</td><td>⛪ + ♨️ piscina</td><td>👕 + 👖 + 🧥 + 🩱 + 🧕 (hombros/rodillas)</td></tr>
+        <tr><td>D2 · 6 sep</td><td>⛰️ Montaña + ♨️ aguas</td><td>Sofía/Rila 30-32º / 10-14º 🔥 más calor de lo estimado</td><td>⛪ + ♨️ piscina</td><td>👕 + 👖 + 🧥 + 🩱 + 🧕 (hombros/rodillas)</td></tr>
         <tr><td>D3 · 7 sep</td><td>⛰️ Interior + montaña</td><td>26-32º / 8-14º 🔥 más calor en el valle — más fresco/ventoso en Shipka-Buzludzha (~1400 m)</td><td>🏛️ visitas + 🚶</td><td>👕 corto + 🧥 (viento en altitud)</td></tr>
         <tr><td>D4 · 8 sep</td><td>🏙️ Ciudad</td><td>30º / 15º 🔥 más calor de lo estimado</td><td>🏛️ ciudad + 🍷🍺 + 🌙</td><td>👕 corto + 👔/👗 + 🧥</td></tr>
         <tr><td>D5 · 9 sep</td><td>🚐 → 🌊 Costa</td><td>26-30º / 13-17º</td><td>🏛️ + 🏖️</td><td>👕 + 🩱 + 🧥</td></tr>
         <tr><td>D6 · 10 sep</td><td>🏖️ Costa</td><td>27º / 19º · mar ~24,5º · ✅ riesgo de tormenta descartado</td><td>🌊 playa + 🤿</td><td>🩱 + 👕 + 🩳</td></tr>
         <tr><td>D7 · 11 sep</td><td>🏖️ Costa</td><td>28º / 19º · ✅ riesgo de tormenta muy bajo de día (sube algo de noche)</td><td>🏖️ + 🌊</td><td>🩱 + 👕 + 🩳 + 🧥 ligera</td></tr>
         <tr><td>D8 · 12 sep</td><td>🏖️ Costa</td><td>27º / 17º · lluvia poco probable (6%)</td><td>🏖️ relax + 🌅</td><td>🩱 + 👕 + 🩳 + 🌧️ cortavientos a mano</td></tr>
-        <tr><td>D9 · 13 sep</td><td>🌊 Costa</td><td>24-27º / 14-19º · ⚠️ hasta 55% lluvia (Nessebar)</td><td>🏖️ + 🚶</td><td>🩱 + 👕 + 🌧️ cortavientos</td></tr>
+        <tr><td>D9 · 13 sep</td><td>🌊 Costa</td><td>26-27º / 15-18º · ✅ mayormente soleado, lluvia mínima (2-3%) — dato corregido</td><td>🏖️ + 🚶</td><td>🩱 + 👕 + 🧴 protección solar</td></tr>
         <tr><td>D10 · 14 sep</td><td>🌊 Costa</td><td>21-27º / 14-19º · ⚠️ hasta 60% lluvia + mucho viento en Kaliakra</td><td>🏖️ + 🚶 + 🌅</td><td>🩱 + 👕 + 🌧️ cortavientos con capucha</td></tr>
         <tr><td>D11 · 15 sep</td><td>🌊 → 🏰 Interior</td><td>25-26º / 13-15º · posible chubasco 20-30%</td><td>🚐 + 🚶 + 🌙</td><td>👕 + 👖 + 🧥 + 🌧️ cortavientos</td></tr>
         <tr><td>D12 · 16 sep</td><td>🏰 Interior</td><td>23-29º / 14-15º · posible lluvia 25-35%</td><td>🏰 + 🚶 + 🍷</td><td>👕 + 👖 + 👔/👗 + 🧥 + 🌧️ cortavientos</td></tr>
@@ -6563,15 +6563,15 @@ function renderMaletaTab(d){
         <tr><td>D17 · 21 sep</td><td>✈️ Viaje</td><td>Budapest ~14º (madrugada) → Madrid/Badajoz ~28-30º*</td><td>✈️ regreso</td><td>👕 cómodo + 🧥 (quitar al llegar a España)</td></tr>
       </tbody>
     </table></div>
-    <div style="padding:.85rem 1rem;background:rgba(90,172,232,.08);border-radius:var(--r-sm);font-size:.82rem;color:var(--t2);margin-top:.6rem">⚠️ * Los días marcados con asterisco (D13-D17) caen fuera del rango de pronóstico diario real a día de hoy (3 sep 2026) — son tendencia o climatología habitual para esas fechas, no el pronóstico definitivo. D9-D12 sí tienen ya pronóstico extendido con riesgo de lluvia. Consultar el pronóstico real 2-3 días antes de cada tramo — el detalle completo con fuentes y enlaces está en la pestaña <strong>🌦️ Clima</strong>.</div>
+    <div style="padding:.85rem 1rem;background:rgba(90,172,232,.08);border-radius:var(--r-sm);font-size:.82rem;color:var(--t2);margin-top:.6rem">⚠️ * Los días marcados con asterisco (D13-D17) caen fuera del rango de pronóstico diario real a día de hoy (3 sep 2026) — son tendencia o climatología habitual para esas fechas, no el pronóstico definitivo. D9 ya tiene pronóstico real confirmado (mayormente soleado). D10-D12 también tienen ya pronóstico extendido, con riesgo real de lluvia. Consultar el pronóstico real 2-3 días antes de cada tramo — el detalle completo con fuentes y enlaces está en la pestaña <strong>🌦️ Clima</strong>.</div>
 
     <div class="obj-box" style="margin-top:1.5rem">
       <p class="obj-t">
-        🔥 <strong>Actualización 3 sep:</strong> D1, D3, D4 y D5 han salido bastante más calurosos de lo estimado antes (30-34°C, con Plovdiv/Sofía cerca del pico) — reforzar hidratación y protección solar esos días. Como buena noticia, el riesgo de tormenta que se había detectado para D6 (Sozopol playa) y D7 (Ravadinovo) ha bajado mucho: ya no hace falta tratarlos como "plan B con lluvia".<br>
-        🚗 <strong>D0:</strong> calor extremo en España (39°C) pero Sofía llega fresca de madrugada (~16°C) → llevar una chaqueta fina en la mochila de mano, no solo en la maleta facturada<br>
-        🏙️ <strong>D1, D3, D4:</strong> más calor de lo estimado (30-34°C) → priorizar ropa muy ligera y 🧴 protector solar durante el día, + 🧥 por la noche + 👔/👗 para alguna cena o copa<br>
-        🌊 <strong>D5–8:</strong> bloque de playa con sol confirmado y el riesgo de tormenta de D6-D7 descartado/muy bajo → 🩱 + 🩳 + 👕 + 🦶 escarpines + 💧 buena hidratación<br>
-        🌧️ <strong>D9–D12:</strong> aquí es donde de verdad puede llover (probabilidad real, no solo posible) y hace bastante viento en Cabo Kaliakra → el 🌧️ cortavientos/chubasquero deja de ser "por si acaso" y pasa a imprescindible a mano, no en el fondo de la maleta<br>
+        🔥 <strong>Actualización 3 sep:</strong> D0, D1, D2, D3, D4 y D5 han salido bastante más calurosos de lo estimado antes (30-36°C, con Badajoz/Sofía/Rila/Plovdiv cerca del pico) — reforzar hidratación y protección solar esos días. Como buena noticia, el riesgo de tormenta que se había detectado para D6 (Sozopol playa) y D7 (Ravadinovo) ha bajado mucho, y el dato de lluvia que aparecía para D9 (Nessebar → Balchik) era un error — la previsión real es mayormente soleada.<br>
+        🚗 <strong>D0:</strong> calor extremo en España (36°C, aviso amarillo AEMET) pero Sofía llega fresca de madrugada (~13°C) → llevar una chaqueta fina en la mochila de mano, no solo en la maleta facturada<br>
+        🏙️ <strong>D1–D4:</strong> más calor de lo estimado (30-36°C) → priorizar ropa muy ligera y 🧴 protector solar durante el día, + 🧥 por la noche + 👔/👗 para alguna cena o copa<br>
+        🌊 <strong>D5–9:</strong> bloque de playa con sol confirmado, el riesgo de tormenta de D6-D7 descartado/muy bajo y D9 corregido a soleado → 🩱 + 🩳 + 👕 + 🦶 escarpines + 💧 buena hidratación<br>
+        🌧️ <strong>D10–D12:</strong> aquí es donde de verdad puede llover (probabilidad real, no solo posible) y hace bastante viento en Cabo Kaliakra → el 🌧️ cortavientos/chubasquero deja de ser "por si acaso" y pasa a imprescindible a mano, no en el fondo de la maleta<br>
         🏰 <strong>D11–12:</strong> verano + 👖 + 🧥 + alguna prenda para salir<br>
         🪨 <strong>D13:</strong> 👖 pantalón largo + 🥾 buen calzado + 👕 manga larga + 🧥<br>
         🇭🇺 <strong>D14–16:</strong> ropa ligera + 🧥 + 🩱 para termas + 👔/👗 para salir (D16 con posible lluvia por la tarde según una de las fuentes)<br>
@@ -6691,7 +6691,7 @@ function renderMaletaTab(d){
         </div>
         <div class="obj-box" style="margin-top:1rem"><p class="obj-t">🔥 <strong>Aviso clima D1/D3/D4/D5 (Sofía → Plovdiv → costa):</strong> revisión del 3 de septiembre con AccuWeather confirma bastante más calor de lo estimado antes (30-34°C, sol fuerte, prácticamente sin lluvia). Reforzar protector solar, hidratación (agua/electrolitos) y ropa muy ligera esos días — la chaqueta para la noche sigue siendo necesaria, pero de menos peso en la maleta que el resto de capas de abrigo.</p></div>
         <div class="obj-box" style="margin-top:.75rem"><p class="obj-t">✅ <strong>Buena noticia D6-D7 (Sozopol / Ravadinovo):</strong> el riesgo de tormenta que se había detectado antes ha bajado mucho en la revisión del 3 de septiembre — ya no hace falta priorizar el chubasquero esos días, aunque conviene llevarlo igualmente a mano por la noche del D7 (algo de probabilidad de chubasco).</p></div>
-        <div class="obj-box" style="margin-top:.75rem"><p class="obj-t">🌧️ <strong>Aviso clima D9-D12 (Nessebar → Balchik → Kaliakra → Veliko Tarnovo → Belogradchik):</strong> es el único tramo del viaje con probabilidad de lluvia real y confirmada por AccuWeather (hasta 55-60% algunos días) y con bastante viento en el Cabo Kaliakra. Llevad el cortavientos/chubasquero a mano esos días, no en el fondo de la maleta. Ver el detalle día a día con fuentes en la pestaña 🌦️ Clima.</p></div>
+        <div class="obj-box" style="margin-top:.75rem"><p class="obj-t">🌧️ <strong>Aviso clima D10-D12 (Kaliakra → Veliko Tarnovo → Belogradchik):</strong> es el único tramo del viaje con probabilidad de lluvia real y confirmada por AccuWeather (hasta 55-60% algunos días) y con bastante viento en el Cabo Kaliakra. Llevad el cortavientos/chubasquero a mano esos días, no en el fondo de la maleta. El día 9 (Nessebar → Balchik) se corrigió tras revisar bien AccuWeather: la previsión real es mayormente soleada, no de lluvia. Ver el detalle día a día con fuentes en la pestaña 🌦️ Clima.</p></div>
         <div class="obj-box" style="margin-top:.75rem"><p class="obj-t">🔎 <strong>Revisión completa:</strong> esta lista se ha contrastado línea a línea con el planning de los 18 días (transporte, alojamientos, actividades y notas de cada jornada), y con el clima multi-fuente actualizado el 3 de septiembre de 2026, para no dejar fuera nada importante — desde el bañador viejo de Tuzlata hasta la ropa para los monasterios, el calor confirmado de la primera semana y el riesgo real de lluvia de la segunda semana.</p></div>
         <div class="frase-box" style="margin-top:1rem">💬 🔥 ¡Listos para 18 días de playa, montaña, cultura, termas, vinos, cenas y noches! 🌊🏛️🍷🌃🚐</div>
       `, '#c084fc')}
@@ -6703,7 +6703,7 @@ function renderMaletaTab(d){
 function renderTareasTab(d){
   return `
     <div class="hero">
-      <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=1400&q=80" alt="Tareas del organizador">
+      <img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=1400&q=80" alt="Tareas del organizador">
       <div class="hero-c">
         <div class="hero-badge info">🔐 Solo Organizador</div>
         <div class="hero-title">${d.title}</div>
