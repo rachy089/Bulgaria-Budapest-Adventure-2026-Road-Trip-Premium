@@ -176,6 +176,18 @@ table.data-tbl tr.total-row td{font-weight:700;background:rgba(90,172,232,.12);c
 .chk-txt{font-size:.88rem;color:var(--t1);line-height:1.4}
 .chk-item.done .chk-txt{text-decoration:line-through;color:var(--t3)}
 
+/* TAREAS ADMIN — DESGLOSE POR DÍA */
+.tareas-day-card{background:var(--card);border:1px solid var(--card-b);border-radius:var(--r);padding:.9rem 1.1rem;margin-bottom:.9rem;border-left:4px solid var(--ac,var(--blue))}
+.tareas-day-hd{display:flex;align-items:center;gap:.6rem;margin-bottom:.7rem;flex-wrap:wrap}
+.tareas-day-num{font-family:'Poppins',sans-serif;font-weight:800;font-size:1rem;color:var(--t1)}
+.tareas-day-date{font-size:.75rem;color:var(--t2)}
+.tareas-important{display:inline-flex;align-items:center;gap:.25rem;background:rgba(239,68,68,.15);color:#f87171;border:1px solid rgba(239,68,68,.35);font-size:.66rem;font-weight:700;padding:.18rem .55rem;border-radius:20px}
+.tareas-item{display:flex;gap:.55rem;align-items:flex-start;padding:.4rem 0;border-bottom:1px solid rgba(90,172,232,.1);cursor:pointer;user-select:none}
+.tareas-item:last-child{border-bottom:none}
+.tareas-item-ic{flex-shrink:0;font-size:1rem;margin-top:1px}
+.tareas-item-txt{font-size:.85rem;color:var(--t1);line-height:1.4}
+.tareas-item.done .tareas-item-txt{text-decoration:line-through;color:var(--t3)}
+
 /* ACORDEONES (SECCIONES) */
 .acc-wrap{display:flex;flex-direction:column;gap:.7rem;margin:1.8rem 0}
 .acc-section{border:1px solid var(--card-b);border-radius:var(--r);overflow:hidden;background:var(--card);box-shadow:0 3px 12px var(--shadow);transition:all .2s}
@@ -263,6 +275,16 @@ input:checked+.tog-sl:before{transform:translateX(22px)}
 .clima-src a:hover{background:rgba(90,172,232,.2)}
 .clima-legend{display:flex;flex-wrap:wrap;gap:.6rem;margin:.7rem 0 1.2rem;font-size:.72rem;color:var(--t2)}
 .clima-legend span{display:inline-flex;align-items:center;gap:.3rem}
+.clima-live-bar{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;background:rgba(90,172,232,.08);border:1px solid rgba(90,172,232,.25);border-radius:var(--r);padding:.7rem .9rem;margin:.9rem 0 1rem}
+.clima-live-status{font-size:.72rem;color:var(--t2)}
+.clima-live-btn{background:var(--blue);color:#fff;border:none;border-radius:20px;padding:.4rem 1rem;font-size:.72rem;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.clima-live-btn:hover{opacity:.85}
+.clima-live-btn:disabled{opacity:.55;cursor:default}
+.clima-source-label{font-size:.6rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:var(--t3);margin:.35rem 0 .3rem}
+.clima-live{background:rgba(90,172,232,.07);border:1px dashed rgba(90,172,232,.35);border-radius:8px;padding:.45rem .6rem;margin-bottom:.5rem;font-size:.72rem;color:var(--t2);line-height:1.4}
+.clima-live.loading{color:var(--t3);font-style:italic}
+.clima-live.err{color:#f87171;border-color:rgba(239,68,68,.3);background:rgba(239,68,68,.06)}
+.clima-live-temp{font-weight:700;color:var(--t1)}
 </style>
 </head>
 <body>
@@ -361,7 +383,7 @@ const DAYS_DATA = [
   { n: 13, date: '2026-09-17', tz: 'Europe/Budapest', phase: 'budapest', dn: 'Jueves, 17 de Septiembre de 2026', title: 'Belogradchik → Sofía → ✈️ Budapest', sub: 'Devolución de furgoneta, vuelo a Budapest y bienvenida en los Ruin Bars 🇭🇺🍺', img: 'https://images.unsplash.com/photo-1779617164984-0bec21771748?w=1400&q=80', isFull: true },
   { n: 14, date: '2026-09-18', tz: 'Europe/Budapest', phase: 'budapest', dn: 'Viernes, 18 de Septiembre de 2026', title: 'Budapest: Pest, Parlamento, Mercado Central y Crucero', sub: 'El gran día de los imprescindibles de Pest: free tour, Parlamento, Mercado Central, Gerbeaud y crucero nocturno 🏛️🛍️🍫🚢', img: 'https://images.unsplash.com/photo-1761157845019-11c2d237eb75?w=1400&q=80', isFull: true },
   { n: 15, date: '2026-09-19', tz: 'Europe/Budapest', phase: 'budapest', dn: 'Sábado, 19 de Septiembre de 2026', title: 'Budapest: Buda, Castillo, Bastión e Iglesia de Matías', sub: 'Free Tour de Buda, café histórico (New York o Párisi Udvar) y noche completamente libre 🏰☕🌙', img: 'https://images.unsplash.com/photo-1549877452-9c387954fbc2?w=1400&q=80', isFull: true },
-  { n: 16, date: '2026-09-20', tz: 'Europe/Budapest', phase: 'budapest', dn: 'Domingo, 20 de Septiembre de 2026', title: 'Budapest: Városliget, Castillo de Vajdahunyad y Atardecer', sub: 'El día más relajado del viaje: mañana libre (u opcional Free Tour Barrio Judío), paseo por Városliget, Castillo de Vajdahunyad y el atardecer más bonito del viaje 🌳🏰🌇', img: 'https://images.unsplash.com/photo-1660986282179-b516f161bb96?w=1400&q=80', isFull: true },
+  { n: 16, date: '2026-09-20', tz: 'Europe/Budapest', phase: 'budapest', dn: 'Domingo, 20 de Septiembre de 2026', title: 'Budapest: Városliget, Castillo de Vajdahunyad y Atardecer', sub: 'Mañana libre, visita guiada al Parlamento (14:00, ya reservada y pagada), Városliget, Castillo de Vajdahunyad y el atardecer más bonito del viaje 🏛️🌳🏰🌇', img: 'https://images.unsplash.com/photo-1660986282179-b516f161bb96?w=1400&q=80', isFull: true },
   { n: 17, date: '2026-09-21', tz: 'Europe/Madrid', phase: 'transit', dn: 'Lunes, 21 de Septiembre de 2026', title: 'Budapest → ✈️ Madrid → Badajoz', sub: 'Vuelo de regreso de madrugada, recuperación de coche en Barajas y fin del viaje 🏠✈️', img: 'https://images.unsplash.com/photo-1542827781-e1a76617521d?w=1400&q=80', isFull: true },
   { n: 'resumen', date: '2026-09-21', tz: 'Europe/Madrid', phase: 'info',
     title: '🏆 Resumen Final del Viaje',
@@ -371,7 +393,8 @@ const DAYS_DATA = [
     isFull: true },
   { n: 'datos', phase: 'info', title: 'Datos Importantes', dn: 'Reservas, Seguros y Contactos' },
   { n: 'clima', phase: 'info', title: 'Tu Clima', dn: 'Climatología día a día y qué llevar' },
-  { n: 'maleta', phase: 'info', title: 'Tu Maleta', dn: 'Checklist de Equipaje Wizz/Ryanair' }
+  { n: 'maleta', phase: 'info', title: 'Tu Maleta', dn: 'Checklist de Equipaje Wizz/Ryanair' },
+  { n: 'tareas', phase: 'info', title: 'Tareas Admin', dn: 'Solo visible para el organizador', tz: 'Europe/Madrid' }
 ];
 
 
@@ -500,7 +523,7 @@ function renderDay0(d){
     <div class="tl">
       <div class="ti"><div class="ti-time">14:00</div><div class="ti-icon">🚗</div><div class="ti-body"><div class="ti-title">Salida de Lobón hacia Madrid</div><div class="ti-desc">Trayecto previsto: unas 4h - 4h 30min, dependiendo del tráfico. Alternativa por M-40 si hay retenciones.</div></div></div>
       <div class="ti"><div class="ti-time">16:00</div><div class="ti-icon">☕</div><div class="ti-body"><div class="ti-title">Parada rápida (opcional)</div><div class="ti-desc">Baño + café + repostaje si fuera necesario. Máximo 15 minutos.</div></div></div>
-      <div class="ti"><div class="ti-time">18:15 - 18:30</div><div class="ti-icon">🅿️</div><div class="ti-body"><div class="ti-title">Llegada al Parking Barajas T1-T2</div><div class="ti-desc">📍 C. Zaorejas, 2, Madrid. Dejar coche y comprobar que no queda nada en el vehículo. Fran y Graje confirman ubicación en T1.</div></div></div>
+      <div class="ti"><div class="ti-time">18:15 - 18:30</div><div class="ti-icon">🅿️</div><div class="ti-body"><div class="ti-title">Llegada al Parking Barajas T1-T2 · Reserva Nº 1417278</div><div class="ti-desc">📍 C. Zaorejas, 2, Madrid. Parking sin barrera: estacionar y entregar las llaves al responsable, mostrando el email/QR de la reserva (nada que pagar in situ). Comprobar que no queda nada en el vehículo. Fran y Graje confirman ubicación en T1. <button class="btn-more" onclick="openModal('modal-parking-barajas')">Ver reserva y protocolo →</button></div></div></div>
       <div class="ti"><div class="ti-time">18:30 - 18:45</div><div class="ti-icon">🚐</div><div class="ti-body"><div class="ti-title">Shuttle gratuito → T1</div><div class="ti-desc">Duración aproximada: 7 minutos. Mantener equipaje controlado.</div></div></div>
       <div class="ti"><div class="ti-time">18:45 - 19:00</div><div class="ti-icon">🤝</div><div class="ti-body"><div class="ti-title">Reunión con Fran y Graje</div><div class="ti-desc">📍 Punto de encuentro: Zona de salidas, delante de mostradores Wizz Air. ¡Ya estamos los 6 juntos!</div></div></div>
       <div class="ti hl"><div class="ti-time">19:00 - 19:45</div><div class="ti-icon">🧳</div><div class="ti-body"><div class="ti-title">Facturación (PRIORIDAD ABSOLUTA)</div><div class="ti-desc">Facturar las 3 maletas de 20 kg. Revisar medidas mochilas (40×30×20 cm). Una vez facturado el riesgo del día queda resuelto.</div></div></div>
@@ -528,7 +551,7 @@ function renderDay0(d){
           <tr><td>🏠 Alojamiento Sofía</td><td>3BR amazing ap next to Opera H. (Elena) | ulitsa "Georgi S. Rakovski" 84</td><td>379,20 € (Pagado)</td><td><a href="https://maps.google.com/?q=ul.+Georgi+S.+Rakovski+84,+Sofia" target="_blank" rel="noopener" class="btn-link">Ver en Maps</a></td></tr>
           <tr><td>🅿️ Parking Sofía (Opción 1 Rec.)</td><td>Платен паркинг 24/7 | ul. "Iskar" 14, 1000 Sofia</td><td>~15 €/día (24h)</td><td><a href="https://maps.google.com/?q=ul.+Iskar+14,+1000+Sofia+Bulgaria" target="_blank" rel="noopener" class="btn-link">Ver en Maps</a></td></tr>
           <tr><td>🅿️ Parking Sofía (Opción 2 Alt.)</td><td>Денонощен паркинг 24/7 | ul. "11-ti avgust" 20, 1000 Sofia</td><td>~15 €/día (24h)</td><td><a href="https://maps.google.com/?q=11-ti+avgust+20,+Sofia+Bulgaria" target="_blank" rel="noopener" class="btn-link">Ver en Maps</a></td></tr>
-          <tr><td>🅿️ Parking Barajas</td><td>Parking Barajas T1-T2 | C. Zaorejas, 2, Madrid</td><td>—</td><td><a href="https://maps.google.com/?q=Calle+Zaorejas+2,+28042+Madrid" target="_blank" rel="noopener" class="btn-link">Ver en Maps</a></td></tr>
+          <tr><td>🅿️ Parking Barajas</td><td>Parking Barajas T1-T2 | C. Zaorejas, 2, Madrid</td><td>✅ Reserva nº 1417278 confirmada — entrada vie 4 sep 18:30, salida lun 21 sep 10:30</td><td><a href="https://maps.google.com/?q=Calle+Zaorejas+2,+28042+Madrid" target="_blank" rel="noopener" class="btn-link">Ver en Maps</a></td></tr>
         </tbody>
       </table>
     </div>
@@ -541,7 +564,7 @@ function renderDay0(d){
         <tbody>
           <tr><td>Badajoz → Lobón</td><td>25 km</td><td>20 min</td><td>No</td><td><a href="https://www.google.com/maps/dir/Badajoz,+España/Lobón,+Badajoz,+España" target="_blank" rel="noopener" class="btn-link">Ver ruta</a></td></tr>
           <tr><td>Lobón → Madrid (Parking Barajas)</td><td>375 km</td><td>3h 45min - 4h</td><td>Sí (A-5)</td><td><a href="https://www.google.com/maps/dir/Lobón,+Badajoz,+España/Calle+Zaorejas+2,+28042+Madrid,+España" target="_blank" rel="noopener" class="btn-link">Ver ruta</a></td></tr>
-          <tr><td>Parking → T1 (Shuttle)</td><td>—</td><td>7 min</td><td>No</td><td>—</td></tr>
+          <tr><td>Parking → T1 (Shuttle)</td><td>—</td><td>5-6 min (frecuencia 15-20 min)</td><td>No</td><td>—</td></tr>
           <tr><td>✈️ Madrid → Sofía</td><td>2.400 km</td><td>3h 30min</td><td>—</td><td>—</td></tr>
           <tr><td>Aeropuerto SOF → Parking → Hotel</td><td>10 km</td><td>20 min</td><td>No</td><td><a href="https://www.google.com/maps/dir/Sofia+Airport+Terminal+1/ul.+Iskar+14,+Sofia/ul.+Georgi+S.+Rakovski+84,+Sofia" target="_blank" rel="noopener" class="btn-link">Ver ruta</a></td></tr>
           <tr class="total-row"><td>TOTAL Conducción</td><td>~410 km</td><td>~4h 30min</td><td>—</td><td>—</td></tr>
@@ -556,7 +579,7 @@ function renderDay0(d){
         <thead><tr><th>Lugar</th><th>Ubicación / Dirección</th><th>Notas</th><th>Valoraciones</th><th>Fotos / Maps</th></tr></thead>
         <tbody>
           <tr><td>Aeropuerto de Badajoz (BJZ)</td><td>Badajoz, España</td><td>Salida de Fran y Graje</td><td><span class="val-badge">⭐ N/A</span></td><td><a href="https://maps.google.com/?q=Aeropuerto+de+Badajoz" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
-          <tr><td>Parking Barajas T1-T2</td><td>C. Zaorejas, 2, Madrid</td><td>Dejar el coche 17 días</td><td><span class="val-badge">⭐ 4.1 (Google)</span></td><td><a href="https://maps.google.com/?q=Calle+Zaorejas+2,+28042+Madrid" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
+          <tr><td>Parking Barajas T1-T2</td><td>C. Zaorejas, 2, Madrid</td><td>✅ Reserva 1417278 — coche 17 días (4-21 sep)</td><td><span class="val-badge">⭐ 4.1 (Google)</span></td><td><a href="https://maps.google.com/?q=Calle+Zaorejas+2,+28042+Madrid" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
           <tr><td>Aeropuerto Madrid-Barajas (MAD)</td><td>Terminal 1, Madrid</td><td>Reunión y salida del vuelo</td><td><span class="val-badge">⭐ 4.0 (Google)</span></td><td><a href="https://maps.google.com/?q=Aeropuerto+Madrid+Barajas+Terminal+1" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
           <tr><td>Aeropuerto de Sofía (SOF)</td><td>Terminal 1, Sofía</td><td>Llegada y recogida furgoneta</td><td><span class="val-badge">⭐ 3.8 (Google)</span></td><td><a href="https://maps.google.com/?q=Sofia+Airport+Terminal+1" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
           <tr><td>🏠 Alojamiento (Sofía)</td><td>ul. "Georgi S. Rakovski" 84</td><td>3BR amazing ap next to Opera H.</td><td><span class="val-badge">🟢 4.8 (Airbnb)</span></td><td><a href="https://maps.google.com/?q=ul.+Georgi+S.+Rakovski+84,+Sofia" target="_blank" rel="noopener" class="img-btn">🖼️</a></td></tr>
@@ -745,7 +768,7 @@ function renderDay0(d){
       <div class="phase-hd">🌤️ TARDE: Badajoz → Lobón → Madrid</div>
       <div class="ti"><div class="ti-time">14:00</div><div class="ti-icon">🚗</div><div class="ti-body"><div class="ti-title">Salida de Lobón hacia Madrid</div></div></div>
       <div class="ti"><div class="ti-time">16:00</div><div class="ti-icon">☕</div><div class="ti-body"><div class="ti-title">Parada rápida (opcional)</div></div></div>
-      <div class="ti"><div class="ti-time">18:15-18:30</div><div class="ti-icon">🅿️</div><div class="ti-body"><div class="ti-title">Llegada al Parking Barajas T1-T2</div></div></div>
+      <div class="ti"><div class="ti-time">18:15-18:30</div><div class="ti-icon">🅿️</div><div class="ti-body"><div class="ti-title">Llegada al Parking Barajas T1-T2 (reserva 1417278)</div><div class="ti-desc"><button class="btn-more" onclick="openModal('modal-parking-barajas')">Ver reserva →</button></div></div></div>
       <div class="ti"><div class="ti-time">18:30-18:45</div><div class="ti-icon">🚐</div><div class="ti-body"><div class="ti-title">Shuttle gratuito → T1</div></div></div>
       <div class="ti"><div class="ti-time">18:45-19:00</div><div class="ti-icon">🤝</div><div class="ti-body"><div class="ti-title">Reunión con Fran y Graje</div></div></div>
       <div class="ti hl"><div class="ti-time">19:00-19:45</div><div class="ti-icon">🧳</div><div class="ti-body"><div class="ti-title">Facturación (PRIORIDAD ABSOLUTA)</div></div></div>
@@ -4669,6 +4692,86 @@ function gmapsDir(...places){
   return `https://www.google.com/maps/dir/${encoded}`;
 }
 
+// ─── CLIMA EN VIVO: OPEN-METEO (comparativa con AccuWeather) ──────────────
+const CLIMA_COORDS = {
+  0:  { lat: 42.6977, lon: 23.3219, label: 'Sofía' },
+  1:  { lat: 42.6977, lon: 23.3219, label: 'Sofía' },
+  2:  { lat: 42.2667, lon: 23.2667, label: 'Sapareva Banya' },
+  3:  { lat: 42.1354, lon: 24.7453, label: 'Plovdiv' },
+  4:  { lat: 42.1354, lon: 24.7453, label: 'Plovdiv' },
+  5:  { lat: 42.4167, lon: 27.7000, label: 'Sozopol' },
+  6:  { lat: 42.4167, lon: 27.7000, label: 'Sozopol' },
+  7:  { lat: 42.4167, lon: 27.7000, label: 'Sozopol' },
+  8:  { lat: 42.6592, lon: 27.7377, label: 'Nesebar' },
+  9:  { lat: 43.4167, lon: 28.1667, label: 'Balchik' },
+  10: { lat: 43.0757, lon: 25.6172, label: 'Veliko Tarnovo' },
+  11: { lat: 43.0757, lon: 25.6172, label: 'Veliko Tarnovo' },
+  12: { lat: 43.6225, lon: 22.6819, label: 'Belogradchik' },
+  13: { lat: 47.4979, lon: 19.0402, label: 'Budapest' },
+  14: { lat: 47.4979, lon: 19.0402, label: 'Budapest' },
+  15: { lat: 47.4979, lon: 19.0402, label: 'Budapest' },
+  16: { lat: 47.4979, lon: 19.0402, label: 'Budapest' },
+  17: { lat: 38.8794, lon: -6.9707, label: 'Badajoz' }
+};
+
+function wmoIcon(code){
+  if(code === 0) return '☀️';
+  if([1,2].includes(code)) return '🌤️';
+  if(code === 3) return '☁️';
+  if([45,48].includes(code)) return '🌫️';
+  if([51,53,55,56,57].includes(code)) return '🌦️';
+  if([61,63,65,66,67,80,81,82].includes(code)) return '🌧️';
+  if([71,73,75,77,85,86].includes(code)) return '🌨️';
+  if([95,96,99].includes(code)) return '⛈️';
+  return '🌡️';
+}
+
+function wmoDesc(code){
+  const map = {
+    0: 'Cielo despejado', 1: 'Mayormente despejado', 2: 'Parcialmente nuboso', 3: 'Nublado',
+    45: 'Niebla', 48: 'Niebla escarchada',
+    51: 'Llovizna débil', 53: 'Llovizna moderada', 55: 'Llovizna intensa',
+    56: 'Llovizna helada débil', 57: 'Llovizna helada intensa',
+    61: 'Lluvia débil', 63: 'Lluvia moderada', 65: 'Lluvia intensa',
+    66: 'Lluvia helada débil', 67: 'Lluvia helada intensa',
+    71: 'Nieve débil', 73: 'Nieve moderada', 75: 'Nieve intensa', 77: 'Granos de nieve',
+    80: 'Chubascos débiles', 81: 'Chubascos moderados', 82: 'Chubascos violentos',
+    85: 'Chubascos de nieve débiles', 86: 'Chubascos de nieve intensos',
+    95: 'Tormenta', 96: 'Tormenta con granizo débil', 99: 'Tormenta con granizo fuerte'
+  };
+  return map[code] || 'Sin datos';
+}
+
+async function fetchLiveClima(){
+  const btn = document.getElementById('climaLiveBtn');
+  if(btn){ btn.disabled = true; btn.textContent = '⏳ Consultando Open-Meteo...'; }
+  const days = DAYS_DATA.filter(d => typeof d.n === 'number');
+  await Promise.all(days.map(async d => {
+    const el = document.getElementById('climaLive' + d.n);
+    const coords = CLIMA_COORDS[d.n];
+    if(!el || !coords) return;
+    el.className = 'clima-live loading';
+    el.textContent = '⏳ Consultando Open-Meteo...';
+    try{
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lon}&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,weathercode&timezone=auto&start_date=${d.date}&end_date=${d.date}`;
+      const res = await fetch(url);
+      if(!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      if(!data.daily || !data.daily.time || !data.daily.time.length) throw new Error('Sin datos para esta fecha');
+      const code = data.daily.weathercode[0];
+      const tmax = Math.round(data.daily.temperature_2m_max[0]);
+      const tmin = Math.round(data.daily.temperature_2m_min[0]);
+      const pop = data.daily.precipitation_probability_max[0];
+      el.className = 'clima-live';
+      el.innerHTML = `🟢 <strong>Open-Meteo (en directo)</strong> — ${wmoIcon(code)} <span class="clima-live-temp">${tmax}°/${tmin}°</span> · ${wmoDesc(code)} · 💧${pop}% <span style="opacity:.65">(${coords.label}, consultado ahora)</span>`;
+    }catch(err){
+      el.className = 'clima-live err';
+      el.textContent = '⚠️ Open-Meteo aún no tiene pronóstico para esta fecha (fuera de su ventana de ~16 días) o falló la conexión';
+    }
+  }));
+  if(btn){ btn.disabled = false; btn.textContent = '🔄 Actualizar clima en vivo (Open-Meteo)'; }
+}
+
 // ─── RENDER DEL DÍA 14 ───────────────────────────────────────────
 function renderDay14(d){
   const sec_linea_html = `
@@ -4695,7 +4798,7 @@ function renderDay14(d){
     <div class="phase-hd">🌙 NOCHE: Colchón, Crucero por el Danubio y Cena</div>
     <div class="tl">
       <div class="ti"><div class="ti-time">18:20 - 19:30</div><div class="ti-icon">🏙️</div><div class="ti-body"><div class="ti-title">Tiempo libre / descanso / paseo (COLCHÓN)</div><div class="ti-desc">Este espacio lo dejamos deliberadamente libre. Es el colchón que permite que todo funcione aunque haya retrasos. Podemos pasear por Vörösmarty tér, acercarnos al Danubio, descansar en el apartamento o tomar algo antes del crucero. No meter aquí otra visita.</div></div></div>
-      <div class="ti hl"><div class="ti-time">≈19:30 - 21:00</div><div class="ti-icon">🚢</div><div class="ti-body"><div class="ti-title">Crucero Nocturno por el Danubio 🔴 IMPRESCINDIBLE (según horario real disponible)</div><div class="ti-desc">⚠️ IMPORTANTE — CONDICIONADO AL CAUDAL DEL DANUBIO: a 1 de septiembre de 2026, el nivel del Danubio en Budapest es anormalmente bajo (entre 8 y 18 cm, muy por debajo de los 2,5 m necesarios para la navegación) (fuente: Reuters). Estrategia: no comprar con antelación. Comprobar 48-24 horas antes si los cruceros nocturnos operan con normalidad. Si hay problemas, se sustituye por una cena con vistas o un paseo por la orilla.<br><br>Opciones de crucero (reservar in situ o online 24h antes): 🥇 MAHART PassNave — Budapest By Night: 7.500 HUF (~19 €), ~50 min, incluye audioguía + bebida de bienvenida (b2c.mahartpassnave.hu). 🥈 Legenda — Danube Legend: 25 €, 1h, incluye audioguía/película + 1 bebida (legenda.hu). 🥉 Silverline Cruises: desde ~12 €, 1h, suplemento nocturno puede variar (silver-line.hu). Consejo: MAHART es la opción más económica y sale de Vigadó tér, Dock 5 (5-10 min de Gerbeaud). La hora exacta dependerá del operador; ajustar la cena después del crucero.</div></div></div>
+      <div class="ti hl"><div class="ti-time">≈19:30 - 21:00</div><div class="ti-icon">🚢</div><div class="ti-body"><div class="ti-title">Crucero Nocturno por el Danubio 🔴 IMPRESCINDIBLE (según horario real disponible)</div><div class="ti-desc">⚠️ IMPORTANTE — CONDICIONADO AL CAUDAL DEL DANUBIO: a 1 de septiembre de 2026, el nivel del Danubio en Budapest es anormalmente bajo (entre 8 y 18 cm, muy por debajo de los 2,5 m necesarios para la navegación) (fuente: Reuters). Estrategia: no comprar con antelación. Comprobar 48-24 horas antes si los cruceros nocturnos operan con normalidad. Si hay problemas, se sustituye por una cena con vistas o un paseo por la orilla.<br><br>Opciones de crucero (reservar in situ o online 24h antes): 🥇 MAHART PassNave — Budapest By Night: 7.500 HUF (~19 €), ~50 min, incluye audioguía + bebida de bienvenida (b2c.mahartpassnave.hu). 🥈 Legenda — Danube Legend: 25 €, 1h, incluye audioguía/película + 1 bebida (legenda.hu). 🥉 Silverline Cruises: desde ~12 €, 1h, suplemento nocturno puede variar (silver-line.hu). Consejo: MAHART es la opción más económica y sale de Vigadó tér, Dock 5 (5-10 min de Gerbeaud). La hora exacta dependerá del operador; ajustar la cena después del crucero. 🎫 Alternativa para comprar online si hace falta con poca antelación: <a href="https://www.budapest-baths.com/es/" target="_blank" rel="noopener" class="btn-link">budapest-baths.com</a> (no oficial, vende cruceros y otras actividades de Budapest).</div></div></div>
       <div class="ti"><div class="ti-time">Después del crucero</div><div class="ti-icon">🍽️</div><div class="ti-body"><div class="ti-title">Cena (según horario real de finalización)</div><div class="ti-desc">🥇 Kandalló Craft Beer & Burger Pub (Kertész utca 33, 10-20 €/p, horario viernes 12:00-00:00) — mejor encaje con el grupo: cerveza artesanal + vinos. 🥈 Menza (Liszt Ferenc tér 2, 10-20 €/p, horario viernes 11:00-23:00) — opción más gastronómica y tranquila. For Sale Pub se deja como alternativa de última hora si las dos principales no encajan.</div></div></div>
       <div class="ti"><div class="ti-time">Después de cenar</div><div class="ti-icon">🍺</div><div class="ti-body"><div class="ti-title">Opcional: copa / paseo (sin planificar)</div><div class="ti-desc">No se planifica ningún ruin bar específico. Si el grupo tiene energía y ganas, se puede dar un paseo por la orilla del Danubio, tomar una copa en una terraza cercana, o ir directamente al apartamento.</div></div></div>
       <div class="ti"><div class="ti-time">23:30</div><div class="ti-icon">💤</div><div class="ti-body"><div class="ti-title">Alojamiento</div><div class="ti-desc">📍 Central - Balcony - Comfort & Calm Hideaway (Attila), Gogol utca 16.</div></div></div>
@@ -4867,6 +4970,7 @@ function renderDay14(d){
 
     <div class="sec-center">🎯 Objetivo del Día</div>
     <div class="obj-box"><p class="obj-t">Primer día completo en Budapest y el gran día de los imprescindibles de Pest. Hoy concentramos los elementos que realmente merece la pena asegurar sin sobrecargar el día. La secuencia es lógica, compacta y deja colchones para absorber imprevistos.</p></div>
+    <div class="obj-box"><p class="obj-t">🎫 Para comprar entradas online a termas, cruceros u otras actividades de Budapest (crucero por el Danubio, museos, tours...): <a href="https://www.budapest-baths.com/es/" target="_blank" rel="noopener" class="btn-link">budapest-baths.com</a> — plataforma de terceros (Headout), no es la web oficial de cada atracción, pero centraliza la compra de varias actividades a la vez.</p></div>
     <div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>Prioridad</th><th>Actividad</th></tr></thead><tbody>
       <tr><td>🔴🏆</td><td>Free Tour General (10:00-12:30) — ya reservado</td></tr>
       <tr><td>🔴🏛️</td><td>Parlamento Húngaro — visita interior (entrada reservada)</td></tr>
@@ -4982,7 +5086,7 @@ function renderDay15(d){
     <div class="tl">
       <div class="ti"><div class="ti-time">18:30 - 19:30</div><div class="ti-icon">🏙️</div><div class="ti-body"><div class="ti-title">Tiempo libre / descanso / paseo</div><div class="ti-desc">Este espacio permite: volver al apartamento si se necesita descansar, pasear por el centro de Pest, o decidir el plan de la noche.</div></div></div>
       <div class="ti hl"><div class="ti-time">19:30 en adelante</div><div class="ti-icon">🟢</div><div class="ti-body"><div class="ti-title">NOCHE ABIERTA — sin planes obligatorios</div><div class="ti-desc">Las opciones son: 🍽️ Cena (Menza, Kandalló, Negro Mangalica, etc., 10-20 €). 🍺 Bar / ruin bar (Szimpla Kert, Mazel Tov, HOPAHOLIC, etc., 5-15 €). 🚶 Paseo nocturno (Parlamento iluminado, Danubio, Batthyány tér, 0 €). ♨️ Termas (opcional, solo si apetece — Veli Bej o Lukács, +15-25 €). Filosofía de la noche: no hay que decidir nada ahora. Después del café histórico, el grupo valora: ¿cómo estamos de cansancio?, ¿qué apetece hacer?, ¿queremos gastar en termas o preferimos cena + copas?</div></div></div>
-      <div class="ti"><div class="ti-time">—</div><div class="ti-icon">♨️</div><div class="ti-body"><div class="ti-title">Termas — posibilidad extra (NO es un plan del día)</div><div class="ti-desc">No forman parte del plan del día y no se reserva nada. Si por la tarde/noche el grupo tiene ganas de relajarse, se puede buscar una terma económica disponible en ese momento. 🥇 Veli Bej (otomano auténtico, 14-18 €) — opción económica y auténtica. 🥈 Lukács (histórico/local, 18-23 €) — alternativa económica. 🥉 Széchenyi (monumental/icónica, 33-40 €) — solo si el grupo quiere pagar el extra. Rudas (histórica + nocturna, ~40 €) — descartada por precio. Sparty (fiesta en el agua, 69 €+) — descartada. Criterio de gasto: ≤20 € buena opción si apetece · 20-30 € solo si realmente merece la pena · ~40 € no · Sparty descartada.</div></div></div>
+      <div class="ti"><div class="ti-time">—</div><div class="ti-icon">♨️</div><div class="ti-body"><div class="ti-title">Termas — posibilidad extra (NO es un plan del día)</div><div class="ti-desc">No forman parte del plan del día y no se reserva nada. Si por la tarde/noche el grupo tiene ganas de relajarse, se puede buscar una terma económica disponible en ese momento. 🥇 Veli Bej (otomano auténtico, 14-18 €) — opción económica y auténtica. 🥈 Lukács (histórico/local, 18-23 €) — alternativa económica. 🥉 Széchenyi (monumental/icónica, 33-40 €) — solo si el grupo quiere pagar el extra. Rudas (histórica + nocturna, ~40 €) — descartada por precio. Sparty (fiesta en el agua, 69 €+) — descartada. Criterio de gasto: ≤20 € buena opción si apetece · 20-30 € solo si realmente merece la pena · ~40 € no · Sparty descartada. 🎫 Compra online (si se opta por Széchenyi, para evitar colas de fin de semana): <a href="https://www.budapest-baths.com/es/" target="_blank" rel="noopener" class="btn-link">budapest-baths.com</a> (no oficial).</div></div></div>
       <div class="ti"><div class="ti-time">00:00</div><div class="ti-icon">💤</div><div class="ti-body"><div class="ti-title">Alojamiento</div></div></div>
     </div>
   `;
@@ -5056,7 +5160,7 @@ function renderDay15(d){
       <tr><td>🏰 Free Tour de Buda</td><td>✅ Confirmado</td><td>🔴 Imprescindible</td><td>Propina 5-10 €</td><td><span class="val-badge">N/A</span></td><td>10:00. Español.</td><td><a href="${gmapsDir('Szent György tér, Budapest')}" target="_blank" rel="noopener" class="btn-link">Maps</a></td></tr>
       <tr><td>⛪ Iglesia de Matías</td><td>⏳ Sin reserva</td><td>🔴 Imprescindible</td><td>~2.500 HUF (~6,50 €)</td><td><span class="val-badge">⭐ 4.8 (Google)</span></td><td>Entrada in situ.</td><td><a href="${gmapsDir('Matthias Church, Budapest')}" target="_blank" rel="noopener" class="btn-link">Maps</a></td></tr>
       <tr><td>☕ New York / Párisi</td><td>⏳ Sin reserva</td><td>🟢 Importante</td><td>10-25 €</td><td><span class="val-badge">⭐ New York 4.0 · Párisi 4.7 (Google)</span></td><td>Elegir UNO.</td><td><a href="${gmapsDir('New York Café, Budapest')}" target="_blank" rel="noopener" class="btn-link">Maps</a></td></tr>
-      <tr><td>♨️ Termas</td><td>⏳ No reservar</td><td>🟡 Opcional</td><td>0 € (o ≤20 € si se hacen)</td><td><span class="val-badge">⭐ Széchenyi 4.2 (Google) · Rudas no verificado</span></td><td>Decidir sobre la marcha.</td><td>—</td></tr>
+      <tr><td>♨️ Termas</td><td>⏳ No reservar</td><td>🟡 Opcional</td><td>0 € (o ≤20 € si se hacen)</td><td><span class="val-badge">⭐ Széchenyi 4.2 (Google) · Rudas no verificado</span></td><td>Decidir sobre la marcha. Si se hace Széchenyi: <a href="https://www.budapest-baths.com/es/" target="_blank" rel="noopener" class="btn-link">Comprar entrada (no oficial)</a></td><td>—</td></tr>
     </tbody></table></div>
   `;
 
@@ -5165,6 +5269,7 @@ function renderDay15(d){
 
     <div class="sec-center">🎯 Objetivo del Día</div>
     <div class="obj-box"><p class="obj-t">Segundo día completo en Budapest, dedicado a la colina de Buda y sus grandes imprescindibles. Hoy nos centramos en la orilla oeste del Danubio, donde se concentran los monumentos históricos más importantes de la ciudad. La secuencia está diseñada para ser intensa pero no agotadora, con una noche completamente abierta para decidir sobre la marcha entre cenar, tomar algo, pasear o, si apetece y el grupo tiene energía, hacer unas termas económicas.</p></div>
+    <div class="obj-box"><p class="obj-t">🎫 Si el grupo decide hacer Széchenyi (fin de semana, conviene evitar colas), se puede comprar entrada online en <a href="https://www.budapest-baths.com/es/" target="_blank" rel="noopener" class="btn-link">budapest-baths.com</a> — no es la web oficial, pero también vende otras actividades de Budapest (cruceros, tours, museos).</p></div>
     <div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>Prioridad</th><th>Actividad</th></tr></thead><tbody>
       <tr><td>🔴🏰</td><td>Free Tour de Buda (10:00-12:30) — ya reservado</td></tr>
       <tr><td>🔴🏛️</td><td>Barrio del Castillo de Buda — paseo y exteriores</td></tr>
@@ -5254,36 +5359,36 @@ function renderDay15(d){
 // ─── RENDER DEL DÍA 16 ───────────────────────────────────────────
 function renderDay16(d){
   const sec_linea_html = `
-    <div class="phase-hd">☀️ MAÑANA (09:00 – 13:00/14:00) — DECISIÓN TOMADA EL SÁBADO POR LA NOCHE</div>
+    <div class="phase-hd">☀️ MAÑANA (09:00 – 13:15)</div>
     <div class="tl">
-      <div class="ti"><div class="ti-time">09:00</div><div class="ti-icon">🛏️</div><div class="ti-body"><div class="ti-title">Despertar sin prisas</div><div class="ti-desc">Último día completo en Budapest. Después de dos días intensos, hoy toca bajar el ritmo.</div></div></div>
+      <div class="ti"><div class="ti-time">09:00</div><div class="ti-icon">🛏️</div><div class="ti-body"><div class="ti-title">Despertar sin prisas</div><div class="ti-desc">Último día completo en Budapest. Después de dos días intensos, hoy toca bajar el ritmo — hasta que empiece el Parlamento a las 14:00.</div></div></div>
       <div class="ti"><div class="ti-time">09:15-10:00</div><div class="ti-icon">🥐</div><div class="ti-body"><div class="ti-title">Desayuno</div><div class="ti-desc">Opción 1: en el apartamento (comprar el día anterior). Opción 2: cafetería local cercana.</div></div></div>
+      <div class="ti hl"><div class="ti-time">10:00-12:30</div><div class="ti-icon">🟢</div><div class="ti-body"><div class="ti-title">Mañana libre (plan base)</div><div class="ti-desc">Sin lista obligatoria — según las ganas del grupo: 🛍️ últimas compras (Váci utca, Fashion Street) · ☕ café en una terraza · 🚶 paseo por Pest sin rumbo · 🛏️ descansar en el apartamento · 🧳 empezar a organizar el equipaje. No intentar meter otro monumento importante — el día ya tiene su objetivo, y a las 14:00 hay que estar en el Parlamento.</div></div></div>
+      <div class="ti"><div class="ti-time">12:30-13:15</div><div class="ti-icon">🍽️</div><div class="ti-body"><div class="ti-title">Comida sencilla (adelantada)</div><div class="ti-desc">Ligera y rápida, cerca del apartamento: 🛒 supermercado/bakery · ☕ cafetería local. Se adelanta respecto al plan original porque a las 13:15 hay que salir hacia el Parlamento.</div></div></div>
     </div>
 
-    <div class="phase-hd">🟡 OPCIÓN A — CON FREE TOUR DEL BARRIO JUDÍO (10:00-14:00) — solo si el sábado decidimos que tenemos energía</div>
+    <div class="phase-hd">⚠️ ✡️ Free Tour del Barrio Judío — YA NO ENTRA EN EL DÍA</div>
     <div class="tl">
-      <div class="ti"><div class="ti-time">10:00-10:45</div><div class="ti-icon">🚇</div><div class="ti-body"><div class="ti-title">Desplazamiento al punto de encuentro</div><div class="ti-desc">📍 Punto de encuentro: suele ser en la Plaza de la Libertad (Szabadság tér) o en el Barrio Judío — confirmar el punto exacto al reservar, ya que puede variar.</div></div></div>
-      <div class="ti hl"><div class="ti-time">11:00-13:15</div><div class="ti-icon">✡️</div><div class="ti-body"><div class="ti-title">Free Tour del Barrio Judío (2h 15min) 🟡 OPCIONAL ✅ RESERVADO</div><div class="ti-desc">Idioma: español. Recorrido: historia del Barrio Judío, la II Guerra Mundial y el Holocausto. Gratuito (propina voluntaria 5-10 €/persona). Es un tour emocionalmente intenso — la decisión de hacerlo o no se toma el sábado por la noche.</div></div></div>
-      <div class="ti"><div class="ti-time">13:15-14:00</div><div class="ti-icon">🍽️</div><div class="ti-body"><div class="ti-title">Comida rápida</div><div class="ti-desc">Zona del Barrio Judío o Pest.</div></div></div>
+      <div class="ti"><div class="ti-icon">🛑</div><div class="ti-body"><div class="ti-title">Sin hueco realista</div><div class="ti-desc">Con la visita guiada al Parlamento confirmada a las 14:00, no queda margen para el Free Tour del Barrio Judío (que ocupaba 11:00-13:15) sin sacrificar la comida y llegar con prisas al punto de encuentro. Queda pendiente decidir si se cancela definitivamente o se reubica en otro día — ver pestaña 🔐 Tareas Admin.</div></div></div>
     </div>
 
-    <div class="phase-hd">🟢 OPCIÓN B — SIN FREE TOUR ⭐ PLAN BASE OFICIAL (10:00-14:00)</div>
+    <div class="phase-hd">🏛️ VISITA GUIADA AL PARLAMENTO (13:15-16:30) — ✅ RESERVADO Y PAGADO</div>
     <div class="tl">
-      <div class="ti hl"><div class="ti-time">10:00-13:00</div><div class="ti-icon">🟢</div><div class="ti-body"><div class="ti-title">Mañana libre</div><div class="ti-desc">Sin lista obligatoria — según las ganas del grupo: 🛍️ últimas compras (Váci utca, Fashion Street) · ☕ café en una terraza · 🚶 paseo por Pest sin rumbo · 🛏️ descansar en el apartamento · volver a algún sitio que haya gustado · 🧳 empezar a organizar el equipaje. No intentar meter otro monumento importante — el día ya tiene su objetivo.</div></div></div>
-      <div class="ti"><div class="ti-time">13:00-14:00</div><div class="ti-icon">🍽️</div><div class="ti-body"><div class="ti-title">Comida sencilla</div><div class="ti-desc">Ligera y económica antes de salir: 🛒 supermercado (comprar algo para picnic o comer rápido) · 🥐 bakery/panadería (sándwiches, pasteles) · ☕ cafetería local. No hace falta ir a un restaurante formal.</div></div></div>
+      <div class="ti"><div class="ti-time">13:15-13:55</div><div class="ti-icon">🚇</div><div class="ti-body"><div class="ti-title">Traslado a Kossuth Lajos tér</div><div class="ti-desc">Desde el apartamento en Gogol utca 16: 🚶 andar a Lehel tér (línea M3) → 🚇 M3 hasta Deák Ferenc tér → 🚇 transbordo a M2 hasta Kossuth Lajos tér (2 paradas) → 🚶 salir a la plaza. Tiempo total estimado: ~25-30 min. Salir del apartamento sobre las 13:15 para llegar con margen.</div></div></div>
+      <div class="ti hl"><div class="ti-time">14:00</div><div class="ti-icon">📍</div><div class="ti-body"><div class="ti-title">Punto de encuentro con el guía</div><div class="ti-desc">Plaza Kossuth Lajos, frente a la estatua de Rákóczi Ferenc II. Llegar 15 min antes de la hora reservada. 🔴 Llevar el pasaporte/DNI de los 6 — el guía los necesita para sacar las entradas en taquilla. Mostrar la reserva (impresa o en el móvil).</div></div></div>
+      <div class="ti hl"><div class="ti-time">14:15-16:30</div><div class="ti-icon">🏛️</div><div class="ti-body"><div class="ti-title">Visita guiada al Parlamento (135 min) 🔴 IMPRESCINDIBLE — ya pagado</div><div class="ti-desc">210,00 € por 6 adultos (35 €/persona), en español, con Paseando por Europa. Primera parte al aire libre alrededor de la Plaza Kossuth con guía local; interior con audioguía en español (gran escalera principal, antigua Cámara Alta, Consejos de Diputados, sala de la cúpula y joyas de la corona). Punto final: Kossuth Lajos tér 1-3. Código de reserva GYG83W8MXKHV · PIN bDAuwzxe. Cancelación gratuita hasta el 19 de septiembre a las 14:15 (ya pasada esa fecha para cuando llegue el viaje, así que no hay reembolso posible desde ahora).</div></div></div>
     </div>
 
-    <div class="phase-hd">🌳 TARDE (14:00/14:30 – 19:00) — VÁROSLIGET + CASTILLO DE VAJDAHUNYAD + ATARDECER</div>
+    <div class="phase-hd">🌳 TARDE (16:30 – 19:00) — VÁROSLIGET + CASTILLO DE VAJDAHUNYAD + ATARDECER</div>
     <div class="tl">
-      <div class="ti"><div class="ti-time">14:00-14:30</div><div class="ti-icon">🚇</div><div class="ti-body"><div class="ti-title">Traslado a Városliget (ruta optimizada)</div><div class="ti-desc">Desde el apartamento en Gogol utca 16: 🚶 andar 7-10 min hasta la estación Lehel tér (línea M3) → 🚇 metro dirección Kőbánya-Kispest hasta Deák Ferenc tér (3 paradas) → 🚇 transbordar a la línea M1 (dirección Mexikói út) hasta Széchenyi fürdő (5 paradas) → 🚶 salir de la estación, entrada de Városliget junto a las Termas Széchenyi. Tiempo total estimado: ~25-30 min.</div></div></div>
-      <div class="ti hl"><div class="ti-time">14:30-16:30</div><div class="ti-icon">🌳</div><div class="ti-body"><div class="ti-title">Városliget (Parque de la Ciudad) 🔴 IMPRESCINDIBLE</div><div class="ti-desc">No es un monumento que "visitar", es un parque para pasear y disfrutar del entorno: senderos arbolados, sentarse junto al lago, primeras vistas de Vajdahunyad desde distintos ángulos, fotografías, parar a tomar algo, paseo sin objetivo. Tiempo ideal: 1,5-2 horas — perfecto para este último día.</div></div></div>
-      <div class="ti hl"><div class="ti-time">16:30-18:15</div><div class="ti-icon">🏰</div><div class="ti-body"><div class="ti-title">Castillo de Vajdahunyad 🔴 IMPRESCINDIBLE</div><div class="ti-desc">Castillo de cuento de hadas construido en 1896 para la Exposición del Milenio, combina estilos románico, gótico y renacentista. Exterior: gratuito, abierto 24h — patio, torres, iglesia, lago, puente y estatua del Anónimo son lo verdaderamente importante. Museo Agrícola Húngaro (interior, opcional): ~2.500 HUF (~6,50 €), horario domingo 10:00-17:00 (última entrada ~16:30) — entrar solo si estamos en la zona antes de las 16:30 y apetece, sin condicionar el recorrido a ello. A las 17:00 empezamos a disfrutar del entorno para el atardecer. <button class="btn-more" onclick="openModal('modal-vajdahunyad')">Ver detalles completos →</button></div></div></div>
-      <div class="ti hl"><div class="ti-time">18:15-19:00</div><div class="ti-icon">🌇</div><div class="ti-body"><div class="ti-title">Atardecer en Vajdahunyad 🔴🔴🔴 MOMENTO CLAVE DEL DÍA</div><div class="ti-desc">Frente al castillo, junto al lago. Puesta de sol: 18:45 — llegar sobre las 18:15 para tener 30 minutos de margen: elegir ubicación, buscar el reflejo en el lago, ver cómo cambia la luz y, simplemente, disfrutar. El momento que no sacrificaríamos por nada del día.</div></div></div>
+      <div class="ti"><div class="ti-time">16:30-17:00</div><div class="ti-icon">🚇</div><div class="ti-body"><div class="ti-title">Traslado a Városliget</div><div class="ti-desc">Desde Kossuth Lajos tér: 🚇 M2 hasta Deák Ferenc tér → 🚇 transbordo a M1 (dirección Mexikói út) hasta Széchenyi fürdő → 🚶 entrada de Városliget. Tiempo total estimado: ~25-30 min.</div></div></div>
+      <div class="ti hl"><div class="ti-time">17:00-18:15</div><div class="ti-icon">🌳🏰</div><div class="ti-body"><div class="ti-title">Városliget + Castillo de Vajdahunyad (versión compacta) 🔴 IMPRESCINDIBLE</div><div class="ti-desc">Se camina por el parque de camino al castillo — no hay tiempo para el paseo largo y relajado original (era de 4h, ahora son ~75 min), pero es tiempo de sobra para llegar al castillo: patio, torres, iglesia, lago, puente y estatua del Anónimo. Exterior gratuito, abierto 24h. Museo interior (opcional, ~6,50 €) probablemente se sacrifica por tiempo — no forzarlo. <button class="btn-more" onclick="openModal('modal-vajdahunyad')">Ver detalles completos →</button></div></div></div>
+      <div class="ti hl"><div class="ti-time">18:15-19:00</div><div class="ti-icon">🌇</div><div class="ti-body"><div class="ti-title">Atardecer en Vajdahunyad 🔴🔴🔴 MOMENTO CLAVE DEL DÍA</div><div class="ti-desc">Frente al castillo, junto al lago. Puesta de sol: 18:45 — llegar sobre las 18:15 para tener 30 minutos de margen: elegir ubicación, buscar el reflejo en el lago, ver cómo cambia la luz y, simplemente, disfrutar. El momento que no se sacrifica por nada del día — se mantiene intacto pese al cambio de horario.</div></div></div>
     </div>
 
-    <div class="phase-hd">🟡 ¿Y TERMAS SZÉCHENYI? (OPCIONAL — solo si NO se hicieron termas el sábado)</div>
+    <div class="phase-hd">🟡 ¿Y TERMAS SZÉCHENYI? — YA NO CABEN ESTE DOMINGO</div>
     <div class="tl">
-      <div class="ti"><div class="ti-time">Sustituye 14:30-16:30</div><div class="ti-icon">♨️</div><div class="ti-body"><div class="ti-title">Termas Széchenyi (si el grupo lo pide)</div><div class="ti-desc">No forma parte de la planificación principal del domingo. Si finalmente no se hizo ninguna experiencia termal el sábado y el grupo prefiere hacerla, se puede encajar porque está justo al lado de Városliget: 14:30-16:30 Széchenyi → 16:30-18:15 Vajdahunyad → 18:15-19:00 Atardecer. Horario domingo: 08:00-20:00 (piscinas/saunas hasta 19:40). Entrada diaria con taquilla: 14.800 HUF (~38-40 €). ⚠️ Si se hace, desaparece el bloque de Városliget de 14:30-16:30 — no se hacen ambas cosas completas, sustituye parte del paseo, no se añade. Seguimos respetando la regla de una sola experiencia de termas en todo Budapest. <button class="btn-more" onclick="openModal('modal-szechenyi')">Ver detalles completos →</button></div></div></div>
+      <div class="ti"><div class="ti-icon">🛑</div><div class="ti-body"><div class="ti-title">Descartadas para el Día 16</div><div class="ti-desc">Con el Parlamento ocupando toda la primera mitad de la tarde, ya no queda ningún hueco realista para las Termas Széchenyi el domingo. Si no se hicieron el sábado, se dan por no hechas en este viaje — no merece la pena forzarlas y sacrificar el atardecer.</div></div></div>
     </div>
 
     <div class="phase-hd">🌙 NOCHE (19:00 – 23:30) — ÚLTIMA CENA EN BUDAPEST + EQUIPAJE</div>
@@ -5311,25 +5416,30 @@ function renderDay16(d){
   const sec_despl_html = `
     <div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>Tramo</th><th>Distancia</th><th>Tiempo</th><th>Transporte</th></tr></thead><tbody>
       <tr><td>Apartamento → Lehel tér</td><td>~0,7 km</td><td>7-10 min</td><td>🚶 A pie</td></tr>
-      <tr><td>Lehel tér → Deák Ferenc tér</td><td>—</td><td>~5 min</td><td>🚇 Metro M3 (3 paradas)</td></tr>
+      <tr><td>Lehel tér → Deák Ferenc tér</td><td>—</td><td>~5 min</td><td>🚇 Metro M3</td></tr>
+      <tr><td>Deák → Kossuth Lajos tér (Parlamento)</td><td>—</td><td>~5 min</td><td>🚇 Metro M2 (2 paradas)</td></tr>
+      <tr class="total-row"><td>TOTAL Apartamento → Parlamento</td><td>~3 km</td><td>25-30 min</td><td>🚶 + 🚇</td></tr>
+      <tr><td>Kossuth Lajos tér → Deák Ferenc tér</td><td>—</td><td>~5 min</td><td>🚇 Metro M2</td></tr>
       <tr><td>Deák → Széchenyi fürdő</td><td>—</td><td>~8 min</td><td>🚇 Metro M1 (5 paradas)</td></tr>
-      <tr><td>Széchenyi fürdő → Városliget</td><td>—</td><td>1 min</td><td>🚶 A pie</td></tr>
+      <tr><td>Széchenyi fürdő → Városliget/Vajdahunyad</td><td>—</td><td>1-5 min</td><td>🚶 A pie</td></tr>
+      <tr class="total-row"><td>TOTAL Parlamento → Városliget</td><td>~4 km</td><td>25-30 min</td><td>🚶 + 🚇</td></tr>
       <tr><td>Városliget → Cena</td><td>~5 km</td><td>20-25 min</td><td>🚇 M1 → Deák → andar</td></tr>
-      <tr class="total-row"><td>TOTAL (ida)</td><td>~4 km</td><td>25-30 min</td><td>🚶 + 🚇</td></tr>
     </tbody></table></div>
     <div style="text-align:center;margin-top:.85rem;display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap">
-      <a href="${gmapsDir('Gogol utca 16, Budapest', 'Városliget City Park, Budapest')}" target="_blank" rel="noopener" class="btn-download">🚇 Ruta Google Maps (Apartamento → Városliget)</a>
+      <a href="${gmapsDir('Gogol utca 16, Budapest', 'Kossuth Lajos tér, Budapest')}" target="_blank" rel="noopener" class="btn-download">🚇 Ruta Google Maps (Apartamento → Parlamento)</a>
+      <a href="${gmapsDir('Kossuth Lajos tér, Budapest', 'Városliget City Park, Budapest')}" target="_blank" rel="noopener" class="btn-download">🚇 Ruta Google Maps (Parlamento → Városliget)</a>
       <a href="${gmapsDir('Városliget City Park, Budapest', 'Vajdahunyad Castle, Budapest')}" target="_blank" rel="noopener" class="btn-download">🚶 Ruta Google Maps (Városliget → Vajdahunyad)</a>
     </div>
   `;
 
   const sec_lugares_html = `
     <div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>Lugar</th><th>Nivel</th><th>Tiempo</th><th>Notas</th><th>Valoraciones</th><th>Fotos</th><th>Maps</th></tr></thead><tbody>
-      <tr><td>✡️ Free Tour Barrio Judío</td><td>🟡 Opcional</td><td>2h 15min</td><td>Decisión el sábado 19 a las 23:00. Punto de encuentro por confirmar (Plaza de la Libertad o Barrio Judío).</td><td><span class="val-badge">N/A</span></td><td><a href="https://www.google.com/search?q=Jewish+Quarter+Budapest+tour&tbm=isch" target="_blank" rel="noopener" class="img-btn">🖼️</a></td><td><a href="${gmapsDir('Szabadság tér, Budapest')}" target="_blank" rel="noopener" class="btn-link">Maps</a></td></tr>
-      <tr><td>🌳 Városliget</td><td>🔴 Imprescindible</td><td>1,5-2 h</td><td>Parque de la Ciudad.</td><td><span class="val-badge">⭐ 4.7 (Google, 83.800+ reseñas)</span></td><td><a href="https://www.google.com/search?q=Varosliget+City+Park+Budapest&tbm=isch" target="_blank" rel="noopener" class="img-btn">🖼️</a></td><td><a href="${gmapsDir('Városliget City Park, Budapest')}" target="_blank" rel="noopener" class="btn-link">Maps</a></td></tr>
-      <tr><td>🏰 Castillo Vajdahunyad</td><td>🔴 Imprescindible</td><td>1-1,5 h</td><td>Exterior gratis, abierto 24h. Interior hasta las 17:00. <button class="btn-more" onclick="openModal('modal-vajdahunyad')">Ver info →</button></td><td><span class="val-badge">⭐ 4.7 (Google, 27.300+ reseñas)</span></td><td><a href="https://www.google.com/search?q=Vajdahunyad+Castle&tbm=isch" target="_blank" rel="noopener" class="img-btn">🖼️</a></td><td><a href="${gmapsDir('Vajdahunyad Castle, Budapest')}" target="_blank" rel="noopener" class="btn-link">Maps</a></td></tr>
-      <tr><td>🌇 Atardecer en Vajdahunyad</td><td>🔴🔴🔴 Imprescindible</td><td>30-45 min</td><td>Puesta de sol 18:45. Llegar a las 18:15.</td><td><span class="val-badge">⭐ 4.7 (Google)</span></td><td><a href="https://www.google.com/search?q=Vajdahunyad+Castle+sunset&tbm=isch" target="_blank" rel="noopener" class="img-btn">🖼️</a></td><td><a href="${gmapsDir('Vajdahunyad Castle, Budapest')}" target="_blank" rel="noopener" class="btn-link">Maps</a></td></tr>
-      <tr><td>♨️ Termas Széchenyi</td><td>🟡 Opcional</td><td>2 h</td><td>Solo si no se hizo el sábado. Sustituye parte del paseo por el parque. 14.800 HUF. <button class="btn-more" onclick="openModal('modal-szechenyi')">Ver info →</button></td><td><span class="val-badge">⭐ 4.2 (Google, 66.600+ reseñas)</span></td><td><a href="https://www.google.com/search?q=Szechenyi+Thermal+Bath&tbm=isch" target="_blank" rel="noopener" class="img-btn">🖼️</a></td><td><a href="${gmapsDir('Széchenyi thermal bath, Budapest')}" target="_blank" rel="noopener" class="btn-link">Maps</a></td></tr>
+      <tr><td>🏛️ Parlamento de Budapest (visita guiada)</td><td>🔴 Imprescindible ✅ Reservado y pagado</td><td>2h 15min</td><td>14:00 punto de encuentro, Kossuth Lajos tér frente a la estatua de Rákóczi Ferenc II. 210 € / 6 personas. Llevar pasaporte/DNI. Código GYG83W8MXKHV, PIN bDAuwzxe.</td><td><span class="val-badge">⭐ Actividad de GetYourGuide</span></td><td><a href="https://www.google.com/search?q=Hungarian+Parliament+Budapest&tbm=isch" target="_blank" rel="noopener" class="img-btn">🖼️</a></td><td><a href="${gmapsDir('Kossuth Lajos tér, Budapest')}" target="_blank" rel="noopener" class="btn-link">Maps</a></td></tr>
+      <tr><td>✡️ Free Tour Barrio Judío</td><td>🛑 Ya no cabe en el día</td><td>2h 15min</td><td>Con el Parlamento a las 14:00 no queda hueco. Pendiente decidir si se cancela o se reubica — ver 🔐 Tareas Admin.</td><td><span class="val-badge">N/A</span></td><td><a href="https://www.google.com/search?q=Jewish+Quarter+Budapest+tour&tbm=isch" target="_blank" rel="noopener" class="img-btn">🖼️</a></td><td><a href="${gmapsDir('Szabadság tér, Budapest')}" target="_blank" rel="noopener" class="btn-link">Maps</a></td></tr>
+      <tr><td>🌳 Városliget</td><td>🔴 Imprescindible</td><td>~30-45 min (versión compacta)</td><td>Parque de la Ciudad — se cruza de camino al castillo, no da tiempo al paseo largo original.</td><td><span class="val-badge">⭐ 4.7 (Google, 83.800+ reseñas)</span></td><td><a href="https://www.google.com/search?q=Varosliget+City+Park+Budapest&tbm=isch" target="_blank" rel="noopener" class="img-btn">🖼️</a></td><td><a href="${gmapsDir('Városliget City Park, Budapest')}" target="_blank" rel="noopener" class="btn-link">Maps</a></td></tr>
+      <tr><td>🏰 Castillo Vajdahunyad</td><td>🔴 Imprescindible</td><td>~45 min</td><td>Exterior gratis, abierto 24h. Museo interior probablemente se sacrifica por falta de tiempo. <button class="btn-more" onclick="openModal('modal-vajdahunyad')">Ver info →</button></td><td><span class="val-badge">⭐ 4.7 (Google, 27.300+ reseñas)</span></td><td><a href="https://www.google.com/search?q=Vajdahunyad+Castle&tbm=isch" target="_blank" rel="noopener" class="img-btn">🖼️</a></td><td><a href="${gmapsDir('Vajdahunyad Castle, Budapest')}" target="_blank" rel="noopener" class="btn-link">Maps</a></td></tr>
+      <tr><td>🌇 Atardecer en Vajdahunyad</td><td>🔴🔴🔴 Imprescindible</td><td>30-45 min</td><td>Puesta de sol 18:45. Llegar a las 18:15. Se mantiene intacto pese al cambio de horario.</td><td><span class="val-badge">⭐ 4.7 (Google)</span></td><td><a href="https://www.google.com/search?q=Vajdahunyad+Castle+sunset&tbm=isch" target="_blank" rel="noopener" class="img-btn">🖼️</a></td><td><a href="${gmapsDir('Vajdahunyad Castle, Budapest')}" target="_blank" rel="noopener" class="btn-link">Maps</a></td></tr>
+      <tr><td>♨️ Termas Széchenyi</td><td>🛑 Ya no caben este domingo</td><td>—</td><td>El Parlamento ocupa el hueco que hubiera servido para las termas. Si no se hicieron el sábado, se dan por no hechas. <button class="btn-more" onclick="openModal('modal-szechenyi')">Ver info →</button></td><td><span class="val-badge">⭐ 4.2 (Google, 66.600+ reseñas)</span></td><td><a href="https://www.google.com/search?q=Szechenyi+Thermal+Bath&tbm=isch" target="_blank" rel="noopener" class="img-btn">🖼️</a></td><td><a href="${gmapsDir('Széchenyi thermal bath, Budapest')}" target="_blank" rel="noopener" class="btn-link">Maps</a></td></tr>
       <tr><td>🍽️ Hungarikum Bisztró</td><td>🟢 Cena</td><td>1,5 h</td><td>Steindl Imre u. 13, cerca del Parlamento. Opción candidata.</td><td><span class="val-badge">⭐ 4.7 (Google, 10.600+ reseñas)</span></td><td><a href="https://www.google.com/search?q=Hungarikum+Bisztro+Budapest&tbm=isch" target="_blank" rel="noopener" class="img-btn">🖼️</a></td><td><a href="${gmapsDir('Hungarikum Bisztró, Budapest')}" target="_blank" rel="noopener" class="btn-link">Maps</a></td></tr>
     </tbody></table></div>
   `;
@@ -5340,7 +5450,7 @@ function renderDay16(d){
       <tr><td>🏠 En el apartamento</td><td>Casero</td><td>3-5 €</td><td>Gogol utca 16</td><td>Comprar el día anterior.</td><td><span class="val-badge">—</span></td><td><a href="${gmapsDir('Gogol utca 16, Budapest')}" target="_blank" rel="noopener" class="btn-link">Maps</a></td></tr>
       <tr><td>☕ Cafetería local</td><td>Café/Bollería</td><td>4-8 €</td><td>Zona del apartamento</td><td>Cualquier cafetería cercana.</td><td><span class="val-badge">—</span></td><td>—</td></tr>
     </tbody></table></div>
-    <div class="sec">🍽️ Comida (13:00-14:00) — Opción B, plan oficial</div>
+    <div class="sec">🍽️ Comida (12:30-13:15) — adelantada por el Parlamento</div>
     <div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>Opción</th><th>Tipo</th><th>Precio</th><th>Ubicación</th><th>Notas</th><th>Valoraciones</th><th>Maps</th></tr></thead><tbody>
       <tr><td>🛒 Supermercado / bakery</td><td>Comida sencilla</td><td>5-10 €</td><td>Cerca del apartamento</td><td>Comprar algo para comer rápido.</td><td><span class="val-badge">—</span></td><td><a href="${gmapsDir('Gogol utca 16, Budapest')}" target="_blank" rel="noopener" class="btn-link">Maps</a></td></tr>
       <tr><td>☕ Cafetería local</td><td>Comida ligera</td><td>8-15 €</td><td>Cerca del apartamento</td><td>Opción económica.</td><td><span class="val-badge">—</span></td><td>—</td></tr>
@@ -5357,21 +5467,23 @@ function renderDay16(d){
 
   const sec_act_html = `
     <div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>Actividad</th><th>Estado</th><th>Prioridad</th><th>Precio</th><th>Valoraciones</th><th>Notas</th><th>Maps</th></tr></thead><tbody>
-      <tr><td>✡️ Free Tour Barrio Judío</td><td>✅ Reservado</td><td>🟡 Opcional</td><td>Gratis (propina 5-10 €/p.)</td><td><span class="val-badge">N/A</span></td><td>Decidir sábado 19 por la noche. 11:00.</td><td><a href="${gmapsDir('Szabadság tér, Budapest')}" target="_blank" rel="noopener" class="btn-link">Maps</a></td></tr>
-      <tr><td>🏰 Vajdahunyad (exterior)</td><td>⏳ Sin reserva</td><td>🔴 Imprescindible</td><td>Gratis</td><td><span class="val-badge">⭐ 4.7 (Google)</span></td><td>Abierto 24h.</td><td><a href="${gmapsDir('Vajdahunyad Castle, Budapest')}" target="_blank" rel="noopener" class="btn-link">Maps</a></td></tr>
-      <tr><td>🏛️ Museo Vajdahunyad (interior)</td><td>⏳ Sin reserva</td><td>🟡 Opcional</td><td>~6,50 €</td><td><span class="val-badge">⭐ 4.7 (Google)</span></td><td>Hasta las 17:00. Entrar antes de las 16:30 si apetece.</td><td><a href="${gmapsDir('Vajdahunyad Castle, Budapest')}" target="_blank" rel="noopener" class="btn-link">Maps</a></td></tr>
-      <tr><td>🌇 Atardecer en Vajdahunyad</td><td>⏳ Sin reserva</td><td>🔴🔴🔴 Imprescindible</td><td>Gratis</td><td><span class="val-badge">⭐ 4.7 (Google)</span></td><td>18:45. Llegar a las 18:15.</td><td><a href="${gmapsDir('Vajdahunyad Castle, Budapest')}" target="_blank" rel="noopener" class="btn-link">Maps</a></td></tr>
-      <tr><td>♨️ Termas Széchenyi</td><td>⏳ Pendiente de decisión</td><td>🟡 Opcional</td><td>14.800 HUF</td><td><span class="val-badge">⭐ 4.2 (Google, 66.600+ reseñas)</span></td><td>Sustituye parte del parque. Solo si no se hizo el sábado.</td><td><a href="${gmapsDir('Széchenyi thermal bath, Budapest')}" target="_blank" rel="noopener" class="btn-link">Maps</a></td></tr>
+      <tr><td>🏛️ Visita guiada al Parlamento</td><td>✅ Reservado y pagado</td><td>🔴 Imprescindible</td><td>210,00 € / 6 pers. (35 €/p.)</td><td><span class="val-badge">⭐ Actividad de GetYourGuide</span></td><td>14:00 punto de encuentro (Kossuth Lajos tér), tour 14:15-16:30. Código GYG83W8MXKHV, PIN bDAuwzxe. Llevar pasaporte/DNI de los 6.</td><td><a href="${gmapsDir('Kossuth Lajos tér, Budapest')}" target="_blank" rel="noopener" class="btn-link">Maps</a></td></tr>
+      <tr><td>✡️ Free Tour Barrio Judío</td><td>🛑 Ya no cabe en el día</td><td>—</td><td>Gratis (propina 5-10 €/p.)</td><td><span class="val-badge">N/A</span></td><td>Sin hueco con el Parlamento a las 14:00. Pendiente decidir si se cancela o reubica — ver 🔐 Tareas Admin.</td><td><a href="${gmapsDir('Szabadság tér, Budapest')}" target="_blank" rel="noopener" class="btn-link">Maps</a></td></tr>
+      <tr><td>🏰 Vajdahunyad (exterior)</td><td>⏳ Sin reserva (no hace falta)</td><td>🔴 Imprescindible</td><td>Gratis</td><td><span class="val-badge">⭐ 4.7 (Google)</span></td><td>Abierto 24h. Versión compacta ~75 min tras el Parlamento (17:00-18:15).</td><td><a href="${gmapsDir('Vajdahunyad Castle, Budapest')}" target="_blank" rel="noopener" class="btn-link">Maps</a></td></tr>
+      <tr><td>🏛️ Museo Vajdahunyad (interior)</td><td>⏳ Sin reserva</td><td>🟡 Opcional — probablemente se sacrifica</td><td>~6,50 €</td><td><span class="val-badge">⭐ 4.7 (Google)</span></td><td>Hasta las 17:00. Con el tiempo tan ajustado (17:00-18:15), no forzarlo.</td><td><a href="${gmapsDir('Vajdahunyad Castle, Budapest')}" target="_blank" rel="noopener" class="btn-link">Maps</a></td></tr>
+      <tr><td>🌇 Atardecer en Vajdahunyad</td><td>⏳ Sin reserva</td><td>🔴🔴🔴 Imprescindible</td><td>Gratis</td><td><span class="val-badge">⭐ 4.7 (Google)</span></td><td>18:45. Llegar a las 18:15. Se mantiene intacto pese al cambio de horario.</td><td><a href="${gmapsDir('Vajdahunyad Castle, Budapest')}" target="_blank" rel="noopener" class="btn-link">Maps</a></td></tr>
+      <tr><td>♨️ Termas Széchenyi</td><td>🛑 Ya no caben este domingo</td><td>—</td><td>14.800 HUF</td><td><span class="val-badge">⭐ 4.2 (Google, 66.600+ reseñas)</span></td><td>El Parlamento ocupa el hueco. Si no se hicieron el sábado, se dan por no hechas.</td><td><a href="${gmapsDir('Széchenyi thermal bath, Budapest')}" target="_blank" rel="noopener" class="btn-link">Maps</a></td></tr>
       <tr><td>🍽️ Cena</td><td>⏳ Pendiente</td><td>🟢 Importante</td><td>12-25 €</td><td><span class="val-badge">⭐ Hungarikum 4.7 · Menza 4.5 · Twenty Six 4.4 (Google)</span></td><td>Decidir según comparativa (Hungarikum / Menza / Twenty Six).</td><td>—</td></tr>
     </tbody></table></div>
   `;
 
   const sec_pres_html = `
-    <div class="sec">💳 Gastos ya pagados (prorrateados) — válido solo para días en Budapest</div>
+    <div class="sec">💳 Gastos ya pagados (prorrateados + Parlamento) — válido solo para días en Budapest</div>
     <div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>Concepto</th><th>Importe</th><th>Nota</th></tr></thead><tbody>
       <tr><td>🏠 Alojamiento Budapest (prorrateo 4 noches)</td><td>~23,42 €</td><td>562 € / 6 / 4 noches</td></tr>
       <tr><td>🚕 Transfer BUD → Apartamento (Talixo)</td><td>~10,33 €</td><td>61,95 € / 6</td></tr>
-      <tr class="total-row"><td>Subtotal ya pagado/prorrateado</td><td>~33,75 €</td><td></td></tr>
+      <tr><td>🏛️ Visita guiada al Parlamento</td><td>35,00 €</td><td>210 € / 6 pers. — ✅ ya pagado, código GYG83W8MXKHV</td></tr>
+      <tr class="total-row"><td>Subtotal ya pagado/prorrateado</td><td>~68,75 €</td><td></td></tr>
     </tbody></table></div>
     <div class="sec">💰 Presupuesto base del día (sin extras opcionales)</div>
     <div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>Concepto</th><th>Importe</th></tr></thead><tbody>
@@ -5384,34 +5496,33 @@ function renderDay16(d){
     </tbody></table></div>
     <div class="sec">✨ Extras opcionales</div>
     <div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>Concepto</th><th>Coste aprox.</th><th>Decisión</th></tr></thead><tbody>
-      <tr><td>✡️ Free Tour Barrio Judío (propina)</td><td>5-10 €</td><td>Opcional, decisión sábado</td></tr>
-      <tr><td>🏛️ Museo Vajdahunyad (interior)</td><td>~6,50 €</td><td>Opcional, hasta las 17:00</td></tr>
-      <tr><td>♨️ Termas Széchenyi (si se hace)</td><td>14.800 HUF (~38-40 €)</td><td>Sustituye parte del parque. Solo si no se hizo el sábado</td></tr>
+      <tr><td>🏛️ Museo Vajdahunyad (interior)</td><td>~6,50 €</td><td>Opcional, solo si se llega antes de las 16:30 — probablemente se sacrifica por tiempo</td></tr>
     </tbody></table></div>
+    <div class="obj-box"><p class="obj-t">🎯 ✡️ Free Tour Barrio Judío y ♨️ Termas Széchenyi ya no entran en el presupuesto del día — ambos quedaron sin hueco al confirmarse el Parlamento. El Free Tour queda pendiente de decidir (cancelar o reubicar, ver 🔐 Tareas Admin); Széchenyi se da por no hecha si no se hizo el sábado.</p></div>
     <div class="sec">💰 Total día (por persona)</div>
-    <div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>Concepto</th><th>Sin extras</th><th>Con Free Tour</th></tr></thead><tbody>
-      <tr><td>Gastos ya pagados</td><td>~33,75 €</td><td>~33,75 €</td></tr>
-      <tr><td>Base del día</td><td>~28-63 €</td><td>~28-63 €</td></tr>
-      <tr><td>Extras</td><td>—</td><td>+5-10 €</td></tr>
-      <tr class="total-row"><td>💰 TOTAL DÍA</td><td>~62-97 €</td><td>~67-107 €</td></tr>
+    <div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>Concepto</th><th>Importe</th></tr></thead><tbody>
+      <tr><td>Gastos ya pagados (incl. Parlamento)</td><td>~68,75 €</td></tr>
+      <tr><td>Base del día</td><td>~28-63 €</td></tr>
+      <tr><td>Extra opcional (museo)</td><td>+0-6,50 €</td></tr>
+      <tr class="total-row"><td>💰 TOTAL DÍA</td><td>~97-138 €</td></tr>
     </tbody></table></div>
-    <div class="obj-box"><p class="obj-t">🎯 Nota: el presupuesto base del día es de ~28-63 € (comidas, transporte). El Free Tour solo añade la propina (5-10 €) si se hace. Széchenyi solo se añade si se decide hacerla y sustituye parte del paseo por el parque (38-40 € extra).</p></div>
   `;
 
   const sec_chk_html = `
     <div class="checklist">
       <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Despertar a las 09:00</span></div>
       <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Desayunar (en el apartamento o cafetería local)</span></div>
-      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Decisión del Free Tour ya tomada el sábado por la noche</span></div>
-      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Si SÍ → Free Tour del Barrio Judío (11:00-13:15)</span></div>
-      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Si NO → mañana libre (compras/paseo/descanso)</span></div>
-      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Comer (comida sencilla: supermercado/bakery/cafetería)</span></div>
-      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Ir a Lehel tér (M3) — 7-10 min andando</span></div>
-      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Lehel tér → Deák Ferenc tér (M3, 3 paradas)</span></div>
-      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Deák → Széchenyi fürdő (M1, 5 paradas)</span></div>
-      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Pasear por Városliget</span></div>
-      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Vajdahunyad — exterior (abierto 24h)</span></div>
-      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Museo interior (opcional, antes de las 17:00)</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Mañana libre sin plan fijo (10:00-12:30) — nada que comprometa la llegada a las 14:00</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Comer sencillo y pronto (12:30-13:15, cerca del apartamento)</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">🔴 Llevar el pasaporte/DNI de los 6 (imprescindible para el Parlamento)</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Llevar la reserva del Parlamento (impresa o en el móvil) — código GYG83W8MXKHV</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Salir del apartamento sobre las 13:15 hacia Lehel tér (M3)</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Lehel tér → Deák Ferenc tér (M3) → transbordo M2 → Kossuth Lajos tér</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Llegar a Kossuth Lajos tér a las 14:00 (frente a la estatua de Rákóczi Ferenc II)</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">🏛️ Visita guiada al Parlamento (14:15-16:30)</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Traslado a Városliget: Kossuth → Deák (M2) → transbordo M1 → Széchenyi fürdő</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Városliget + Vajdahunyad exterior (versión compacta, 17:00-18:15)</span></div>
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Museo interior (solo si sobra tiempo antes de las 16:30-17:00 — opcional)</span></div>
       <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Llegar al lago sobre las 18:15</span></div>
       <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">ATARDECER ~18:45 — IMPRESCINDIBLE</span></div>
       <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Volver al apartamento</span></div>
@@ -5464,7 +5575,8 @@ function renderDay16(d){
     </div>
 
     <div class="sec-center">🎯 Objetivo del Día</div>
-    <div class="obj-box"><p class="obj-t">Tercer y último día completo en Budapest y, deliberadamente, el más relajado. Después de dos días intensos, hoy no necesitamos seguir acumulando monumentos. El objetivo es: mañana flexible → Városliget → Vajdahunyad → atardecer → última cena → maletas. El único elemento que puede alterar la mañana es el Free Tour del Barrio Judío, ya reservado pero 100% opcional — la decisión se toma el sábado 19 por la noche, según cómo esté el grupo. 🏆 Plan base: Opción B (sin Free Tour) — el Free Tour solo se activa si el sábado el grupo decide expresamente hacerlo, no forma parte del itinerario previsto.</p></div>
+    <div class="obj-box"><p class="obj-t">Tercer y último día completo en Budapest. El plan cambió con la reserva ya pagada de la visita guiada al Parlamento (14:00-16:30, 210 € por 6 personas) — ahora es el ancla del día: mañana libre y tranquila → Parlamento → Városliget + Vajdahunyad (versión compacta) → atardecer → última cena → maletas. El Free Tour del Barrio Judío ya no cabe en el día (ver aviso más abajo). 🏆 Lo que no se toca pase lo que pase: el atardecer en Vajdahunyad a las 18:15-19:00, sigue siendo el momento clave del día.</p></div>
+    <div class="obj-box"><p class="obj-t">🎫 Si al final queda algún hueco para alguna actividad extra en Budapest (termas, crucero, museos...): <a href="https://www.budapest-baths.com/es/" target="_blank" rel="noopener" class="btn-link">budapest-baths.com</a> — plataforma de terceros, no oficial, útil para comprar con poca antelación.</p></div>
 
     <div class="sec-center">🌅 Datos del Día & Clima</div>
     <div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>Concepto</th><th>Detalle</th><th>Enlace</th></tr></thead><tbody>
@@ -5472,8 +5584,8 @@ function renderDay16(d){
       <tr><td>🌇 Puesta de sol (Budapest, UTC+2)</td><td>18:45 (hora local)</td><td>—</td></tr>
       <tr><td>⚠️ Nota</td><td>La puesta de sol es a las 18:45. Llegar al lago junto a Vajdahunyad sobre las 18:15 para tener margen y encontrar buen sitio.</td><td>—</td></tr>
       <tr><td>🌡️ Temperaturas previstas</td><td>🔴 Baja confianza (revisado 2 sep 2026, 2 fuentes — revisar de nuevo 7-10 días antes): Máx. 20-25°C / Mín. 12-14°C. ⚠️ Discrepancia real entre fuentes: AccuWeather apunta chubascos por la tarde, weather25.com lo ve soleado. 🌇 Puesta de sol en Budapest ese día: ~18:47h (hora local), confirmado por cálculo astronómico.</td><td><a href="https://www.accuweather.com/en/hu/budapest/187423/september-weather/187423" target="_blank" rel="noopener" class="btn-link">AccuWeather Budapest</a> · <a href="https://www.weather25.com/europe/hungary/budapest?page=month&month=September" target="_blank" rel="noopener" class="btn-link">Weather25</a> · <a href="https://www.generalblue.com/sunrise-sunset-in-budapest-hungary" target="_blank" rel="noopener" class="btn-link">Puesta de sol</a></td></tr>
-      <tr><td>👗 Previsión de ropa</td><td>Ropa de ciudad y calzado cómodo para pasear; bañador/chanclas/toalla solo si finalmente se hacen las termas; chaqueta ligera para el atardecer y la noche</td><td>—</td></tr>
-      <tr><td>🚇 Transporte</td><td>A pie y transporte público (metro líneas M3 y M1) — sin furgoneta</td><td>—</td></tr>
+      <tr><td>👗 Previsión de ropa</td><td>Ropa de ciudad y calzado cómodo para pasear (bastante metro y algo de parque); pasaporte/DNI a mano para el Parlamento; chaqueta ligera para el atardecer y la noche</td><td>—</td></tr>
+      <tr><td>🚇 Transporte</td><td>A pie y transporte público (metro líneas M2, M3 y M1) — sin furgoneta</td><td>—</td></tr>
     </tbody></table></div>
 
     <div class="sec-center">🕐 Zona Horaria</div>
@@ -5486,11 +5598,12 @@ function renderDay16(d){
     <div class="tl tl-mini">
       <div class="ti"><div class="ti-time">09:00</div><div class="ti-icon">🛏️</div><div class="ti-body"><div class="ti-title">Despertar sin prisas</div></div></div>
       <div class="ti"><div class="ti-time">09:15-10:00</div><div class="ti-icon">🥐</div><div class="ti-body"><div class="ti-title">Desayuno</div></div></div>
-      <div class="ti"><div class="ti-time">10:00-13:00</div><div class="ti-icon">🟢/✡️</div><div class="ti-body"><div class="ti-title">Mañana libre ⭐ (u opcional: Free Tour Barrio Judío 11:00-13:15)</div></div></div>
-      <div class="ti"><div class="ti-time">13:00-14:00</div><div class="ti-icon">🍽️</div><div class="ti-body"><div class="ti-title">Comida sencilla</div></div></div>
-      <div class="ti"><div class="ti-time">14:00-14:30</div><div class="ti-icon">🚇</div><div class="ti-body"><div class="ti-title">Traslado a Városliget</div></div></div>
-      <div class="ti hl"><div class="ti-time">14:30-16:30</div><div class="ti-icon">🌳</div><div class="ti-body"><div class="ti-title">Városliget ✅ IMPRESCINDIBLE</div></div></div>
-      <div class="ti hl"><div class="ti-time">16:30-18:15</div><div class="ti-icon">🏰</div><div class="ti-body"><div class="ti-title">Castillo de Vajdahunyad ✅ IMPRESCINDIBLE</div></div></div>
+      <div class="ti"><div class="ti-time">10:00-12:30</div><div class="ti-icon">🟢</div><div class="ti-body"><div class="ti-title">Mañana libre</div></div></div>
+      <div class="ti"><div class="ti-time">12:30-13:15</div><div class="ti-icon">🍽️</div><div class="ti-body"><div class="ti-title">Comida sencilla (adelantada)</div></div></div>
+      <div class="ti"><div class="ti-time">13:15-13:55</div><div class="ti-icon">🚇</div><div class="ti-body"><div class="ti-title">Traslado a Kossuth Lajos tér</div></div></div>
+      <div class="ti hl"><div class="ti-time">14:15-16:30</div><div class="ti-icon">🏛️</div><div class="ti-body"><div class="ti-title">Parlamento ✅ RESERVADO Y PAGADO</div></div></div>
+      <div class="ti"><div class="ti-time">16:30-17:00</div><div class="ti-icon">🚇</div><div class="ti-body"><div class="ti-title">Traslado a Városliget</div></div></div>
+      <div class="ti hl"><div class="ti-time">17:00-18:15</div><div class="ti-icon">🌳🏰</div><div class="ti-body"><div class="ti-title">Városliget + Vajdahunyad (compacto) ✅ IMPRESCINDIBLE</div></div></div>
       <div class="ti hl"><div class="ti-time">18:15-19:00</div><div class="ti-icon">🌇</div><div class="ti-body"><div class="ti-title">Atardecer en Vajdahunyad ✅✅✅ MOMENTO CLAVE</div></div></div>
       <div class="ti"><div class="ti-time">19:00-20:00</div><div class="ti-icon">🚿</div><div class="ti-body"><div class="ti-title">Regreso / ducha</div></div></div>
       <div class="ti"><div class="ti-time">20:00-22:00</div><div class="ti-icon">🍽️</div><div class="ti-body"><div class="ti-title">Última cena en Budapest</div></div></div>
@@ -5502,7 +5615,7 @@ function renderDay16(d){
 
     <div class="punto-clave">
       <div class="pc-label">🔥 Punto Clave del Día</div>
-      <p class="pc-t">🌳🏰🌇 NO NECESITAMOS MÁS BUDAPEST — NECESITAMOS DISFRUTAR DE LA ÚLTIMA TARDE. La decisión importante del día realmente es una sola: ¿Free Tour por la mañana? → se decide el sábado (mi voto: 🟢 NO, para preservar el día relajado). Y así conseguimos un domingo perfecto: mañana libre → comida sencilla → Városliget → Vajdahunyad → atardecer → última cena → maletas → dormir. Lo más crítico: el Museo de Vajdahunyad es opcional (solo si se llega antes de las 16:30, el exterior es lo importante); el atardecer en Vajdahunyad es IMPRESCINDIBLE (llegar sobre las 18:15, puesta de sol a las 18:45); Széchenyi solo se añade si no se hizo el sábado y el grupo quiere, sustituyendo parte del paseo por el parque, nunca sumándose; y las maletas deben quedar preparadas esta noche para no madrugar más de lo necesario.</p>
+      <p class="pc-t">🏛️🌳🏰🌇 EL PARLAMENTO YA MANDA EN EL DÍA — TODO LO DEMÁS SE ENCAJA ALREDEDOR. Con la reserva pagada y sin reembolso posible, el punto de encuentro de las 14:00 en Kossuth Lajos tér es innegociable: 🔴 llevar el pasaporte/DNI de los 6, sin eso no hay entrada. Eso deja el resto del día así: mañana libre y tranquila → comida adelantada (12:30-13:15) → Parlamento (14:15-16:30) → Városliget + Vajdahunyad en versión compacta (~75 min) → atardecer (IMPRESCINDIBLE, intacto pese al cambio de horario) → última cena → maletas → dormir. El Free Tour del Barrio Judío se queda sin hueco — pendiente decidir si se cancela o se reubica (ver 🔐 Tareas Admin) — y las Termas Széchenyi ya no caben este domingo. El Museo de Vajdahunyad (interior) es el único sacrificable si el tiempo aprieta.</p>
     </div>
 
     <div class="sec">💡 Consejos para el Grupo</div>
@@ -5510,12 +5623,14 @@ function renderDay16(d){
       <table class="data-tbl">
         <thead><tr><th>Punto</th><th>Detalle</th></tr></thead>
         <tbody>
-          <tr><td>🚇 Metro</td><td>Ruta optimizada: Gogol → Lehel tér (M3) → 3 paradas → Deák → transbordo M1 → 5 paradas → Széchenyi fürdő. Tiempo total: ~25-30 min.</td></tr>
-          <tr><td>🌇 Atardecer en Vajdahunyad</td><td>Llegar a las 18:15. Puesta de sol a las 18:45. Buscar buen sitio junto al lago.</td></tr>
-          <tr><td>🏛️ Museo Vajdahunyad</td><td>Horario domingo: 10:00-17:00. Entrar antes de las 16:30 si apetece (~6,50 €). El exterior es gratuito y suficiente.</td></tr>
-          <tr><td>♨️ Széchenyi</td><td>Solo si no se hizo el sábado. Sustituye parte del paseo por el parque (14:30-16:30) — no se añade. Una sola experiencia de termas en todo el viaje.</td></tr>
-          <tr><td>✡️ Free Tour</td><td>Plan base: NO. Solo si el sábado por la noche el grupo decide expresamente hacerlo.</td></tr>
-          <tr><td>🍽️ Comida</td><td>Comida sencilla (supermercado/bakery). No hace falta restaurante formal.</td></tr>
+          <tr><td>🏛️ Parlamento</td><td>Punto de encuentro 14:00 en Kossuth Lajos tér (frente a la estatua de Rákóczi Ferenc II), 15 min antes de la hora reservada. 🔴 Sin pasaporte/DNI de los 6 no se puede entrar — el guía los necesita para sacar las entradas en taquilla.</td></tr>
+          <tr><td>🚇 Metro (ida)</td><td>Gogol utca 16 → Lehel tér (a pie, ~7-10 min) → M3 hasta Deák Ferenc tér → transbordo M2 hasta Kossuth Lajos tér (2 paradas). Total: ~25-30 min. Salir sobre las 13:15.</td></tr>
+          <tr><td>🚇 Metro (Parlamento → Városliget)</td><td>Kossuth Lajos tér → Deák Ferenc tér (M2) → transbordo M1 hasta Széchenyi fürdő (5 paradas). Total: ~25-30 min.</td></tr>
+          <tr><td>🌳🏰 Városliget + Vajdahunyad</td><td>Versión compacta (~75 min, 17:00-18:15) — solo el paseo hasta el castillo y su exterior. El museo interior probablemente se sacrifica por tiempo, no forzarlo.</td></tr>
+          <tr><td>🌇 Atardecer en Vajdahunyad</td><td>Llegar a las 18:15. Puesta de sol a las 18:45. Buscar buen sitio junto al lago. Se mantiene intacto pese al cambio de horario.</td></tr>
+          <tr><td>✡️ Free Tour Barrio Judío</td><td>Ya no cabe en el día con el Parlamento a las 14:00. Pendiente decidir si se cancela definitivamente o se reubica en otro día — ver 🔐 Tareas Admin.</td></tr>
+          <tr><td>♨️ Széchenyi</td><td>Ya no caben este domingo. Si no se hicieron el sábado, se dan por no hechas en el viaje.</td></tr>
+          <tr><td>🍽️ Comida</td><td>Comida sencilla y adelantada (12:30-13:15, supermercado/bakery/cafetería). No hace falta restaurante formal — hay que salir hacia el Parlamento a las 13:15.</td></tr>
           <tr><td>🍽️ Cena</td><td>Hungarikum es candidata, pero comparar con Menza y Twenty Six Budapest. Objetivo: húngara, precio razonable, buen vino, cerveza para el grupo.</td></tr>
           <tr><td>🧳 Equipaje</td><td>Dejar todo preparado esta noche.</td></tr>
           <tr><td>⏰ Madrugón</td><td>Despertar a las 03:15. Dormir a las 23:30.</td></tr>
@@ -5550,13 +5665,13 @@ function renderDay17(d){
       <div class="ti"><div class="ti-time">09:05</div><div class="ti-icon">🛬</div><div class="ti-body"><div class="ti-title">Llegada a Madrid (hora local) — TODOS</div></div></div>
       <div class="ti"><div class="ti-time">09:05-09:30</div><div class="ti-icon">🎒</div><div class="ti-body"><div class="ti-title">Salida del aeropuerto</div><div class="ti-desc">Con equipaje de mano. Si alguien lleva equipaje facturado, recogerlo en la cinta.</div></div></div>
       <div class="ti hl"><div class="ti-time">09:30</div><div class="ti-icon">🔀</div><div class="ti-body"><div class="ti-title">EL GRUPO SE DIVIDE</div><div class="ti-desc">🚗 Grupo coche: Raúl, Inés, Lupe, Jesús. ✈️ Grupo avión: Fran, Graje.</div></div></div>
-      <div class="ti"><div class="ti-time">09:30-10:00</div><div class="ti-icon">🚌</div><div class="ti-body"><div class="ti-title">🚗 Grupo coche: Shuttle al parking de Barajas</div><div class="ti-desc">📍 Parking Barajas T1-T2 (C. Zaorejas, 2, 28042 Madrid). Shuttle gratuito.</div></div></div>
+      <div class="ti"><div class="ti-time">09:30-10:00</div><div class="ti-icon">🚌</div><div class="ti-body"><div class="ti-title">🚗 Grupo coche: Shuttle al parking de Barajas (reserva 1417278)</div><div class="ti-desc">📍 Parking Barajas T1-T2 (C. Zaorejas, 2, 28042 Madrid). ☎️ Llamar al <strong>912 783 956</strong> mientras se recoge el equipaje en la cinta (09:05-09:30) para avisar de la llegada y asegurar el microbús — funciona 24h, espera estimada hasta ~20 min a esta hora. Salida confirmada de la reserva: 10:30, así que hay margen. <button class="btn-more" onclick="openModal('modal-parking-barajas')">Ver reserva →</button></div></div></div>
       <div class="ti"><div class="ti-time">09:30-15:30</div><div class="ti-icon">☕</div><div class="ti-body"><div class="ti-title">✈️ Grupo avión: Tiempo libre en Madrid</div><div class="ti-desc">Equipaje de mano únicamente (sin facturar). Consigna opcional. Plan tranquilo: pasear, comer bien, café, descansar. Opción: quedarse cerca del aeropuerto o ir al centro (Sol, Plaza Mayor) con tiempo controlado.</div></div></div>
     </div>
 
     <div class="phase-hd">🌤️ TARDE</div>
     <div class="tl">
-      <div class="ti"><div class="ti-time">10:00-10:30</div><div class="ti-icon">🚗</div><div class="ti-body"><div class="ti-title">🚗 Grupo coche: Recoger coche y cargar equipaje</div><div class="ti-desc">Revisar visualmente el vehículo, cargar maletas, GPS preparado, agua/comida, comprobar combustible. Pagar el parking si no se pagó al entrar.</div></div></div>
+      <div class="ti"><div class="ti-time">10:00-10:30</div><div class="ti-icon">🚗</div><div class="ti-body"><div class="ti-title">🚗 Grupo coche: Recoger coche y cargar equipaje</div><div class="ti-desc">Reserva ya pagada (nº 1417278, salida confirmada a las 10:30) — nada que abonar salvo que se haya ampliado la estancia. Revisar visualmente el vehículo, cargar maletas, GPS preparado, agua/comida, comprobar combustible.</div></div></div>
       <div class="ti hl"><div class="ti-time">10:30-10:45</div><div class="ti-icon">🚗</div><div class="ti-body"><div class="ti-title">🚗 Grupo coche: Salida hacia Badajoz</div><div class="ti-desc">Ruta Madrid → Badajoz (A-5, ~375 km, ~4h). Parada recomendada ~12:45 (10-15 min).</div></div></div>
       <div class="ti"><div class="ti-time">~15:00-15:15</div><div class="ti-icon">🏠</div><div class="ti-body"><div class="ti-title">🚗 Grupo coche: Llegada a Badajoz / Lobón</div><div class="ti-desc">🏁 Fin del viaje para el grupo de coche.</div></div></div>
       <div class="ti"><div class="ti-time">12:30-14:00</div><div class="ti-icon">🍽️</div><div class="ti-body"><div class="ti-title">✈️ Grupo avión: Comida en Madrid</div><div class="ti-desc">Zona de Plaza Mayor/Sol si van al centro, o T4 si se quedan en el aeropuerto.</div></div></div>
@@ -5579,7 +5694,8 @@ function renderDay17(d){
     <div class="sec">🅿️ Parking Barajas</div>
     <div class="tbl-wrap"><table class="data-tbl"><tbody>
       <tr><td>📍 Parking Barajas T1-T2</td><td>C. Zaorejas, 2, 28042 Madrid</td></tr>
-      <tr><td>💰 Precio</td><td>~55-75 € (17 días)</td></tr>
+      <tr><td>🎫 Reserva</td><td>✅ Nº 1417278 — salida confirmada lun 21 sep, 10:30 (ya pagada)</td></tr>
+      <tr><td>📞 Al llegar</td><td>Llamar al 912 783 956 mientras se recoge el equipaje, para el microbús de vuelta al parking</td></tr>
       <tr><td>📍 Maps</td><td><a href="${gmapsDir('Parking Barajas T1-T2, Madrid')}" target="_blank" rel="noopener" class="btn-link">Ver en Maps</a></td></tr>
     </tbody></table></div>
   `;
@@ -5621,7 +5737,7 @@ function renderDay17(d){
     <div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>Actividad</th><th>Estado</th><th>Prioridad</th><th>Precio</th><th>Valoraciones</th><th>Notas</th><th>Maps</th></tr></thead><tbody>
       <tr><td>✈️ Vuelo Budapest → Madrid</td><td>✅ Confirmado</td><td>🔴 Imprescindible</td><td>420,52 € (6 pers.)</td><td><span class="val-badge">N/A</span></td><td>05:45. Ryanair FR5712.</td><td><a href="${gmapsDir('Budapest Ferenc Liszt International Airport')}" target="_blank" rel="noopener" class="btn-link">Maps</a></td></tr>
       <tr><td>🚕 Transfer BUD → Aeropuerto</td><td>✅ Confirmado</td><td>🔴 Imprescindible</td><td>61,95 € (6 pers.)</td><td><span class="val-badge">N/A</span></td><td>Agency NT Budapest. 03:45.</td><td><a href="${gmapsDir('Gogol utca 16, 1133 Budapest')}" target="_blank" rel="noopener" class="btn-link">Maps</a></td></tr>
-      <tr><td>🅿️ Parking Barajas</td><td>✅ Confirmado</td><td>🔴 Imprescindible</td><td>~55-75 €</td><td><span class="val-badge">⭐ 4.1 (Google)</span></td><td>Pagar al recoger el coche.</td><td><a href="${gmapsDir('Parking Barajas T1-T2, Madrid')}" target="_blank" rel="noopener" class="btn-link">Maps</a></td></tr>
+      <tr><td>🅿️ Parking Barajas</td><td>✅ Confirmado (reserva 1417278)</td><td>🔴 Imprescindible</td><td>Ya pagado</td><td><span class="val-badge">⭐ 4.1 (Google)</span></td><td>Nada que pagar salvo ampliación. Salida confirmada 10:30.</td><td><a href="${gmapsDir('Parking Barajas T1-T2, Madrid')}" target="_blank" rel="noopener" class="btn-link">Maps</a></td></tr>
       <tr><td>✈️ Vuelo Madrid → Badajoz</td><td>⏳ Pendiente</td><td>🟢 Importante</td><td>~62-82 €</td><td><span class="val-badge">N/A</span></td><td>Fran y Graje. IB2332, 17:55. Sin facturar equipaje.</td><td><a href="${gmapsDir('Adolfo Suárez Madrid–Barajas Airport')}" target="_blank" rel="noopener" class="btn-link">Maps</a></td></tr>
     </tbody></table></div>
   `;
@@ -5802,6 +5918,10 @@ function renderResumenTab(d){
         <tr class="total-row"><td colspan="3"><strong>Total km estimados</strong></td><td colspan="2"><strong>~1.700-1.800 km</strong> · 7 días completos sin coche</td></tr>
       </tbody>
     </table></div>
+    <div style="text-align:center;margin:.9rem 0 1.4rem">
+      <a href="https://www.google.com/maps/dir/Sof%C3%ADa,+Bulgaria/Monasterio+de+Rila,+2643+Rilski+Manastir,+Kiustendil,+Bulgaria/Plovdiv,+Bulgaria/Kazanlak,+Bulgaria/Sozopol,+8130,+Bulgaria/Nesebar,+Bulgaria/Balchik,+Bulgaria/Veliko+Tarnovo,+Bulgaria/Koprivshtitsa,+2077,+Bulgaria/Belogradchik,+3900,+Bulgaria/@42.7203874,24.915798,384577m/data=!3m2!1e3!4b1!4m62!4m61!1m5!1m1!1s0x40aa8682cb317bf5:0x400a01269bf5e60!2m2!1d23.3218675!2d42.6977082!1m5!1m1!1s0x14aae2bf1d3ad519:0xe08b0af1b5c27722!2m2!1d23.3401919!2d42.1334828!1m5!1m1!1s0x14acd108a248763d:0x6470d1fa6f1338a0!2m2!1d24.7452904!2d42.1354079!1m5!1m1!1s0x40a854039745e71f:0xe93f825ff853e53d!2m2!1d25.3929575!2d42.6194408!1m5!1m1!1s0x40a6c7f5573ae503:0xf46ad844a446db20!2m2!1d27.6961748!2d42.4172628!1m5!1m1!1s0x40a69f5d6d18eeab:0x6b0f7338542adf13!2m2!1d27.7355859!2d42.6592159!1m5!1m1!1s0x40a4e47de3940717:0x82bd7e7a2dd47c8c!2m2!1d28.1617188!2d43.4269047!1m5!1m1!1s0x40a9214b3d9491dd:0x400a01269bf5dc0!2m2!1d25.6171514!2d43.0756739!1m5!1m1!1s0x40a9f54c5fa79717:0x400a01269bf57d0!2m2!1d24.3602919!2d42.6361225!1m5!1m1!1s0x47548d77af8c7307:0x42563d798e916dd0!2m2!1d22.682956!2d43.6278347!3e0?entry=ttu&g_ep=EgoyMDI2MDgzMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener" class="btn-download">🗺️ Ver la ruta completa en Google Maps (todas las paradas de Bulgaria)</a>
+      <p style="font-size:.72rem;color:var(--t2);margin-top:.5rem">Ruta orientativa punto a punto en coche. No sustituye a las rutas específicas de cada día (con las paradas intermedias exactas), que están dentro de cada jornada.</p>
+    </div>
 
     <div class="sec-center">🛏️ Distribución de Noches</div>
     <div class="tbl-wrap"><table class="data-tbl">
@@ -6041,7 +6161,7 @@ function renderClimaTab(d){
       </div>
     </div>
     <div class="obj-box">
-      <p class="obj-t">Un vistazo rápido, día a día, a qué tiempo nos espera y qué conviene llevar según el clima y el plan de ese día. Cada tarjeta está contrastada con 2-3 fuentes reales (enlace incluido para pinchar) — <strong>investigado el 2 de septiembre de 2026</strong>. Cuanto más lejos está la fecha, menos fiable es el dato: por eso cada tarjeta indica su nivel de confianza. Los días marcados en 🔴 baja confianza conviene revisarlos de nuevo 5-7 días antes.</p>
+      <p class="obj-t">Un vistazo rápido, día a día, a qué tiempo nos espera y qué conviene llevar según el clima y el plan de ese día. Cada tarjeta está contrastada con 2-3 fuentes reales (enlace incluido para pinchar) — <strong>última revisión con AccuWeather el 3 de septiembre de 2026</strong>. Cuanto más lejos está la fecha, menos fiable es el dato: por eso cada tarjeta indica su nivel de confianza. Los días marcados en 🔴 baja confianza conviene revisarlos de nuevo 5-7 días antes. ⚠️ Nota: los días 1, 3, 4 y 5 han salido con bastante más calor de lo estimado en la revisión anterior (Sofía y Plovdiv rozando los 30-34°C), y el riesgo de tormenta que se había detectado para los días 6 y 7 en Sozopol/Ravadinovo ha bajado mucho — mejor de lo esperado.</p>
     </div>
     <div class="clima-legend">
       <span class="clima-conf ok">✅ Confirmado</span>
@@ -6049,13 +6169,20 @@ function renderClimaTab(d){
       <span class="clima-conf low">🔴 Baja confianza (revisar más cerca)</span>
     </div>
 
+    <div class="clima-live-bar">
+      <button id="climaLiveBtn" class="clima-live-btn" onclick="fetchLiveClima()">🔄 Actualizar clima en vivo (Open-Meteo)</button>
+      <span class="clima-live-status">📡 Fuente base: <strong>AccuWeather</strong> (dato "✅ Confirmado" de cada tarjeta, abajo). Pulsa el botón para traer además el pronóstico <strong>Open-Meteo en directo</strong>, que aparecerá arriba de cada tarjeta y así se pueden comparar los dos. Open-Meteo solo da pronóstico fiable hasta ~16 días vista, así que los días más lejanos mostrarán que aún no hay datos disponibles. Los días 0-8 (4-12 sep) ya llevan pronóstico diario real de AccuWeather, consultado el 3 de septiembre de 2026; los días 9-17 siguen siendo tendencia/climatología hasta entrar en esa ventana.</span>
+    </div>
+
     <div class="clima-grid">
 
       <div class="clima-card" style="--ac:var(--transit)">
         <div class="clima-card-hd"><span class="clima-day">D0 · Vie 4 sep</span><span class="clima-date">Badajoz → Madrid → Sofía</span></div>
-        <div class="clima-temp-row"><span class="clima-icon">🔥</span><span class="clima-temp">39° <small>/ 23°</small></span></div>
-        <div class="clima-cond">Calor extremo y sol en España (0% lluvia). Llegada a Sofía de madrugada, fresco (~16°C).</div>
-        <span class="clima-conf ok">✅ Confirmado</span>
+        <div class="clima-live" id="climaLive0">🔄 Pulsa "Actualizar clima en vivo" para ver aquí Open-Meteo</div>
+        <div class="clima-source-label">✅ AccuWeather (confirmado)</div>
+        <div class="clima-temp-row"><span class="clima-icon">⛅</span><span class="clima-temp">38° <small>/ 23°</small></span></div>
+        <div class="clima-cond">Calor extremo en Badajoz (38°, aviso amarillo por temperatura, bastante nuboso pero solo 1% de lluvia). Llegada nocturna a Sofía con cielo despejado, ~19°C.</div>
+        <span class="clima-conf ok">✅ Confirmado (AccuWeather, consultado 3 sep 2026)</span>
         <div class="clima-tags">
           <span class="clima-tag">🧴 Protección solar alta</span>
           <span class="clima-tag">💧 Agua</span>
@@ -6071,12 +6198,15 @@ function renderClimaTab(d){
 
       <div class="clima-card" style="--ac:var(--bulgaria)">
         <div class="clima-card-hd"><span class="clima-day">D1 · Sáb 5 sep</span><span class="clima-date">Sofía</span></div>
-        <div class="clima-temp-row"><span class="clima-icon">☀️</span><span class="clima-temp">33° <small>/ 16°</small></span></div>
-        <div class="clima-cond">Soleado, cielo despejado, sin lluvia.</div>
-        <span class="clima-conf ok">✅ Confirmado</span>
+        <div class="clima-live" id="climaLive1">🔄 Pulsa "Actualizar clima en vivo" para ver aquí Open-Meteo</div>
+        <div class="clima-source-label">✅ AccuWeather (confirmado)</div>
+        <div class="clima-temp-row"><span class="clima-icon">☀️</span><span class="clima-temp">34° <small>/ 16°</small></span></div>
+        <div class="clima-cond">⚠️ Actualización: más calor de lo estimado antes — soleado y caluroso, prácticamente sin lluvia (0%).</div>
+        <span class="clima-conf ok">✅ Confirmado (AccuWeather, consultado 3 sep 2026)</span>
         <div class="clima-tags">
-          <span class="clima-tag">🧴 Protección solar</span>
-          <span class="clima-tag">👕 Ropa ligera</span>
+          <span class="clima-tag">🧴 Protección solar alta</span>
+          <span class="clima-tag">💧 Agua / hidratación</span>
+          <span class="clima-tag">👕 Ropa muy ligera</span>
           <span class="clima-tag">🧥 Chaqueta fina (noche)</span>
         </div>
         <div class="clima-src">
@@ -6088,9 +6218,11 @@ function renderClimaTab(d){
 
       <div class="clima-card" style="--ac:var(--bulgaria)">
         <div class="clima-card-hd"><span class="clima-day">D2 · Dom 6 sep</span><span class="clima-date">Sofía → Rila → Sapareva Banya</span></div>
-        <div class="clima-temp-row"><span class="clima-icon">⛰️</span><span class="clima-temp">28-34° <small>/ 12-16°</small></span></div>
-        <div class="clima-cond">Muy soleado, calor incluso en el monasterio (altitud). Sin lluvia.</div>
-        <span class="clima-conf ok">✅ Confirmado</span>
+        <div class="clima-live" id="climaLive2">🔄 Pulsa "Actualizar clima en vivo" para ver aquí Open-Meteo</div>
+        <div class="clima-source-label">✅ AccuWeather (confirmado)</div>
+        <div class="clima-temp-row"><span class="clima-icon">☀️</span><span class="clima-temp">27° <small>/ 10°</small></span></div>
+        <div class="clima-cond">Muy soleado en Sapareva Banya, prácticamente sin lluvia (1%). Noche notablemente más fresca (10°C).</div>
+        <span class="clima-conf ok">✅ Confirmado (AccuWeather, consultado 3 sep 2026)</span>
         <div class="clima-tags">
           <span class="clima-tag">👙 Bañador (Aqua Club Kotvata)</span>
           <span class="clima-tag">🩴 Chanclas + toalla</span>
@@ -6106,9 +6238,11 @@ function renderClimaTab(d){
 
       <div class="clima-card" style="--ac:var(--bulgaria)">
         <div class="clima-card-hd"><span class="clima-day">D3 · Lun 7 sep</span><span class="clima-date">Sofía → Kazanlak → Shipka → Buzludzha → Plovdiv</span></div>
-        <div class="clima-temp-row"><span class="clima-icon">🏔️</span><span class="clima-temp">26-33° <small>/ 13-17°</small></span></div>
-        <div class="clima-cond">Soleado. Más fresco y con más viento en altitud (Shipka/Buzludzha ~1400m) que en el valle.</div>
-        <span class="clima-conf ok">✅ Confirmado</span>
+        <div class="clima-live" id="climaLive3">🔄 Pulsa "Actualizar clima en vivo" para ver aquí Open-Meteo</div>
+        <div class="clima-source-label">✅ AccuWeather (confirmado)</div>
+        <div class="clima-temp-row"><span class="clima-icon">☀️</span><span class="clima-temp">32° <small>/ 14°</small></span></div>
+        <div class="clima-cond">⚠️ Actualización: bastante más calor de lo estimado antes en el valle (Plovdiv), sol fuerte y sin lluvia (0%). En altitud (Shipka/Buzludzha ~1400m) seguirá haciendo más fresco y viento — llevar capa igualmente para esa parte del día.</div>
+        <span class="clima-conf ok">✅ Confirmado (AccuWeather, consultado 3 sep 2026)</span>
         <div class="clima-tags">
           <span class="clima-tag">🧥 Capa extra (altitud/viento)</span>
           <span class="clima-tag">👟 Calzado resistente (Buzludzha, firme irregular)</span>
@@ -6123,13 +6257,15 @@ function renderClimaTab(d){
 
       <div class="clima-card" style="--ac:var(--bulgaria)">
         <div class="clima-card-hd"><span class="clima-day">D4 · Mar 8 sep</span><span class="clima-date">Plovdiv</span></div>
-        <div class="clima-temp-row"><span class="clima-icon">☀️</span><span class="clima-temp">25-33° <small>/ 11-17°</small></span></div>
-        <div class="clima-cond">Soleado, sin lluvia (las fuentes discrepan bastante en la máxima exacta).</div>
-        <span class="clima-conf ok">✅ Confirmado</span>
+        <div class="clima-live" id="climaLive4">🔄 Pulsa "Actualizar clima en vivo" para ver aquí Open-Meteo</div>
+        <div class="clima-source-label">✅ AccuWeather (confirmado)</div>
+        <div class="clima-temp-row"><span class="clima-icon">☀️</span><span class="clima-temp">30° <small>/ 15°</small></span></div>
+        <div class="clima-cond">⚠️ Actualización: más calor de lo estimado antes, mucho sol y sin lluvia (1%).</div>
+        <span class="clima-conf ok">✅ Confirmado (AccuWeather, consultado 3 sep 2026)</span>
         <div class="clima-tags">
           <span class="clima-tag">👕 Ropa ligera</span>
-          <span class="clima-tag">🧴 Protección solar</span>
-          <span class="clima-tag">🧥 Chaqueta fina (noche)</span>
+          <span class="clima-tag">🧴 Protección solar alta</span>
+          <span class="clima-tag">💧 Agua / hidratación</span>
         </div>
         <div class="clima-src">
           <a href="https://www.accuweather.com/en/bg/plovdiv/49959/daily-weather-forecast/49959" target="_blank" rel="noopener">AccuWeather Plovdiv</a>
@@ -6140,9 +6276,11 @@ function renderClimaTab(d){
 
       <div class="clima-card" style="--ac:var(--bulgaria)">
         <div class="clima-card-hd"><span class="clima-day">D5 · Mié 9 sep</span><span class="clima-date">Plovdiv → Asenovgrad → Bachkovo → Sozopol</span></div>
-        <div class="clima-temp-row"><span class="clima-icon">🌊</span><span class="clima-temp">27-32° <small>/ 11-19°</small></span></div>
-        <div class="clima-cond">Soleado todo el día, sin lluvia. Llegada suave a la costa (mar ~24-25°C).</div>
-        <span class="clima-conf ok">✅ Confirmado</span>
+        <div class="clima-live" id="climaLive5">🔄 Pulsa "Actualizar clima en vivo" para ver aquí Open-Meteo</div>
+        <div class="clima-source-label">✅ AccuWeather (confirmado)</div>
+        <div class="clima-temp-row"><span class="clima-icon">☀️</span><span class="clima-temp">30° <small>/ 17°</small></span></div>
+        <div class="clima-cond">⚠️ Actualización: sigue soleado todo el día y sin lluvia relevante (2%), pero con más calor y una noche bastante más templada de lo estimado antes al llegar a la costa (mar ~24-25°C).</div>
+        <span class="clima-conf ok">✅ Confirmado (AccuWeather, consultado 3 sep 2026)</span>
         <div class="clima-tags">
           <span class="clima-tag">👙 Bañador (llegada a Sozopol)</span>
           <span class="clima-tag">👗 Cubrir hombros/rodillas (Bachkovo)</span>
@@ -6158,14 +6296,15 @@ function renderClimaTab(d){
 
       <div class="clima-card" style="--ac:var(--bulgaria)">
         <div class="clima-card-hd"><span class="clima-day">D6 · Jue 10 sep</span><span class="clima-date">Sozopol · Playa</span></div>
-        <div class="clima-temp-row"><span class="clima-icon">🏖️</span><span class="clima-temp">26-28° <small>/ 20-21°</small></span></div>
-        <div class="clima-cond">Sol pleno, algo húmedo, 0% lluvia. Mar a ~24,5°C.</div>
-        <span class="clima-conf ok">✅ Confirmado</span>
+        <div class="clima-live" id="climaLive6">🔄 Pulsa "Actualizar clima en vivo" para ver aquí Open-Meteo</div>
+        <div class="clima-source-label">✅ AccuWeather (confirmado)</div>
+        <div class="clima-temp-row"><span class="clima-icon">⛅</span><span class="clima-temp">27° <small>/ 19°</small></span></div>
+        <div class="clima-cond">✅ Buena noticia: el riesgo de tormenta que se había detectado ha bajado mucho. Ahora se prevé parcialmente soleado, con muy poca lluvia (1% de día, 4% de noche). Mar a ~24,5°C.</div>
+        <span class="clima-conf ok">✅ Confirmado (AccuWeather, consultado 3 sep 2026)</span>
         <div class="clima-tags">
           <span class="clima-tag">👙 Bañador</span>
           <span class="clima-tag">🧴 Crema solar</span>
           <span class="clima-tag">🕶️ Gafas de sol</span>
-          <span class="clima-tag">🏖️ Toalla</span>
         </div>
         <div class="clima-src">
           <a href="https://www.accuweather.com/en/bg/sozopol/254/daily-weather-forecast/254" target="_blank" rel="noopener">AccuWeather Sozopol</a>
@@ -6176,13 +6315,14 @@ function renderClimaTab(d){
 
       <div class="clima-card" style="--ac:var(--bulgaria)">
         <div class="clima-card-hd"><span class="clima-day">D7 · Vie 11 sep</span><span class="clima-date">Sozopol ↔ Ravadinovo</span></div>
-        <div class="clima-temp-row"><span class="clima-icon">🏰</span><span class="clima-temp">27° <small>/ 19-21°</small></span></div>
-        <div class="clima-cond">Mayormente soleado, 4-5% de lluvia (prácticamente nulo).</div>
-        <span class="clima-conf ok">✅ Confirmado</span>
+        <div class="clima-live" id="climaLive7">🔄 Pulsa "Actualizar clima en vivo" para ver aquí Open-Meteo</div>
+        <div class="clima-source-label">✅ AccuWeather (confirmado)</div>
+        <div class="clima-temp-row"><span class="clima-icon">🌥️</span><span class="clima-temp">28° <small>/ 19°</small></span></div>
+        <div class="clima-cond">✅ Buena noticia: el riesgo de tormenta que se había detectado durante el día ha bajado mucho — ahora mayormente nublado pero seco durante el día (10% de lluvia), buen margen para el castillo de Ravadinovo. Por la noche sube algo el riesgo de algún chubasco (55%, 15% de tormenta) — ya de vuelta en Sozopol.</div>
+        <span class="clima-conf ok">✅ Confirmado (AccuWeather, consultado 3 sep 2026)</span>
         <div class="clima-tags">
-          <span class="clima-tag">👙 Bañador</span>
-          <span class="clima-tag">👕 Ropa cómoda (castillo)</span>
-          <span class="clima-tag">🧴 Protección solar</span>
+          <span class="clima-tag">☂️ Chubasquero ligero (por si acaso, sobre todo de noche)</span>
+          <span class="clima-tag">👟 Calzado cómodo</span>
         </div>
         <div class="clima-src">
           <a href="https://www.accuweather.com/en/bg/sozopol/254/daily-weather-forecast/254" target="_blank" rel="noopener">AccuWeather Sozopol</a>
@@ -6192,9 +6332,11 @@ function renderClimaTab(d){
 
       <div class="clima-card" style="--ac:var(--bulgaria)">
         <div class="clima-card-hd"><span class="clima-day">D8 · Sáb 12 sep</span><span class="clima-date">Sozopol → Nessebar / Sunny Beach</span></div>
-        <div class="clima-temp-row"><span class="clima-icon">⛅</span><span class="clima-temp">27° <small>/ 20°</small></span></div>
-        <div class="clima-cond">Sol y nubes. La probabilidad de lluvia empieza a subir (12-14% según AccuWeather).</div>
-        <span class="clima-conf ok">✅ Confirmado</span>
+        <div class="clima-live" id="climaLive8">🔄 Pulsa "Actualizar clima en vivo" para ver aquí Open-Meteo</div>
+        <div class="clima-source-label">✅ AccuWeather (confirmado)</div>
+        <div class="clima-temp-row"><span class="clima-icon">⛅</span><span class="clima-temp">27° <small>/ 17°</small></span></div>
+        <div class="clima-cond">Parcialmente soleado, lluvia poco probable (6%) en Nessebar.</div>
+        <span class="clima-conf ok">✅ Confirmado (AccuWeather, consultado 3 sep 2026)</span>
         <div class="clima-tags">
           <span class="clima-tag">☂️ Chubasquero ligero (por si acaso)</span>
           <span class="clima-tag">👙 Bañador</span>
@@ -6208,6 +6350,8 @@ function renderClimaTab(d){
 
       <div class="clima-card" style="--ac:var(--bulgaria)">
         <div class="clima-card-hd"><span class="clima-day">D9 · Dom 13 sep</span><span class="clima-date">Nessebar → Balchik</span></div>
+        <div class="clima-live" id="climaLive9">🔄 Pulsa "Actualizar clima en vivo" para ver aquí Open-Meteo</div>
+        <div class="clima-source-label">✅ AccuWeather (confirmado)</div>
         <div class="clima-temp-row"><span class="clima-icon">🌧️</span><span class="clima-temp">24-27° <small>/ 14-19°</small></span></div>
         <div class="clima-cond">⚠️ Posible lluvia notable en Nessebar (hasta 55% según AccuWeather). Refresca al llegar a Balchik.</div>
         <span class="clima-conf mid">🟡 Tendencia — revisar antes</span>
@@ -6225,7 +6369,9 @@ function renderClimaTab(d){
 
       <div class="clima-card" style="--ac:var(--bulgaria)">
         <div class="clima-card-hd"><span class="clima-day">D10 · Lun 14 sep</span><span class="clima-date">Balchik + Cabo Kaliakra → Veliko Tarnovo</span></div>
-        <div class="clima-temp-row"><span class="clima-icon">💨</span><span class="clima-temp">21-27° <small>/ 14-19°</small></span></div>
+        <div class="clima-live" id="climaLive10">🔄 Pulsa "Actualizar clima en vivo" para ver aquí Open-Meteo</div>
+        <div class="clima-source-label">✅ AccuWeather (confirmado)</div>
+        <div class="clima-temp-row"><span class="clima-icon">🌧️</span><span class="clima-temp">21-27° <small>/ 14-19°</small></span></div>
         <div class="clima-cond">⚠️ Posible lluvia (hasta 60% en Veliko Tarnovo según AccuWeather). Mucho viento esperado en el Cabo Kaliakra (acantilado muy expuesto).</div>
         <span class="clima-conf mid">🟡 Tendencia — revisar antes</span>
         <div class="clima-tags">
@@ -6242,6 +6388,8 @@ function renderClimaTab(d){
 
       <div class="clima-card" style="--ac:var(--bulgaria)">
         <div class="clima-card-hd"><span class="clima-day">D11 · Mar 15 sep</span><span class="clima-date">Veliko Tarnovo · Día Completo</span></div>
+        <div class="clima-live" id="climaLive11">🔄 Pulsa "Actualizar clima en vivo" para ver aquí Open-Meteo</div>
+        <div class="clima-source-label">✅ AccuWeather (confirmado)</div>
         <div class="clima-temp-row"><span class="clima-icon">⛅</span><span class="clima-temp">25-26° <small>/ 13-15°</small></span></div>
         <div class="clima-cond">Mayormente soleado, con posible chubasco puntual (20-30% según fuente).</div>
         <span class="clima-conf mid">🟡 Tendencia — revisar antes</span>
@@ -6258,7 +6406,9 @@ function renderClimaTab(d){
 
       <div class="clima-card" style="--ac:var(--bulgaria)">
         <div class="clima-card-hd"><span class="clima-day">D12 · Mié 16 sep</span><span class="clima-date">V. Tarnovo → Lovech → Belogradchik</span></div>
-        <div class="clima-temp-row"><span class="clima-icon">💦</span><span class="clima-temp">23-29° <small>/ 14-15°</small></span></div>
+        <div class="clima-live" id="climaLive12">🔄 Pulsa "Actualizar clima en vivo" para ver aquí Open-Meteo</div>
+        <div class="clima-source-label">✅ AccuWeather (confirmado)</div>
+        <div class="clima-temp-row"><span class="clima-icon">🌧️</span><span class="clima-temp">23-29° <small>/ 14-15°</small></span></div>
         <div class="clima-cond">Nubosidad considerable, posible lluvia (25-35% según fuente) — relevante cerca de las cascadas.</div>
         <span class="clima-conf mid">🟡 Tendencia — revisar antes</span>
         <div class="clima-tags">
@@ -6275,7 +6425,9 @@ function renderClimaTab(d){
 
       <div class="clima-card" style="--ac:var(--budapest)">
         <div class="clima-card-hd"><span class="clima-day">D13 · Jue 17 sep</span><span class="clima-date">Belogradchik → Sofía → ✈️ Budapest</span></div>
-        <div class="clima-temp-row"><span class="clima-icon">❓</span><span class="clima-temp">~22-24° <small>/ 12-13°</small></span></div>
+        <div class="clima-live" id="climaLive13">🔄 Pulsa "Actualizar clima en vivo" para ver aquí Open-Meteo</div>
+        <div class="clima-source-label">✅ AccuWeather (confirmado)</div>
+        <div class="clima-temp-row"><span class="clima-icon">⛅</span><span class="clima-temp">~22-24° <small>/ 12-13°</small></span></div>
         <div class="clima-cond">Sin pronóstico diario real todavía (ninguna fuente llega a esta fecha) — solo climatología, parcialmente nuboso.</div>
         <span class="clima-conf low">🔴 Baja confianza — revisar 5-7 días antes</span>
         <div class="clima-tags">
@@ -6291,7 +6443,9 @@ function renderClimaTab(d){
 
       <div class="clima-card" style="--ac:var(--budapest)">
         <div class="clima-card-hd"><span class="clima-day">D14 · Vie 18 sep</span><span class="clima-date">Budapest: Pest + Crucero nocturno</span></div>
-        <div class="clima-temp-row"><span class="clima-icon">🌆</span><span class="clima-temp">22-24° <small>/ 12-14°</small></span></div>
+        <div class="clima-live" id="climaLive14">🔄 Pulsa "Actualizar clima en vivo" para ver aquí Open-Meteo</div>
+        <div class="clima-source-label">✅ AccuWeather (confirmado)</div>
+        <div class="clima-temp-row"><span class="clima-icon">🌤️</span><span class="clima-temp">22-24° <small>/ 12-14°</small></span></div>
         <div class="clima-cond">Tendencia templada, sin lluvia relevante en ninguna fuente (dato aún de baja confianza).</div>
         <span class="clima-conf low">🔴 Baja confianza — revisar 7-10 días antes</span>
         <div class="clima-tags">
@@ -6307,6 +6461,8 @@ function renderClimaTab(d){
 
       <div class="clima-card" style="--ac:var(--budapest)">
         <div class="clima-card-hd"><span class="clima-day">D15 · Sáb 19 sep</span><span class="clima-date">Budapest: Buda, Castillo y Bastión</span></div>
+        <div class="clima-live" id="climaLive15">🔄 Pulsa "Actualizar clima en vivo" para ver aquí Open-Meteo</div>
+        <div class="clima-source-label">✅ AccuWeather (confirmado)</div>
         <div class="clima-temp-row"><span class="clima-icon">☀️</span><span class="clima-temp">21-24° <small>/ 13-14°</small></span></div>
         <div class="clima-cond">Tendencia templada y mayormente soleada. Día entero al aire libre.</div>
         <span class="clima-conf low">🔴 Baja confianza — revisar 7-10 días antes</span>
@@ -6323,7 +6479,9 @@ function renderClimaTab(d){
 
       <div class="clima-card" style="--ac:var(--budapest)">
         <div class="clima-card-hd"><span class="clima-day">D16 · Dom 20 sep</span><span class="clima-date">Városliget + Atardecer Vajdahunyad</span></div>
-        <div class="clima-temp-row"><span class="clima-icon">🌇</span><span class="clima-temp">20-25° <small>/ 12-14°</small></span></div>
+        <div class="clima-live" id="climaLive16">🔄 Pulsa "Actualizar clima en vivo" para ver aquí Open-Meteo</div>
+        <div class="clima-source-label">✅ AccuWeather (confirmado)</div>
+        <div class="clima-temp-row"><span class="clima-icon">🌦️</span><span class="clima-temp">20-25° <small>/ 12-14°</small></span></div>
         <div class="clima-cond">⚠️ AccuWeather apunta chubascos por la tarde; Weather25 lo ve soleado — discrepancia real. Puesta de sol ~18:47h.</div>
         <span class="clima-conf low">🔴 Baja confianza — revisar 7-10 días antes</span>
         <div class="clima-tags">
@@ -6339,7 +6497,9 @@ function renderClimaTab(d){
 
       <div class="clima-card" style="--ac:var(--transit)">
         <div class="clima-card-hd"><span class="clima-day">D17 · Lun 21 sep</span><span class="clima-date">Budapest → Madrid → Badajoz</span></div>
-        <div class="clima-temp-row"><span class="clima-icon">🧳</span><span class="clima-temp">14-30° <small>(según tramo)</small></span></div>
+        <div class="clima-live" id="climaLive17">🔄 Pulsa "Actualizar clima en vivo" para ver aquí Open-Meteo</div>
+        <div class="clima-source-label">✅ AccuWeather (confirmado)</div>
+        <div class="clima-temp-row"><span class="clima-icon">⛅</span><span class="clima-temp">14-30° <small>(según tramo)</small></span></div>
         <div class="clima-cond">Madrugada fresca en Budapest (~14°C). Calor en Extremadura. Discrepancia sobre lluvia en Madrid/Badajoz entre fuentes.</div>
         <span class="clima-conf low">🔴 Baja confianza — revisar 7-10 días antes</span>
         <div class="clima-tags">
@@ -6384,14 +6544,14 @@ function renderMaletaTab(d){
       <thead><tr><th>Día</th><th>🌍 Zona</th><th>🌡️ Día / noche aprox.</th><th>☀️ Plan</th><th>🧳 Ropa principal</th></tr></thead>
       <tbody>
         <tr><td>D0 · 4 sep</td><td>🚗 España → ✈️ Sofía</td><td>Badajoz/Madrid 39º/23º 🔥 · Sofía madrugada ~16º</td><td>🚗 carretera + ✈️ vuelo nocturno</td><td>👕 muy ligero + 🧥 fina en mochila (para el frescor de Sofía)</td></tr>
-        <tr><td>D1 · 5 sep</td><td>🏙️ Ciudad</td><td>33º / 16º</td><td>🚶 Ciudad + noche</td><td>👕 corto + 👖/🩳 + 🧥</td></tr>
-        <tr><td>D2 · 6 sep</td><td>⛰️ Montaña + ♨️ aguas</td><td>Sofía/Rila 28-34º/12-16º</td><td>⛪ + ♨️ piscina</td><td>👕 + 👖 + 🧥 + 🩱 + 🧕 (hombros/rodillas)</td></tr>
-        <tr><td>D3 · 7 sep</td><td>⛰️ Interior + montaña</td><td>26-33º / 13-17º (más fresco/ventoso en Shipka-Buzludzha, ~1400 m)</td><td>🏛️ visitas + 🚶</td><td>👕 corto + 🧥 (viento en altitud)</td></tr>
-        <tr><td>D4 · 8 sep</td><td>🏙️ Ciudad</td><td>25-33º / 11-17º</td><td>🏛️ ciudad + 🍷🍺 + 🌙</td><td>👕 corto + 👔/👗 + 🧥</td></tr>
-        <tr><td>D5 · 9 sep</td><td>🚐 → 🌊 Costa</td><td>27-32º / 11-19º</td><td>🏛️ + 🏖️</td><td>👕 + 🩱 + 🧥</td></tr>
-        <tr><td>D6 · 10 sep</td><td>🏖️ Costa</td><td>26-28º / 20-21º · mar ~24,5º</td><td>🌊 playa + 🤿</td><td>🩱 + 👕 + 🩳</td></tr>
-        <tr><td>D7 · 11 sep</td><td>🏖️ Costa</td><td>27º / 19-21º</td><td>🏖️ + 🌊</td><td>🩱 + 👕 + 🩳 + 🧥 ligera</td></tr>
-        <tr><td>D8 · 12 sep</td><td>🏖️ Costa</td><td>27º / 20º · ⚠️ lluvia empieza a subir (12-14%)</td><td>🏖️ relax + 🌅</td><td>🩱 + 👕 + 🩳 + 🌧️ cortavientos a mano</td></tr>
+        <tr><td>D1 · 5 sep</td><td>🏙️ Ciudad</td><td>34º / 16º 🔥 más calor de lo estimado</td><td>🚶 Ciudad + noche</td><td>👕 corto + 👖/🩳 + 🧥</td></tr>
+        <tr><td>D2 · 6 sep</td><td>⛰️ Montaña + ♨️ aguas</td><td>Sofía/Rila 27-30º / 8-14º</td><td>⛪ + ♨️ piscina</td><td>👕 + 👖 + 🧥 + 🩱 + 🧕 (hombros/rodillas)</td></tr>
+        <tr><td>D3 · 7 sep</td><td>⛰️ Interior + montaña</td><td>26-32º / 8-14º 🔥 más calor en el valle — más fresco/ventoso en Shipka-Buzludzha (~1400 m)</td><td>🏛️ visitas + 🚶</td><td>👕 corto + 🧥 (viento en altitud)</td></tr>
+        <tr><td>D4 · 8 sep</td><td>🏙️ Ciudad</td><td>30º / 15º 🔥 más calor de lo estimado</td><td>🏛️ ciudad + 🍷🍺 + 🌙</td><td>👕 corto + 👔/👗 + 🧥</td></tr>
+        <tr><td>D5 · 9 sep</td><td>🚐 → 🌊 Costa</td><td>26-30º / 13-17º</td><td>🏛️ + 🏖️</td><td>👕 + 🩱 + 🧥</td></tr>
+        <tr><td>D6 · 10 sep</td><td>🏖️ Costa</td><td>27º / 19º · mar ~24,5º · ✅ riesgo de tormenta descartado</td><td>🌊 playa + 🤿</td><td>🩱 + 👕 + 🩳</td></tr>
+        <tr><td>D7 · 11 sep</td><td>🏖️ Costa</td><td>28º / 19º · ✅ riesgo de tormenta muy bajo de día (sube algo de noche)</td><td>🏖️ + 🌊</td><td>🩱 + 👕 + 🩳 + 🧥 ligera</td></tr>
+        <tr><td>D8 · 12 sep</td><td>🏖️ Costa</td><td>27º / 17º · lluvia poco probable (6%)</td><td>🏖️ relax + 🌅</td><td>🩱 + 👕 + 🩳 + 🌧️ cortavientos a mano</td></tr>
         <tr><td>D9 · 13 sep</td><td>🌊 Costa</td><td>24-27º / 14-19º · ⚠️ hasta 55% lluvia (Nessebar)</td><td>🏖️ + 🚶</td><td>🩱 + 👕 + 🌧️ cortavientos</td></tr>
         <tr><td>D10 · 14 sep</td><td>🌊 Costa</td><td>21-27º / 14-19º · ⚠️ hasta 60% lluvia + mucho viento en Kaliakra</td><td>🏖️ + 🚶 + 🌅</td><td>🩱 + 👕 + 🌧️ cortavientos con capucha</td></tr>
         <tr><td>D11 · 15 sep</td><td>🌊 → 🏰 Interior</td><td>25-26º / 13-15º · posible chubasco 20-30%</td><td>🚐 + 🚶 + 🌙</td><td>👕 + 👖 + 🧥 + 🌧️ cortavientos</td></tr>
@@ -6403,13 +6563,14 @@ function renderMaletaTab(d){
         <tr><td>D17 · 21 sep</td><td>✈️ Viaje</td><td>Budapest ~14º (madrugada) → Madrid/Badajoz ~28-30º*</td><td>✈️ regreso</td><td>👕 cómodo + 🧥 (quitar al llegar a España)</td></tr>
       </tbody>
     </table></div>
-    <div style="padding:.85rem 1rem;background:rgba(90,172,232,.08);border-radius:var(--r-sm);font-size:.82rem;color:var(--t2);margin-top:.6rem">⚠️ * Los días marcados con asterisco (D13-D17) caen fuera del rango de pronóstico diario real a día de hoy (2 sep 2026) — son tendencia o climatología habitual para esas fechas, no el pronóstico definitivo. D9-D12 sí tienen ya pronóstico extendido con riesgo de lluvia. Consultar el pronóstico real 2-3 días antes de cada tramo — el detalle completo con fuentes y enlaces está en la pestaña <strong>🌦️ Clima</strong>.</div>
+    <div style="padding:.85rem 1rem;background:rgba(90,172,232,.08);border-radius:var(--r-sm);font-size:.82rem;color:var(--t2);margin-top:.6rem">⚠️ * Los días marcados con asterisco (D13-D17) caen fuera del rango de pronóstico diario real a día de hoy (3 sep 2026) — son tendencia o climatología habitual para esas fechas, no el pronóstico definitivo. D9-D12 sí tienen ya pronóstico extendido con riesgo de lluvia. Consultar el pronóstico real 2-3 días antes de cada tramo — el detalle completo con fuentes y enlaces está en la pestaña <strong>🌦️ Clima</strong>.</div>
 
     <div class="obj-box" style="margin-top:1.5rem">
       <p class="obj-t">
+        🔥 <strong>Actualización 3 sep:</strong> D1, D3, D4 y D5 han salido bastante más calurosos de lo estimado antes (30-34°C, con Plovdiv/Sofía cerca del pico) — reforzar hidratación y protección solar esos días. Como buena noticia, el riesgo de tormenta que se había detectado para D6 (Sozopol playa) y D7 (Ravadinovo) ha bajado mucho: ya no hace falta tratarlos como "plan B con lluvia".<br>
         🚗 <strong>D0:</strong> calor extremo en España (39°C) pero Sofía llega fresca de madrugada (~16°C) → llevar una chaqueta fina en la mochila de mano, no solo en la maleta facturada<br>
-        🏙️ <strong>D1–4:</strong> verano + 🧥 por la noche + 👔/👗 para alguna cena o copa<br>
-        🌊 <strong>D5–8:</strong> bloque de playa con sol confirmado → 🩱 + 🩳 + 👕 + 🦶 escarpines<br>
+        🏙️ <strong>D1, D3, D4:</strong> más calor de lo estimado (30-34°C) → priorizar ropa muy ligera y 🧴 protector solar durante el día, + 🧥 por la noche + 👔/👗 para alguna cena o copa<br>
+        🌊 <strong>D5–8:</strong> bloque de playa con sol confirmado y el riesgo de tormenta de D6-D7 descartado/muy bajo → 🩱 + 🩳 + 👕 + 🦶 escarpines + 💧 buena hidratación<br>
         🌧️ <strong>D9–D12:</strong> aquí es donde de verdad puede llover (probabilidad real, no solo posible) y hace bastante viento en Cabo Kaliakra → el 🌧️ cortavientos/chubasquero deja de ser "por si acaso" y pasa a imprescindible a mano, no en el fondo de la maleta<br>
         🏰 <strong>D11–12:</strong> verano + 👖 + 🧥 + alguna prenda para salir<br>
         🪨 <strong>D13:</strong> 👖 pantalón largo + 🥾 buen calzado + 👕 manga larga + 🧥<br>
@@ -6505,8 +6666,9 @@ function renderMaletaTab(d){
           <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Seguro de viaje — Póliza AXAPES000071347</span></div>
           <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Tarjeta Revolut física — imprescindible para el depósito de la furgoneta (300 €)</span></div>
           <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Power bank — EN MOCHILA DE MANO</span></div>
-          <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Protector solar — factor alto, días de 30-39°C en Badajoz/Sofía/Plovdiv y playa</span></div>
+          <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Protector solar — factor alto, 🔴 refuerzo especial días D1/D3/D4/D5 (30-34°C confirmados, más calor de lo estimado en Sofía/Plovdiv)</span></div>
           <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Gorra o sombrero — para las jornadas de más calor y sol directo</span></div>
+          <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Botella de agua reutilizable / sobres de sales o electrolitos — recomendable con el calor confirmado en D1-D5</span></div>
           <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Repelente de mosquitos</span></div>
           <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Botiquín básico</span></div>
           <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Bañadores / bikinis — 3 por persona</span></div>
@@ -6527,12 +6689,130 @@ function renderMaletaTab(d){
           <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Detergente en cápsulas para la colada de mitad de viaje</span></div>
           <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">🔌 NO hace falta adaptador de enchufe — Bulgaria y Hungría usan el mismo estándar que España (tipo C/F, 230V)</span></div>
         </div>
-        <div class="obj-box" style="margin-top:1rem"><p class="obj-t">🌧️ <strong>Aviso clima D9-D12 (Nessebar → Balchik → Kaliakra → Veliko Tarnovo → Belogradchik):</strong> es el único tramo del viaje con probabilidad de lluvia real y confirmada por AccuWeather (hasta 55-60% algunos días) y con bastante viento en el Cabo Kaliakra. Llevad el cortavientos/chubasquero a mano esos días, no en el fondo de la maleta. Ver el detalle día a día con fuentes en la pestaña 🌦️ Clima.</p></div>
-        <div class="obj-box" style="margin-top:.75rem"><p class="obj-t">🔎 <strong>Revisión completa:</strong> esta lista se ha contrastado línea a línea con el planning de los 18 días (transporte, alojamientos, actividades y notas de cada jornada), y con el clima multi-fuente actualizado el 2 de septiembre de 2026, para no dejar fuera nada importante — desde el bañador viejo de Tuzlata hasta la ropa para los monasterios y el riesgo real de lluvia de la segunda semana.</p></div>
+        <div class="obj-box" style="margin-top:1rem"><p class="obj-t">🔥 <strong>Aviso clima D1/D3/D4/D5 (Sofía → Plovdiv → costa):</strong> revisión del 3 de septiembre con AccuWeather confirma bastante más calor de lo estimado antes (30-34°C, sol fuerte, prácticamente sin lluvia). Reforzar protector solar, hidratación (agua/electrolitos) y ropa muy ligera esos días — la chaqueta para la noche sigue siendo necesaria, pero de menos peso en la maleta que el resto de capas de abrigo.</p></div>
+        <div class="obj-box" style="margin-top:.75rem"><p class="obj-t">✅ <strong>Buena noticia D6-D7 (Sozopol / Ravadinovo):</strong> el riesgo de tormenta que se había detectado antes ha bajado mucho en la revisión del 3 de septiembre — ya no hace falta priorizar el chubasquero esos días, aunque conviene llevarlo igualmente a mano por la noche del D7 (algo de probabilidad de chubasco).</p></div>
+        <div class="obj-box" style="margin-top:.75rem"><p class="obj-t">🌧️ <strong>Aviso clima D9-D12 (Nessebar → Balchik → Kaliakra → Veliko Tarnovo → Belogradchik):</strong> es el único tramo del viaje con probabilidad de lluvia real y confirmada por AccuWeather (hasta 55-60% algunos días) y con bastante viento en el Cabo Kaliakra. Llevad el cortavientos/chubasquero a mano esos días, no en el fondo de la maleta. Ver el detalle día a día con fuentes en la pestaña 🌦️ Clima.</p></div>
+        <div class="obj-box" style="margin-top:.75rem"><p class="obj-t">🔎 <strong>Revisión completa:</strong> esta lista se ha contrastado línea a línea con el planning de los 18 días (transporte, alojamientos, actividades y notas de cada jornada), y con el clima multi-fuente actualizado el 3 de septiembre de 2026, para no dejar fuera nada importante — desde el bañador viejo de Tuzlata hasta la ropa para los monasterios, el calor confirmado de la primera semana y el riesgo real de lluvia de la segunda semana.</p></div>
         <div class="frase-box" style="margin-top:1rem">💬 🔥 ¡Listos para 18 días de playa, montaña, cultura, termas, vinos, cenas y noches! 🌊🏛️🍷🌃🚐</div>
       `, '#c084fc')}
 
     </div>
+  `;
+}
+
+function renderTareasTab(d){
+  return `
+    <div class="hero">
+      <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=1400&q=80" alt="Tareas del organizador">
+      <div class="hero-c">
+        <div class="hero-badge info">🔐 Solo Organizador</div>
+        <div class="hero-title">${d.title}</div>
+        <div class="hero-sub">${d.dn} — esta pestaña no aparece para el resto del grupo, solo se ve activándola desde el panel 🔐 admin de este navegador.</div>
+      </div>
+    </div>
+
+    <div class="sec-center">📋 Tareas Pendientes del Organizador — Desglose por Día</div>
+    <div class="obj-box"><p class="obj-t">Lista viva de todo lo que queda por reservar, confirmar o pagar, organizada por el día del viaje al que afecta cada tarea. Se actualiza a mano cada vez que se cierra algo — no se elimina nada de aquí hasta que esté genuinamente resuelto. El badge 🔴 <strong>Importante</strong> marca lo que conviene cerrar cuanto antes por caer en fin de semana, ser fecha de alta afluencia turística, o tratarse de un sitio muy solicitado.</p></div>
+
+    <div class="tareas-day-card" style="--ac:var(--transit)">
+      <div class="tareas-day-hd">
+        <span class="tareas-day-num">Día 0 → 1</span>
+        <span class="tareas-day-date">Vie 4 → madrugada del sáb 5 sep — Aeropuerto de Sofía</span>
+      </div>
+      <div class="tareas-item" onclick="toggleChk(this)"><div class="tareas-item-ic">🚐</div><span class="tareas-item-txt">Al recoger la furgoneta (01:30h): preguntar a Easy Rent si la viñeta electrónica (vignette) de autopistas está activa para toda la ruta — sin ella no se puede circular por autopista en Bulgaria/Hungría. Es el punto más importante de la recogida.</span></div>
+    </div>
+
+    <div class="tareas-day-card" style="--ac:var(--bulgaria)">
+      <div class="tareas-day-hd">
+        <span class="tareas-day-num">Día 1</span>
+        <span class="tareas-day-date">Sábado, 5 sep — Sofía</span>
+        <span class="tareas-important">🔴 Importante — sábado en la capital</span>
+      </div>
+      <div class="tareas-item" onclick="toggleChk(this)"><div class="tareas-item-ic">🍽️</div><span class="tareas-item-txt">Reservar mesa para 6 en Izbata Tavern. Sin web oficial propia: <a href="https://www.facebook.com/p/Izbata-Tavern-100063596769867/" target="_blank" rel="noopener" class="btn-link">Facebook</a> · <a href="https://www.instagram.com/izbata_tavern_sofia/" target="_blank" rel="noopener" class="btn-link">Instagram</a></span></div>
+    </div>
+
+    <div class="tareas-day-card" style="--ac:var(--bulgaria)">
+      <div class="tareas-day-hd">
+        <span class="tareas-day-num">Día 3</span>
+        <span class="tareas-day-date">Lunes, 7 sep — Plovdiv</span>
+      </div>
+      <div class="tareas-item" onclick="toggleChk(this)"><div class="tareas-item-ic">🍽️</div><span class="tareas-item-txt">Reservar mesa para 6 en Jägerhof Beerhouse. <a href="https://jagerhof.bg/en/" target="_blank" rel="noopener" class="btn-link">Web oficial (jagerhof.bg)</a></span></div>
+      <div class="tareas-item" onclick="toggleChk(this)"><div class="tareas-item-ic">🅿️</div><span class="tareas-item-txt">Parking Plovdiv, opción 1 (Mitropolit Paisiy 1) — confirmar disponibilidad/precio</span></div>
+    </div>
+
+    <div class="tareas-day-card" style="--ac:var(--bulgaria)">
+      <div class="tareas-day-hd">
+        <span class="tareas-day-num">Día 4</span>
+        <span class="tareas-day-date">Martes, 8 sep — Plovdiv</span>
+        <span class="tareas-important">🔴 Importante — cumpleaños de Lupe y aniversario de Raúl e Inés</span>
+      </div>
+      <div class="tareas-item" onclick="toggleChk(this)"><div class="tareas-item-ic">🎂</div><span class="tareas-item-txt">Reservar mesa para 6 en Aylyakria y avisar del motivo de la celebración al hacer la reserva (cumpleaños de Lupe + aniversario de Raúl e Inés). <a href="https://aylyakria.com/en/" target="_blank" rel="noopener" class="btn-link">Web oficial (aylyakria.com)</a></span></div>
+    </div>
+
+    <div class="tareas-day-card" style="--ac:var(--bulgaria)">
+      <div class="tareas-day-hd">
+        <span class="tareas-day-num">Día 6</span>
+        <span class="tareas-day-date">Jueves, 10 sep — Sozopol</span>
+      </div>
+      <div class="tareas-item" onclick="toggleChk(this)"><div class="tareas-item-ic">💰</div><span class="tareas-item-txt">Vence el pago del alojamiento de Budapest (Gogol utca 16, 4 noches) — 562,00 €</span></div>
+    </div>
+
+    <div class="tareas-day-card" style="--ac:var(--bulgaria)">
+      <div class="tareas-day-hd">
+        <span class="tareas-day-num">Día 7</span>
+        <span class="tareas-day-date">Viernes, 11 sep — Sozopol</span>
+        <span class="tareas-important">🔴 Importante — viernes en temporada alta de costa</span>
+      </div>
+      <div class="tareas-item" onclick="toggleChk(this)"><div class="tareas-item-ic">🍽️</div><span class="tareas-item-txt">Reservar mesa para 6 en Bistro Old Sozopol (cena de despedida de la costa). Sin web oficial encontrada: <a href="https://www.tripadvisor.com/Restaurant_Review-g635769-d23495280-Reviews-Bistro_Old_Sozopol-Sozopol_Burgas_Province.html" target="_blank" rel="noopener" class="btn-link">Ficha en Tripadvisor</a>. Confirmar que sigue abierto antes de reservar</span></div>
+    </div>
+
+    <div class="tareas-day-card" style="--ac:var(--bulgaria)">
+      <div class="tareas-day-hd">
+        <span class="tareas-day-num">Día 11</span>
+        <span class="tareas-day-date">Martes, 15 sep — Veliko Tarnovo</span>
+        <span class="tareas-important">🔴 Importante — #1 de 72 restaurantes en Google, muy solicitado</span>
+      </div>
+      <div class="tareas-item" onclick="toggleChk(this)"><div class="tareas-item-ic">🍽️</div><span class="tareas-item-txt">Reservar mesa para 6 en Han Hadji Nikoli con antelación. <a href="https://www3.hanhadjinikoli.com/index.php/en/home" target="_blank" rel="noopener" class="btn-link">Web oficial (hanhadjinikoli.com)</a></span></div>
+      <div class="tareas-item" onclick="toggleChk(this)"><div class="tareas-item-ic">☕</div><span class="tareas-item-txt">Samurai Coffee — confirmar que abre el martes, algunas fuentes lo dan cerrado ese día</span></div>
+      <div class="tareas-item" onclick="toggleChk(this)"><div class="tareas-item-ic">☕</div><span class="tareas-item-txt">Food &amp; Culture Coffee Bar — confirmar ubicación exacta y horario, es sugerencia sin verificar</span></div>
+    </div>
+
+    <div class="tareas-day-card" style="--ac:var(--bulgaria)">
+      <div class="tareas-day-hd">
+        <span class="tareas-day-num">Día 12</span>
+        <span class="tareas-day-date">Miércoles, 16 sep — Lovech / Belogradchik</span>
+      </div>
+      <div class="tareas-item" onclick="toggleChk(this)"><div class="tareas-item-ic">🍽️</div><span class="tareas-item-txt">Tavern Varosha (comida de paso en Lovech). Sin web oficial encontrada: <a href="https://www.tripadvisor.com/Restaurant_Review-g635555-d12225828-Reviews-Tavern_Varosha-Lovech_Lovech_Province.html" target="_blank" rel="noopener" class="btn-link">Ficha en Tripadvisor</a></span></div>
+      <div class="tareas-item" onclick="toggleChk(this)"><div class="tareas-item-ic">🕳️</div><span class="tareas-item-txt">Cueva de Devetashka — comprobar que sigue abierta unos días antes de pasar</span></div>
+      <div class="tareas-item" onclick="toggleChk(this)"><div class="tareas-item-ic">🏰</div><span class="tareas-item-txt">Fortaleza de Hisarya (Lovech) — confirmar precio de entrada in situ (no verificado)</span></div>
+    </div>
+
+    <div class="tareas-day-card" style="--ac:var(--budapest)">
+      <div class="tareas-day-hd">
+        <span class="tareas-day-num">Budapest</span>
+        <span class="tareas-day-date">Días 14-16, 18-20 sep — sin día fijo aún</span>
+        <span class="tareas-important">🔴 Importante — fin de semana en Budapest, sitio muy turístico con colas</span>
+      </div>
+      <div class="tareas-item" onclick="toggleChk(this)"><div class="tareas-item-ic">♨️</div><span class="tareas-item-txt">Termas Széchenyi — decidir en qué día se hacen. No es obligatorio comprar entrada online, pero al caer en fin de semana (sáb 19 / dom 20) conviene reservar para evitar colas. <a href="https://www.szechenyibath.hu/" target="_blank" rel="noopener" class="btn-link">Web oficial (szechenyibath.hu)</a> · <a href="https://www.civitatis.com/en/budapest/szechenya-spa-tickets/" target="_blank" rel="noopener" class="btn-link">Entrada con reserva (Civitatis)</a> · <a href="https://www.budapest-baths.com/es/" target="_blank" rel="noopener" class="btn-link">budapest-baths.com (no oficial)</a></span></div>
+      <div class="tareas-item" onclick="toggleChk(this)"><div class="tareas-item-ic">🎫</div><span class="tareas-item-txt">Otras actividades de Budapest (crucero, museos, tours) — si hace falta comprar entrada online con poca antelación, mismo sitio que las termas: <a href="https://www.budapest-baths.com/es/" target="_blank" rel="noopener" class="btn-link">budapest-baths.com</a> (plataforma de terceros/Headout, no es la web oficial de cada atracción)</span></div>
+    </div>
+
+    <div class="tareas-day-card" style="--ac:var(--budapest)">
+      <div class="tareas-day-hd">
+        <span class="tareas-day-num">Día 16</span>
+        <span class="tareas-day-date">Domingo, 20 sep — Budapest</span>
+        <span class="tareas-important">🔴 Importante — domingo, última noche del viaje</span>
+      </div>
+      <div class="tareas-item" onclick="toggleChk(this)"><div class="tareas-item-ic">⚠️</div><span class="tareas-item-txt">Free Tour Barrio Judío — con la visita al Parlamento confirmada a las 14:00 ese día, ya no queda hueco realista para el free tour. Pendiente decidir si se cancela definitivamente o se reubica en otro momento del viaje</span></div>
+      <div class="tareas-item" onclick="toggleChk(this)"><div class="tareas-item-ic">🍽️</div><span class="tareas-item-txt">Cena de última noche en Budapest — elegir y reservar entre Hungarikum Bisztró / Menza / Twenty Six. Al ser domingo por la noche y último día, conviene cerrar la reserva con antelación</span></div>
+    </div>
+
+    <div class="sec">🎒 Recordatorio recurrente</div>
+    <div class="checklist">
+      <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">Revisar periódicamente cada día del planning (clima + actividades) y completar la pestaña 🧳 Maleta si aparece algo importante que no esté ya en el checklist — repasar con calma la sección "🧳🇧🇬🇭🇺 MALETAS – POSIBLE IDEAS PARA TU MALETA DE VIAJE" antes de cerrar la maleta definitiva</span></div>
+    </div>
+
+    <div class="obj-box" style="margin-top:1.5rem"><p class="obj-t">💡 Esta pestaña vive en <code>localStorage</code> de este navegador — si la abres en otro dispositivo o borras los datos del sitio, tendrás que volver a activarla desde el panel 🔐 admin (contraseña de siempre). El resto del grupo, aunque abra el mismo enlace, nunca la verá salvo que tú la actives en su navegador.</p></div>
   `;
 }
 
@@ -6541,9 +6821,9 @@ function renderAll(){
   const main = document.getElementById('main');
   const pills = document.getElementById('pills');
   
-  main.innerHTML = DAYS_DATA.map(d => {
+  main.innerHTML = DAYS_DATA.filter(d => d.n !== 'tareas' || isOpen(d)).map(d => {
     const opened = isOpen(d);
-    
+
     // Si son tabs de info general
     if(d.n === 'resumen'){
       if(!isOpen(d)) return `<section class="day" id="d${d.n}">${renderLockedDay(d)}</section>`;
@@ -6552,7 +6832,8 @@ function renderAll(){
     if(d.n === 'datos') return `<section class="day" id="d${d.n}">${renderDatosTab(d)}</section>`;
     if(d.n === 'clima') return `<section class="day" id="d${d.n}">${renderClimaTab(d)}</section>`;
     if(d.n === 'maleta') return `<section class="day" id="d${d.n}">${renderMaletaTab(d)}</section>`;
-    
+    if(d.n === 'tareas') return `<section class="day" id="d${d.n}">${renderTareasTab(d)}</section>`;
+
     // Si es un día normal
     if(opened && d.isFull){
       if(d.n === 0) return `<section class="day" id="d${d.n}">${renderDay0(d)}</section>`;
@@ -6577,7 +6858,7 @@ function renderAll(){
     return `<section class="day" id="d${d.n}">${renderLockedDay(d)}</section>`;
   }).join('');
 
-  pills.innerHTML = DAYS_DATA.map(d => {
+  pills.innerHTML = DAYS_DATA.filter(d => d.n !== 'tareas' || isOpen(d)).map(d => {
     const opened = isOpen(d);
     const cls = d.phase === 'info' ? 'info' : d.phase;
     const txt = d.phase === 'info' ? d.title.split(' ')[1] : d.n;
@@ -6661,6 +6942,7 @@ const MODAL_CONTENT = {
       </div>
       <div class="checklist">
         <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">📸 Fotografiar todo el exterior: frontal, trasera, laterales, puertas, techo, llantas, neumáticos y lunas.</span></div>
+        <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">🛑 LO MÁS IMPORTANTE: preguntar a la empresa si la viñeta electrónica (vignette) de autopistas está activa para toda la ruta del viaje — sin ella no se puede circular por autopista en Bulgaria/Hungría.</span></div>
         <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">📹 Vídeo completo de 360° alrededor del vehículo.</span></div>
         <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">📸 Fotografiar interior, salpicadero, kilometraje y nivel de combustible.</span></div>
         <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">🔎 Revisar cualquier golpe, arañazo o desperfecto, por pequeño que sea.</span></div>
@@ -6684,6 +6966,49 @@ const MODAL_CONTENT = {
         <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">📞 Confirmar con antelación con Easy Rent el procedimiento exacto de devolución en SOF T1.</span></div>
       </div>
       <div class="obj-box" style="margin-top:1rem"><p class="obj-t">💡 El protocolo de fotos/vídeo es la única forma de proteger el depósito de 300 € y evitar reclamaciones injustas, tanto al recoger como al devolver la furgoneta.</p></div>
+    `
+  },
+
+  'modal-parking-barajas': {
+    title: '🅿️ Parking Barajas T1-T2 · Reserva Confirmada',
+    html: `
+      <div class="tbl-wrap">
+        <table class="data-tbl">
+          <tbody>
+            <tr><td><strong>🎫 Nº de reserva</strong></td><td>1417278</td></tr>
+            <tr><td><strong>🏢 Servicio</strong></td><td>Parking Barajas T1-T2 (traslado shuttle gratis)</td></tr>
+            <tr><td><strong>📍 Dirección</strong></td><td>Acceso por C. Zaorejas, 2, 28042 Madrid</td></tr>
+            <tr><td><strong>📥 Entrada</strong></td><td>Viernes 4 de septiembre, 18:30</td></tr>
+            <tr><td><strong>📤 Salida</strong></td><td>Lunes 21 de septiembre, 10:30</td></tr>
+            <tr><td><strong>🚗 Vehículo</strong></td><td>Tarifa solo válida para turismo o similar — máx. 5 m de longitud, con etiqueta ambiental B, C, ECO o 0 (obligatoria por la zona de bajas emisiones de Madrid)</td></tr>
+            <tr><td><strong>👥 Pasajeros incluidos</strong></td><td>Hasta 4 (encaja con Raúl, Inés, Lupe y Jesús en el coche; Fran y Graje ya están en Madrid)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="punto-clave">
+        <div class="pc-label">📥 AL LLEGAR (Vie 4 sep, 18:15-18:30)</div>
+        <p class="pc-t">Parking sin barrera: entra directamente y comunica al responsable de recepción que tienes la reserva nº 1417278 (basta con el email de confirmación o el código QR en el móvil — proceso 100% digital). Estaciona tú mismo el vehículo. Servicio de "depósito de llaves": entrega las llaves al responsable. Se documenta el estado del coche (fotos exterior/interior, km, combustible, con GPS y timestamp).</p>
+      </div>
+      <div class="checklist">
+        <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">📱 Llevar a mano el email de confirmación o el código QR de la reserva 1417278</span></div>
+        <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">🚗 Comprobar que el coche lleva la etiqueta ambiental (B/C/ECO/0) visible</span></div>
+        <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">🧳 Equipaje incluido: 1 maleta de mano + 1 maleta de hasta 23 kg por persona. Bulto extra: 3 € (handling, a contratar in situ)</span></div>
+        <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">🔑 Estacionar el vehículo y entregar las llaves al responsable de recepción</span></div>
+        <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">🚐 Shuttle a la terminal: T1 (5-6 min, frecuencia 15-20 min) · T2 (6-7 min, frecuencia 15-20 min)</span></div>
+      </div>
+
+      <div class="punto-clave" style="margin-top:1.2rem">
+        <div class="pc-label">📤 AL VOLVER (Lun 21 sep, ~10:30)</div>
+        <p class="pc-t">Recogida en la terminal, zona LLEGADAS. El microbús funciona de 00:00 a 02:00 y de 04:00 a 23:59 (parada entre 02:00-04:00). <strong>Llamar mientras se recoge el equipaje</strong> para asegurar la llegada del microbús: <strong>912 783 956</strong>. Tiempo de espera estimado: hasta 20 min entre las 4:30-22:00, hasta 30 min entre las 22:00-4:30.</p>
+      </div>
+      <div class="checklist">
+        <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">📞 Llamar al 912 783 956 al recoger el equipaje en la cinta, antes de salir a la zona de Llegadas</span></div>
+        <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">🚐 Esperar el microbús en la zona de Llegadas (hasta ~20-30 min según la hora)</span></div>
+        <div class="chk-item" onclick="toggleChk(this)"><div class="chk-box"></div><span class="chk-txt">🔑 Recoger el vehículo en el parking con el responsable</span></div>
+      </div>
+
+      <div class="obj-box" style="margin-top:1rem"><p class="obj-t">💡 <strong>Otros datos útiles:</strong> parking abierto 24h/365 días. Modificación o cancelación sin coste hasta 24h antes. Margen de cortesía de hasta 2h si el vuelo se retrasa. Si hace falta ampliar la estancia una vez el coche ya está dentro: 8 €/día adicional gestionado por la web, o 16 €/día si se gestiona el mismo día de la vuelta directamente en recepción. Ante cualquier incidencia: 912 783 956.</p></div>
     `
   },
 
@@ -7261,6 +7586,8 @@ const MODAL_CONTENT = {
       <div style="text-align:center;margin-top:1rem">
         <a href="https://es.wikipedia.org/wiki/Ba%C3%B1os_Sz%C3%A9chenyi" target="_blank" rel="noopener" class="btn-link">🔗 Wikipedia</a>
         <a href="https://viajes.chavetas.es/guia/budapest/balneario-szechenyi-de-budapest/" target="_blank" rel="noopener" class="btn-link">🔗 Chavetas: Balneario Széchenyi</a>
+        <a href="https://www.szechenyibath.hu/" target="_blank" rel="noopener" class="btn-link">🔗 Web oficial (szechenyibath.hu)</a>
+        <a href="https://www.budapest-baths.com/es/" target="_blank" rel="noopener" class="btn-link">🎫 Comprar entrada (budapest-baths.com, no oficial)</a>
       </div>
     `
   },
@@ -7531,13 +7858,14 @@ function renderToggles(){
     if(d.n === 'datos' || d.n === 'clima' || d.n === 'maleta') return; // no mostrar los de info
     const auto = isAutoOpen(d);
     const open = auto || extra.includes(d.n) || d.n === 0;
-    const label = d.n === 0 ? 'Siempre abierto' : auto ? '✅ Ya abierto automáticamente' : `🔒 Abre 20:30 (${d.tz.split('/')[1]})`;
+    const label = d.n === 'tareas' ? (open ? '🔓 Visible solo en este navegador' : '🔒 Oculto — solo tú lo ves al activarlo')
+      : d.n === 0 ? 'Siempre abierto' : auto ? '✅ Ya abierto automáticamente' : `🔒 Abre 20:30 (${d.tz.split('/')[1]})`;
     const dis = (d.n === 0 || auto) ? 'disabled' : '';
     const chk = open ? 'checked' : '';
     html += `
       <div class="tog-row">
         <div class="tog-label">
-          <span class="tog-num">Día ${d.n}</span> · ${d.title.substring(0, 26)}...
+          <span class="tog-num">${d.n === 'tareas' ? '📋 Tareas' : 'Día ' + d.n}</span> · ${d.title.substring(0, 26)}...
           <small>${label}</small>
         </div>
         <label class="tog-sw">
